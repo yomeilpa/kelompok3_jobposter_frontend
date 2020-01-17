@@ -1,0 +1,234 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img #img src="assets/logolarge.png"> &nbsp;
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar"> &nbsp;
+        <ul class="navbar-nav mr-auto my-lg-1">
+            <li class="nav-item ">
+                <a class="nav-link" href="candidate/dashboard">Dashboard </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="candidate/profile">Profile <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="candidate/setting">Setting</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-auto my-lg-1">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Sign Out</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+  <!-- Body -->
+  <div class="ui-g">
+    <div class="ui-g-2 ui-md-12 ui-lg-2">
+    </div>
+
+    <!--  -->
+    <div class="ui-g-8 ui-g-nopad">
+        <br>
+
+        <!--  -->
+        <div class="ui-g-12 ui-md-12 ui-lg-4">
+
+          <!-- Photo -->
+          <div class="card">
+              <div class=" card-body" style="text-align:center;">
+                <img style="width: 170px; height: 225px;" src="assets/img/team/1.jpg" alt="Card image">
+              </div>  
+          </div>
+          <br>
+
+          <!-- Profile -->
+          <div class="card border-light">
+            <div class="ui-g card-header">
+              <div class="ui-g-6 ui-md-6 ">
+                <h5 class="pi pi-user">
+                  Profile
+                </h5>
+              </div>
+              <div class="ui-g-2 ui-md-2 ui-md-offset-2">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="showProfile()">Update</button>
+              </div>
+            </div>
+
+              <div class="card-body">
+                <h4 class="card-title">Secondary card title</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+
+              <div class="card-footer">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+              </div>
+
+          </div>
+
+        </div>
+
+        <!-- Name User -->
+        <div class="ui-g-12 ui-md-12 ui-lg-8">
+            <br>
+            <h1 class="display-3" style="text-align:center;">Bachtiar Yusuf Nugraha</h1>
+            <br>
+
+            <!-- Education -->
+            <div class="card border-light">
+                <div class="ui-g card-header">
+                  <div class="ui-g-12 ui-md-4 ">
+                    <h5 class="pi pi-user">
+                      Education
+                    </h5>
+                  </div>
+                  <div class="ui-g-12 ui-md-2 ui-md-offset-6">
+                    <button type="button" class="btn btn-outline-warning btn-sm" (click)="showEducation()">Update</button>
+                  </div>
+                </div>
+
+                <div class="card-body">
+                  <h4 class="card-title">Secondary card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+            <br>
+
+            <!-- Work Experince -->
+            <div class="card border-light">
+              <div class="ui-g card-header">
+                <div class="ui-g-12 ui-md-4 ">
+                  <h5 class="pi pi-user">
+                    Profile
+                  </h5>
+                </div>
+                <div class="ui-g-12 ui-md-2 ui-md-offset-6">
+                  <button type="button" class="btn btn-outline-warning btn-sm" (click)="showWork()">Update</button>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <h4 class="card-title">Secondary card title</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+            <br>
+
+            <!-- Document -->
+            <div class="card border-light">
+              <div class="ui-g card-header">
+                <div class="ui-g-12 ui-md-4 ">
+                  <h5 class="pi pi-user">
+                    Profile
+                  </h5>
+                </div>
+                <div class="ui-g-12 ui-md-2 ui-md-offset-6">
+                  <button type="button" class="btn btn-outline-warning btn-sm" (click)="showProfile()">Update</button>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <h4 class="card-title">Secondary card title</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+          <br>
+
+        </div>
+
+        <!--  -->
+        <div class="ui-g-12">
+        </div>
+
+    </div>
+    <!--  -->
+
+    <div class="ui-g-2">
+    </div>
+
+  </div>
+
+
+<!-- Show Dialog -->
+<!-- Profile -->
+<p-dialog header="Change Password" [(visible)]="profile" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
+  <div class="form-group">
+    <label>Old Password </label>
+    <input type="password" class="form-control"  placeholder="Old Password">
+  </div>
+  <div class="form-group">
+    <label>New Password </label>
+    <input type="password" class="form-control"  placeholder="New Password">
+  </div>
+  <div class="form-group">
+    <label>Confrim New Password </label>
+    <input type="password" class="form-control"  placeholder="Confrm New Password">
+  </div>
+      <p-footer>
+          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
+          <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+      </p-footer>
+</p-dialog>
+
+<!-- Education -->
+<p-dialog header="Change Password" [(visible)]="education" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
+  <div class="form-group">
+    <label>Old Password </label>
+    <input type="password" class="form-control"  placeholder="Old Password">
+  </div>
+  <div class="form-group">
+    <label>New Password </label>
+    <input type="password" class="form-control"  placeholder="New Password">
+  </div>
+  <div class="form-group">
+    <label>Confrim New Password </label>
+    <input type="password" class="form-control"  placeholder="Confrm New Password">
+  </div>
+      <p-footer>
+          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
+          <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+      </p-footer>
+</p-dialog>
+
+<!-- Work Experience -->
+<p-dialog header="Change Password" [(visible)]="work" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
+  <div class="form-group">
+    <label>Old Password </label>
+    <input type="password" class="form-control"  placeholder="Old Password">
+  </div>
+  <div class="form-group">
+    <label>New Password </label>
+    <input type="password" class="form-control"  placeholder="New Password">
+  </div>
+  <div class="form-group">
+    <label>Confrim New Password </label>
+    <input type="password" class="form-control"  placeholder="Confrm New Password">
+  </div>
+      <p-footer>
+          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
+          <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+      </p-footer>
+</p-dialog>
+
+<!-- Document -->
+<p-dialog header="Change Password" [(visible)]="document" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
+  <div class="form-group">
+    <label>Old Password </label>
+    <input type="password" class="form-control"  placeholder="Old Password">
+  </div>
+  <div class="form-group">
+    <label>New Password </label>
+    <input type="password" class="form-control"  placeholder="New Password">
+  </div>
+  <div class="form-group">
+    <label>Confrim New Password </label>
+    <input type="password" class="form-control"  placeholder="Confrm New Password">
+  </div>
+      <p-footer>
+          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
+          <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+      </p-footer>
+</p-dialog>

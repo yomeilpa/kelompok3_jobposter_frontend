@@ -1,0 +1,293 @@
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <img #img src="assets/logolarge.png"> &nbsp;
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar"> &nbsp;
+          <ul class="navbar-nav mr-auto my-lg-1">
+              <li class="nav-item active">
+                  <a class="nav-link" href="candidate/dashboard">Dashboard <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="candidate/profile">Profile</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" (click)="showDialog()">Setting</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav ml-auto my-lg-1">
+              <li class="nav-item">
+                  <a class="nav-link" href="#">Sign Out</a>
+              </li>
+          </ul>
+      </div>
+  </nav>
+
+  <p-dialog header="Change Password" [(visible)]="settings" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
+    <div class="form-group">
+      <label>Old Password </label>
+      <input type="password" class="form-control"  placeholder="Old Password">
+    </div>
+    <div class="form-group">
+      <label>New Password </label>
+      <input type="password" class="form-control"  placeholder="New Password">
+    </div>
+    <div class="form-group">
+      <label>Confrim New Password </label>
+      <input type="password" class="form-control"  placeholder="Confrm New Password">
+    </div>
+        <p-footer>
+            <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
+            <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+        </p-footer>
+  </p-dialog>
+
+  <!-- Body -->
+  <div>
+
+    <!-- Profile -->
+    <div class="ui-g-12 ui-md-6 ui-lg-2"><br>
+      <div class="card">
+          <div class="card-body" style="text-align:center;">
+            <img style="width: 170px; height: 240px;" src="assets/img/team/1.jpg" alt="Card image">
+            <h5 class="card-title">Sarjana W3School</h5>
+            <h6 class="card-subtitle text-muted">IT Informatika</h6>
+            <br>
+            <button type="button" class="btn btn-outline-primary" style="text-align:center;">Update Profile</button>
+          </div>  
+      </div>
+    </div>
+
+      <!--  -->
+      <div class="ui-g-12 ui-md-12 ui-lg-8 ui-g-nopad">
+
+        <!-- Interview Date --> <br>
+        <div class="ui-g-12 ui-md-12 ui-lg-6">
+            <h5 style="text-align:center;">Interview Date</h5><br>
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Application Name</th>
+                    <th scope="col">Interview Date</th>
+                    <th scope="col">Hour</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>IT Bootcamp</td>
+                    <td>02-02-2020</td>
+                    <td>13.00</td>
+                  </tr>
+                  </tbody>
+            </table>
+        </div>
+
+        <!-- Check Application Status -->
+        <div class="ui-g-12 ui-md-12 ui-lg-6">
+            <h5 style="text-align:center;">Check Status Application</h5><br>
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Application Name</th>
+                    <th scope="col">Applied Date</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr >
+                    <td>IT Bootcamp</td>
+                    <td>02-02-2020</td>
+                    <td>Reviewed</td>
+                  </tr>
+                </tbody>
+                <tbody>
+                    <tr >
+                      <td>IT Bootcamp</td>
+                      <td>02-02-2020</td>
+                      <td>Invited</td>
+                    </tr>
+                  </tbody>
+                  <tbody>
+                    <tr >
+                      <td>IT Bootcamp</td>
+                      <td>02-02-2020</td>
+                      <td>Rejected</td>
+                    </tr>
+                  </tbody>
+                  <tbody>
+                    <tr >
+                      <td>IT Bootcamp</td>
+                      <td>02-02-2020</td>
+                      <td>Approved</td>
+                    </tr>
+                  </tbody>
+            </table>
+        </div>
+
+        <!-- Job Poster -->
+        <br><br><br><br><br>
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+            <h3 style="text-align:center;">Lawencon Jobs Poster</h3><br>
+
+            <!-- Search Job Poster -->
+            <ol class="breadcrumb" style="text-align:center;">
+              <div class="ui-g">
+                <div class="ui-g-1">
+                </div>
+                <div class="ui-g-4">
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Search Jobs Poster">
+                </div>
+                <div class="ui-g-2">
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Salary Min">
+                </div>
+                <div class="ui-g-2">
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Salary Max">
+                </div>
+                <div class="ui-g-2">
+                  <button type="button" class="btn btn-outline-info">Search</button>
+                </div>
+              </div>
+            </ol>
+
+            <p-scrollPanel [style]="{width: '100%', height: '420px'}">
+            <!-- Isi Job Poster -->
+              <div class="card border-light">
+                <div class="card-header"><h5>IT Bootcamp</h5></div>
+                <div class="card-body">
+                  <p class="card-title">
+                    Perkembangan teknologi yang kian pesat merupakan salah satu tantangan yang harus dihadapi oleh 
+                    semua perusahaan  di Indonesia, termasuk Lawencon. Menjawab tantangan ini, Lawencon terus
+                    mengedepankan inovasi agar dapat senantiasa menjadi bank yang dapat diandalkan oleh masyarakat.
+                    Inovasi yang dilakukan Lawencon selama ini membutuhkan dukungan dari semua pihak terutama
+                    bagian IT.</p>
+                    <br>
+                  <p class="card-text">
+                    Open Date : 01-01-2020 &nbsp; Close Date : 02-02-2020
+                  </p><br>
+                    <div>
+                      <button type="button" class="btn btn-outline-info">Detail</button> &nbsp;
+                      <button type="button" class="btn btn-outline-success">Apply</button>
+                    </div>
+                </div>
+                <div class="card-footer">  
+                </div>
+              </div> <br>
+            <!--  -->
+              <div class="card border-light">
+                <div class="card-header"><h5>IT Bootcamp</h5></div>
+                <div class="card-body">
+                  <p class="card-title">
+                    Perkembangan teknologi yang kian pesat merupakan salah satu tantangan yang harus dihadapi oleh 
+                    semua perusahaan  di Indonesia, termasuk Lawencon. Menjawab tantangan ini, Lawencon terus
+                    mengedepankan inovasi agar dapat senantiasa menjadi bank yang dapat diandalkan oleh masyarakat.
+                    Inovasi yang dilakukan Lawencon selama ini membutuhkan dukungan dari semua pihak terutama
+                    bagian IT.</p>
+                    <br>
+                  <p class="card-text">
+                    Open Date : 01-01-2020 &nbsp; Close Date : 02-02-2020
+                  </p><br>
+                  <div>
+                    <button type="button" class="btn btn-outline-info"  (click)="showDetail()">Detail</button> &nbsp;
+                    <button type="button" class="btn btn-outline-success">Apply</button>
+                  </div>
+                </div>
+                <div class="card-footer">  
+                </div>
+              </div> <br>
+            <!--  -->
+              <div class="card border-light">
+                  <div class="card-header"><h5>IT Bootcamp</h5></div>
+                  <div class="card-body">
+                    <p class="card-title">
+                      Perkembangan teknologi yang kian pesat merupakan salah satu tantangan yang harus dihadapi oleh 
+                      semua perusahaan  di Indonesia, termasuk Lawencon. Menjawab tantangan ini, Lawencon terus
+                      mengedepankan inovasi agar dapat senantiasa menjadi bank yang dapat diandalkan oleh masyarakat.
+                      Inovasi yang dilakukan Lawencon selama ini membutuhkan dukungan dari semua pihak terutama
+                      bagian IT.</p>
+                      <br>
+                    <p class="card-text">
+                      Open Date : 01-01-2020 &nbsp; Close Date : 02-02-2020
+                    </p><br>
+                    <div>
+                      <button type="button" class="btn btn-outline-info">Detail</button> &nbsp;
+                      <button type="button" class="btn btn-outline-success">Apply</button>
+                    </div>
+                  </div>
+                  <div class="card-footer">  
+                  </div>
+              </div><br>
+            
+            </p-scrollPanel>
+        </div>
+
+      </div>
+
+      <!-- Blank Page (Right) -->
+      <div class="ui-g-12 ui-md-6 ui-lg-2"><br>
+      </div>
+
+  </div>
+
+  <!-- Detail Job Poster -->
+  <p-dialog header="Change Password" [(visible)]="detail" [modal]="true" [responsive]="true" [style]="{width: '1000px', minWidth: '200px'}" [minY]="70">
+
+    <div class="card border-secondary">
+      <div class="card-header">Header</div>
+      <div class="card-body">
+        <h4 class="card-title">Secondary card title</h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+    </div>
+
+    <div>
+   <div class="card border-secondary">
+      <div class="card-header">Header</div>
+      <div class="card-body">
+        <h4 class="card-title">Secondary card title</h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+    </div>
+    <div class="card border-secondary">
+      <div class="card-header">Header</div>
+      <div class="card-body">
+        <h4 class="card-title">Secondary card title</h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+    </div>
+    <div class="card border-secondary">
+      <div class="card-header">Header</div>
+      <div class="card-body">
+        <h4 class="card-title">Secondary card title</h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+    </div>
+    </div>
+ 
+    <div class="card border-secondary">
+      <div class="card-header">Header</div>
+      <div class="card-body">
+        <h4 class="card-title">Secondary card title</h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+    </div>
+    <div class="card border-secondary ">
+      <div class="card-header">Header</div>
+      <div class="card-body">
+        <h4 class="card-title">Secondary card title</h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+    </div>
+    <div class="card border-secondary">
+      <div class="card-header">Header</div>
+      <div class="card-body">
+        <h4 class="card-title">Secondary card title</h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+    </div>
+
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
+        <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+    </p-footer>
+  </p-dialog>

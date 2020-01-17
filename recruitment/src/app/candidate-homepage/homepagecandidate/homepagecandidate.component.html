@@ -1,0 +1,68 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+  <img #img src="assets/logolarge.png"> 
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor03">
+    <ul class="navbar-nav mr-auto">
+    </ul>
+    <form class="form-inline my-2 my-lg-1">
+      <input class="form-control form-control-sm mr-sm-2" type="text" placeholder="Search Jobs Poster" 
+        style="padding-right: 36px;">
+      <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+<!-- Title -->
+<div class="jumbotron login-panel">
+  <br><br><br><br>
+  <h1 class="display-3"><font color="white"> Hello, You!</font></h1>
+  <h2><font color="white">Welcome to Lawencon Jobs Poster</font></h2>
+  <h2><font color="white">Your Dream Jobs Start Here !!! </font></h2>
+  <p class="lead">
+    <button  data-target="#SignUp" class="btn btn-outline-primary" (click)="showDialogSignUp()"  role="button">Sign Up</button> &nbsp;
+    <button data-target="#SignIn" class="btn btn-outline-primary"(click)="showDialogSignIn()" role="button">Sign In</button>
+  </p>
+  <br><br>
+</div>
+
+<!-- Modal Sign Up -->
+<p-dialog id="SignUp" header="Sign Up Lawencon Jobs Poster" [(visible)]="displaysignup" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70" 
+[baseZIndex]="10000">
+<p-messages [(value)]="msgs"></p-messages>
+<br>
+<span class="ui-float-label">
+    <input id="float-input" type="text" size="40" pInputText> 
+    <label for="float-input">Fullname</label>
+</span>
+<br>
+<span class="ui-float-label">
+  <input id="float-input" type="text" size="40" pInputText> 
+  <label for="float-input">Email</label>
+</span>
+<br>
+<!-- <button type="button" routerLink='admin/dashboard' pButton (click)="showSuccess()" label="Submit" class="ui-button-info"></button> -->
+<button type="button" routerLink='admin/dashboard' pButton  label="Submit" class="ui-button-info"></button>
+
+</p-dialog>
+
+<!-- Modal Sign in -->
+<p-dialog id="SignIn" header="Sign In Lawencon Jobs Poster" [(visible)]="displaysignin" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70" 
+[baseZIndex]="10000">
+<br>
+<span class="ui-float-label">
+  <input id="float-input" type="text" size="40" pInputText> 
+  <label for="float-input">Email</label>
+</span>
+<br>
+<span class="ui-float-label">
+  <input id="float-input" type="text" size="40" pInputText pPassword type="password"/> 
+  <label for="float-input">Password</label>
+</span>
+  <p-checkbox [(ngModel)]="checked" binary="true"></p-checkbox> &nbsp; Show Password
+<br><br>
+<button routerLink='candidate/dashboard' type="button" pButton label="Submit" class="ui-button-info"></button>
+</p-dialog>
