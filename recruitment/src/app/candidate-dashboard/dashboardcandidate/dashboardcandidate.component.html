@@ -54,7 +54,7 @@
             <h5 class="card-title">Sarjana W3School</h5>
             <h6 class="card-subtitle text-muted">IT Informatika</h6>
             <br>
-            <button type="button" class="btn btn-outline-primary" style="text-align:center;">Update Profile</button>
+            <button type="button" class="btn btn-outline-primary" style="text-align:center;" routerLink="/candidate/profile">Update Profile</button>
           </div>  
       </div>
     </div>
@@ -166,7 +166,7 @@
                     Open Date : 01-01-2020 &nbsp; Close Date : 02-02-2020
                   </p><br>
                     <div>
-                      <button type="button" class="btn btn-outline-info">Detail</button> &nbsp;
+                      <button type="button" class="btn btn-outline-info" (click)="showDetail()">Detail</button> &nbsp;
                       <button type="button" class="btn btn-outline-success">Apply</button>
                     </div>
                 </div>
@@ -210,7 +210,7 @@
                       Open Date : 01-01-2020 &nbsp; Close Date : 02-02-2020
                     </p><br>
                     <div>
-                      <button type="button" class="btn btn-outline-info">Detail</button> &nbsp;
+                      <button type="button" class="btn btn-outline-info" (click)="showDetail()">Detail</button> &nbsp;
                       <button type="button" class="btn btn-outline-success">Apply</button>
                     </div>
                   </div>
@@ -230,61 +230,60 @@
   </div>
 
   <!-- Detail Job Poster -->
-  <p-dialog header="Change Password" [(visible)]="detail" [modal]="true" [responsive]="true" [style]="{width: '1000px', minWidth: '200px'}" [minY]="70">
+  <p-dialog header="Change Password" [(visible)]="detail" [modal]="true" [responsive]="true" [style]="{width: '900px', minWidth: '200px'}" [minY]="70">
 
-    <div class="card border-secondary">
-      <div class="card-header">Header</div>
-      <div class="card-body">
-        <h4 class="card-title">Secondary card title</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <div class="ui-g">
+        <!--  -->
+          <div class="ui-g-12 ui-md-6 ui-lg-12">
+            <div class="card border-secondary">
+              <div class="card-header">Header</div>
+              <div class="card-body">
+                <h4 class="card-title">Secondary card title</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+          <div class="ui-g-4 ui-md-6 ui-lg-4">
+            <div class="card border-secondary">
+              <div class="card-header">Header</div>
+              <div class="card-body">
+                <h4 class="card-title">Secondary card title</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+          <div class="ui-g-4 ui-md-6 ui-lg-4">
+            <div class="card border-secondary">
+              <div class="card-header">Header</div>
+              <div class="card-body">
+                <h4 class="card-title">Secondary card title</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+          <div class="ui-g-4 ui-md-6 ui-lg-4">
+            <div class="card border-secondary">
+              <div class="card-header">Header</div>
+              <div class="card-body">
+                <h4 class="card-title">Secondary card title</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+          <div class="ui-g-12 ui-md-6 ui-lg-12">
+            <div class="card border-secondary">
+              <div class="card-header">Header</div>
+              <div class="card-body">
+                <h4 class="card-title">Secondary card title</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+          </div>
       </div>
-    </div>
-
-    <div>
-   <div class="card border-secondary">
-      <div class="card-header">Header</div>
-      <div class="card-body">
-        <h4 class="card-title">Secondary card title</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div>
-    </div>
-    <div class="card border-secondary">
-      <div class="card-header">Header</div>
-      <div class="card-body">
-        <h4 class="card-title">Secondary card title</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div>
-    </div>
-    <div class="card border-secondary">
-      <div class="card-header">Header</div>
-      <div class="card-body">
-        <h4 class="card-title">Secondary card title</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div>
-    </div>
-    </div>
- 
-    <div class="card border-secondary">
-      <div class="card-header">Header</div>
-      <div class="card-body">
-        <h4 class="card-title">Secondary card title</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div>
-    </div>
-    <div class="card border-secondary ">
-      <div class="card-header">Header</div>
-      <div class="card-body">
-        <h4 class="card-title">Secondary card title</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div>
-    </div>
-    <div class="card border-secondary">
-      <div class="card-header">Header</div>
-      <div class="card-body">
-        <h4 class="card-title">Secondary card title</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div>
-    </div>
 
     <p-footer>
         <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>

@@ -215,6 +215,9 @@
 
 <!-- Document -->
 <p-dialog header="Change Password" [(visible)]="document" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
+ 
+ 
+
   <div class="form-group">
     <label>Old Password </label>
     <input type="password" class="form-control"  placeholder="Old Password">
@@ -227,6 +230,7 @@
     <label>Confrim New Password </label>
     <input type="password" class="form-control"  placeholder="Confrm New Password">
   </div>
+
       <p-footer>
           <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
           <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
