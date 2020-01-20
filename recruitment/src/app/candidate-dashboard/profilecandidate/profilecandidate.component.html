@@ -4,7 +4,6 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <p>Haloo</p>
     <div class="collapse navbar-collapse" id="navbar"> &nbsp;
         <ul class="navbar-nav mr-auto my-lg-1">
             <li class="nav-item ">
@@ -14,12 +13,12 @@
                 <a class="nav-link" href="candidate/profile">Profile <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="candidate/setting">Setting</a>
+                <a class="nav-link">Setting</a>
             </li>
           </ul>
           <ul class="navbar-nav ml-auto my-lg-1">
             <li class="nav-item">
-                <a class="nav-link" href="#">Sign Out</a>
+                <a class="nav-link" (click)="showDialog()">Sign Out</a>
             </li>
         </ul>
     </div>
@@ -54,18 +53,22 @@
                 </h5>
               </div>
               <div class="ui-g-2 ui-md-2 ui-md-offset-2">
-                <button type="button" class="btn btn-outline-primary btn-sm" (click)="showProfile()">Update</button>
+                <button type="button" class="btn btn-outline-warning btn-sm" (click)="showProfile()">Update</button>
               </div>
             </div>
 
               <div class="card-body">
-                <h4 class="card-title">Secondary card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text">Jakarta, 01 Januari 2000</p>
+                <p class="card-text">Pria</p>
+                <p class="card-text">Single</p>
+                <p class="card-text">Islam</p>
+                <p class="card-text">Jl. Saun no. 10 Krukut, Limo, Depok</p>
+                <p class="card-text">Indonesia</p>
               </div>
 
               <div class="card-footer">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-
+                <p class="card-text">089626892330</p>
+                <p class="card-text">babayuyununu@gmail.com</p>
               </div>
 
           </div>
@@ -92,8 +95,8 @@
                 </div>
 
                 <div class="card-body">
-                  <h4 class="card-title">Secondary card title</h4>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <p class="card-text">SMA 79 Jakarta Selatan</p>
+                  <p class="card-text">S1 Bina Nusantara Teknik Informatika</p>
                 </div>
             </div>
             <br>
@@ -101,19 +104,18 @@
             <!-- Work Experince -->
             <div class="card border-light">
               <div class="ui-g card-header">
-                <div class="ui-g-12 ui-md-4 ">
+                <div class="ui-g-12 ui-md-5 ">
                   <h5 class="pi pi-user">
-                    Profile
+                    Work Experience
                   </h5>
                 </div>
-                <div class="ui-g-12 ui-md-2 ui-md-offset-6">
+                <div class="ui-g-12 ui-md-2 ui-md-offset-5">
                   <button type="button" class="btn btn-outline-warning btn-sm" (click)="showWork()">Update</button>
                 </div>
               </div>
 
               <div class="card-body">
-                <h4 class="card-title">Secondary card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <h4 class="card-title">Update Your Work Experience</h4>
               </div>
             </div>
             <br>
@@ -123,7 +125,7 @@
               <div class="ui-g card-header">
                 <div class="ui-g-12 ui-md-4 ">
                   <h5 class="pi pi-user">
-                    Profile
+                    Document
                   </h5>
                 </div>
                 <div class="ui-g-12 ui-md-2 ui-md-offset-6">
@@ -132,8 +134,7 @@
               </div>
 
               <div class="card-body">
-                <h4 class="card-title">Secondary card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <h4 class="card-title">Update Your Document</h4>
               </div>
             </div>
           <br>
@@ -154,10 +155,30 @@
 
 
 <!-- Show Dialog -->
+<!-- Password -->
+<p-dialog header="Change Password" [(visible)]="settings" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
+  <div class="form-group">
+    <label>Old Password </label>
+    <input type="password" class="form-control"  placeholder="Old Password">
+  </div>
+  <div class="form-group">
+    <label>New Password </label>
+    <input type="password" class="form-control"  placeholder="New Password">
+  </div>
+  <div class="form-group">
+    <label>Confrim New Password </label>
+    <input type="password" class="form-control"  placeholder="Confrm New Password">
+  </div>
+      <p-footer>
+          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
+          <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+      </p-footer>
+</p-dialog>
+
 <!-- Profile -->
 <p-dialog header="Change Password" [(visible)]="profile" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
   <div class="form-group">
-    <label>Old Password </label>
+    <label>Profile </label>
     <input type="password" class="form-control"  placeholder="Old Password">
   </div>
   <div class="form-group">
@@ -177,7 +198,7 @@
 <!-- Education -->
 <p-dialog header="Change Password" [(visible)]="education" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
   <div class="form-group">
-    <label>Old Password </label>
+    <label>Education </label>
     <input type="password" class="form-control"  placeholder="Old Password">
   </div>
   <div class="form-group">
@@ -197,7 +218,7 @@
 <!-- Work Experience -->
 <p-dialog header="Change Password" [(visible)]="work" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
   <div class="form-group">
-    <label>Old Password </label>
+    <label>Work Experience </label>
     <input type="password" class="form-control"  placeholder="Old Password">
   </div>
   <div class="form-group">
@@ -220,7 +241,7 @@
  
 
   <div class="form-group">
-    <label>Old Password </label>
+    <label>Document </label>
     <input type="password" class="form-control"  placeholder="Old Password">
   </div>
   <div class="form-group">

@@ -11,6 +11,7 @@ export class ProfilecandidateComponent implements OnInit {
   education: boolean = false;
   work: boolean = false;
   document: boolean = false;
+  settings: boolean = false;
 
 
   showProfile() {
@@ -28,6 +29,10 @@ export class ProfilecandidateComponent implements OnInit {
   showDocument(){
     this.document = true;
   }
+
+  showDialog() {
+    this.settings = true;
+}
 
   constructor() { }
 

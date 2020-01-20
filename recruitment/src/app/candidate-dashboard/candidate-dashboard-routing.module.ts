@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardcandidateComponent } from './dashboardcandidate/dashboardcandidate.component';
 import { ProfilecandidateComponent } from './profilecandidate/profilecandidate.component';
-import { SettingcandidateComponent } from './settingcandidate/settingcandidate.component';
 
 
 const routes: Routes = [
@@ -14,10 +13,6 @@ const routes: Routes = [
     path : 'profile',
     component : ProfilecandidateComponent
   },
-  {
-    path : 'setting',
-    component : SettingcandidateComponent
-  }
 
 ];
 
