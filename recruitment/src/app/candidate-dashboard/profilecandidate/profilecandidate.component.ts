@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RegisterService } from 'src/app/service/register.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profilecandidate',
@@ -12,6 +14,7 @@ export class ProfilecandidateComponent implements OnInit {
   work: boolean = false;
   document: boolean = false;
   settings: boolean = false;
+  user:any;
 
 
   showProfile() {
@@ -34,9 +37,20 @@ export class ProfilecandidateComponent implements OnInit {
     this.settings = true;
 }
 
-  constructor() { }
+  constructor(private login:RegisterService,private route:Router) { }
 
   ngOnInit() {
+    this.user = this.login.store.get("user").subscribe( res => {
+      this.user=res;
+      if(res == null){
+        this.route.navigateByUrl("#");
+      }
+      });
+      
+  }
+
+  destroySession(){
+    this.login.store.delete('user').subscribe((res) => {this.route.navigateByUrl("#")});
   }
 
 }

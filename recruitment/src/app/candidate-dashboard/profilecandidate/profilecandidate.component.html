@@ -18,7 +18,7 @@
           </ul>
           <ul class="navbar-nav ml-auto my-lg-1">
             <li class="nav-item">
-                <a class="nav-link" (click)="showDialog()">Sign Out</a>
+                <a class="nav-link" (click)="destroySession()">Sign Out</a>
             </li>
         </ul>
     </div>
@@ -58,17 +58,14 @@
             </div>
 
               <div class="card-body">
-                <p class="card-text">Jakarta, 01 Januari 2000</p>
-                <p class="card-text">Pria</p>
-                <p class="card-text">Single</p>
-                <p class="card-text">Islam</p>
-                <p class="card-text">Jl. Saun no. 10 Krukut, Limo, Depok</p>
-                <p class="card-text">Indonesia</p>
+                <p class="card-text">Birth {{user?.candidate?.dob}}</p>
+                <p class="card-text">Gender {{user?.candidate?.gender}}</p>
+                <p class="card-text">{{user?.candidate?.addres}}, {{user?.candidate?.city?.city}}</p>
               </div>
 
               <div class="card-footer">
-                <p class="card-text">089626892330</p>
-                <p class="card-text">babayuyununu@gmail.com</p>
+                <p class="card-text">{{user?.candidate?.phone}}</p>
+                <p class="card-text">{{user?.candidate?.email}}</p>
               </div>
 
           </div>
@@ -78,7 +75,7 @@
         <!-- Name User -->
         <div class="ui-g-12 ui-md-12 ui-lg-8">
             <br>
-            <h1 class="display-3" style="text-align:center;">Bachtiar Yusuf Nugraha</h1>
+            <h1 class="display-3" style="text-align:center;">{{user?.candidate?.name}}</h1>
             <br>
 
             <!-- Education -->

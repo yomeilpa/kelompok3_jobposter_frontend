@@ -31,7 +31,7 @@ export class DashboardcandidateComponent implements OnInit {
     if(res == null){
       this.route.navigateByUrl("#");
     }
-    console.log(this.user)});
+    });
     
   }
 
