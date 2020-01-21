@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit,AfterViewInit,ViewChild, Input} from '@angular/core';
+import { LoginService } from 'src/app/Service/login.service';
+import { LocalStorage } from '@ngx-pwa/local-storage';
 
 @Component({
   selector: 'app-dash-board',
@@ -7,10 +9,13 @@ import {Component, OnInit} from '@angular/core';
 })
 export class DashBoardComponent implements OnInit {
 
-  constructor() {
+  data:any;
+  constructor(private login:LoginService) {
+  
   }
 
   ngOnInit() {
+    this.login.store.get("user").subscribe(res => {this.data = res});
   }
 
 }

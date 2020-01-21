@@ -34,18 +34,67 @@
 [baseZIndex]="10000">
 <p-messages [(value)]="msgs"></p-messages>
 <br>
+<form>
 <span class="ui-float-label">
-    <input id="float-input" type="text" size="40" pInputText> 
-    <label for="float-input">Fullname</label>
+    <input id="float-input1" name="fullname" type="text" size="40" [(ngModel)]="register.name" pInputText> 
+    <label for="float-input1">Fullname</label>
 </span>
+
 <br>
 <span class="ui-float-label">
-  <input id="float-input" type="text" size="40" pInputText> 
+  <input id="float-input" type="text" name="email" [(ngModel)]="register.email" size="40" pInputText> 
   <label for="float-input">Email</label>
 </span>
 <br>
+<span class="ui-float-label">
+  <p>Gender</p>
+  <p-radioButton name="groupname" value="Laki-Laki" label=" Male " [(ngModel)]="register.gender"></p-radioButton>
+  <p-radioButton name="groupname" value="Perempuan" label=" Female " [(ngModel)]="register.gender"></p-radioButton>
+</span>
+<br>
+<span class="ui-float-label">
+  <input id="float-input2" type="text" size="40" pInputText name="phone" [(ngModel)]="register.phone"> 
+  <label for="float-input2">Phone Number</label>
+</span>
+
+<br>
+<span class="ui-float-label">
+  <input id="float-inpu2" type="date" size="40" pInputText name="date" [(ngModel)]="register.dob"> 
+</span>
+<br>
+<span class="ui-float-label">
+  <input id="float-input2a" type="text" size="40" pInputText name="addres" [(ngModel)]="register.addres"> 
+  <label for="float-input2">Address</label>
+</span>
+
+<br>
+<span class="ui-float-label">
+  <p-dropdown placeholder="Select a Province" [options]="province" name="provinsi" [(ngModel)]="provinsi" filter="true" optionLabel ="province" [showClear]="true"> 
+</p-dropdown>  
+</span>
+
+<br>
+<span class="ui-float-label">
+  <p-dropdown placeholder="Select a City" [options]="city" name="city" [(ngModel)]="register.city" filter="true" optionLabel ="city" (click)="getCity()">
+</p-dropdown>  
+</span>
+ 
+<!-- <br>
+<span class="ui-float-label">
+  <p-autoComplete  id="city" field="city" name="prov"  [(ngModel)]="kota" [suggestions]="citis" (completeMethod)="filterCity($event)"
+            [dropdown]="true">
+            <ng-template let-brand pTemplate="item">
+              <div class="ui-helper-clearfix">
+                  <div>{{brand?.city}}</div>  
+              </div>
+          </ng-template>
+  </p-autoComplete> 
+</span> -->
+<br>
+
+</form>
 <!-- <button type="button" routerLink='admin/dashboard' pButton (click)="showSuccess()" label="Submit" class="ui-button-info"></button> -->
-<button type="button" routerLink='admin/dashboard' pButton  label="Submit" class="ui-button-info"></button>
+<button type="button" (click)="registerApplicant()" pButton  label="Submit" class="ui-button-info"></button>
 
 </p-dialog>
 

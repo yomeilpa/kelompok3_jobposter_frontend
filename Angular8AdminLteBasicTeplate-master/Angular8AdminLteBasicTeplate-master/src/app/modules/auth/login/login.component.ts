@@ -1,5 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-
+import { LoginService } from 'src/app/Service/login.service';
+import { Router } from '@angular/router';
+import { Login } from 'src/app/model/login';
 declare var $;
 
 @Component({
@@ -9,7 +11,9 @@ declare var $;
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  constructor() {
+  data:any;
+  us:Login =  new Login("","");
+  constructor(private logs:LoginService,private route:Router) {
   }
 
   ngOnInit() {
@@ -27,4 +31,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     $('body').removeClass('hold-transition login-page');
   }
 
+  loginuser(data:any){
+    this.logs.LoginUser(this.us);
+    this.logs.user.subscribe(res =>{
+      this.data= res;
+      if(this.logs.data1 =="gagal"){
+        alert(this.data.error);
+      }
+      if(this.logs.data1=="suc"){
+        this.route.navigateByUrl("/members");
+      }
+    })
+  }
 }

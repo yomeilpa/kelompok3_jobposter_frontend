@@ -6,13 +6,13 @@
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 
-
+<form>
       <div class="form-group has-feedback">
-        <input class="form-control" placeholder="Email" type="email">
+        <input class="form-control" name="email" placeholder="Email" type="email" [(ngModel)]="us.username">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input class="form-control" placeholder="Password" type="password">
+        <input class="form-control" name="pas" placeholder="Password" type="password" [(ngModel)]="us.password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
@@ -25,11 +25,11 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button [routerLink]="'/members'" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button (click)="loginuser()"  class="btn btn-primary btn-block btn-flat">Sign In</button>
         </div>
         <!-- /.col -->
       </div>
-
+    </form>
 
     <div class="social-auth-links text-center">
       <p>- OR -</p>
