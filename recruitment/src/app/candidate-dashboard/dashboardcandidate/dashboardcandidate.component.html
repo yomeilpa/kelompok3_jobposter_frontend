@@ -18,7 +18,7 @@
             </ul>
             <ul class="navbar-nav ml-auto my-lg-1">
               <li class="nav-item">
-                  <a class="nav-link" href="#">Sign Out</a>
+                  <a class="nav-link" (click)="destroySession()">Sign Out</a>
               </li>
           </ul>
       </div>
@@ -51,7 +51,7 @@
       <div class="card">
           <div class="card-body" style="text-align:center;">
             <img style="width: 170px; height: 240px;" src="assets/img/team/1.jpg" alt="Card image">
-            <h5 class="card-title">Sarjana W3School</h5>
+            <h5 class="card-title">{{user?.candidate?.name}}</h5>
             <h6 class="card-subtitle text-muted">IT Informatika</h6>
             <br>
             <button type="button" class="btn btn-outline-primary" style="text-align:center;" routerLink="/candidate/profile">Update Profile</button>

@@ -8,6 +8,7 @@ import { NgPrimeModule } from './app.ngprime.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { StorageModule } from '@ngx-pwa/local-storage';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CommonModule } from '@angular/common';
     BrowserAnimationsModule,
     AppRoutingModule,
     CandidateHomepageModule,
-    NgPrimeModule
+    NgPrimeModule,
+    StorageModule.forRoot({ IDBNoWrap: true })
 
   ],
   providers: [],

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Subject, Observable } from 'rxjs';
-import { StorageMap, LocalStorage } from '@ngx-pwa/local-storage';
+import { StorageMap} from '@ngx-pwa/local-storage';
 
 
 @Injectable({
@@ -9,9 +9,11 @@ import { StorageMap, LocalStorage } from '@ngx-pwa/local-storage';
 })
 export class LoginService {
 
-  private apiURL = 'http://localhost:8080';
+  private apiURL = 'http://bootcamp.linovhr.com:8080/jobposter1';
   data:any;
   data1:any;
+  datas:any;
+  datauser:any;
   constructor(private httpclient: HttpClient,public store:StorageMap) { }
 
   user:Subject<any> = new Subject<any>();

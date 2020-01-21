@@ -102,16 +102,18 @@
 <p-dialog id="SignIn" header="Sign In Lawencon Jobs Poster" [(visible)]="displaysignin" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70" 
 [baseZIndex]="10000">
 <br>
+<form>
 <span class="ui-float-label">
-  <input id="float-input" type="text" size="40" pInputText> 
-  <label for="float-input">Email</label>
+  <input id="float-inpu" name="email" [(ngModel)]="us.username" type="text" size="40" pInputText> 
+  <label for="float-inpu">Email</label>
 </span>
 <br>
 <span class="ui-float-label">
-  <input id="float-input" type="text" size="40" pInputText pPassword type="password"/> 
-  <label for="float-input">Password</label>
+  <input name="password"  [(ngModel)]="us.password" id="float-inpu2" type="text" size="40" pInputText pPassword type="password"/> 
+  <label for="float-inpu2">Password</label>
 </span>
-  <p-checkbox [(ngModel)]="checked" binary="true"></p-checkbox> &nbsp; Show Password
+  <p-checkbox name="cek" [(ngModel)]="checked" binary="true"></p-checkbox> &nbsp; Show Password
 <br><br>
-<button routerLink='candidate/dashboard' type="button" pButton label="Submit" class="ui-button-info"></button>
+<button (click)="loginuser()" type="button" pButton label="Submit" class="ui-button-info"></button>
+</form>
 </p-dialog>

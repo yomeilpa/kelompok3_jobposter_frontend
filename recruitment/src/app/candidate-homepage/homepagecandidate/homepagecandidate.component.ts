@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ProvinceService } from 'src/app/service/province.service';
 import { Province } from 'src/app/model/province';
-import { City } from 'src/app/model/city';
-import {SelectItem} from 'primeng/api';
 import { RegisterService } from 'src/app/service/register.service';
 import { Candidate } from 'src/app/model/candidate';
 import { Router } from '@angular/router';
+import { Login } from 'src/app/model/login';
 
 @Component({
   selector: 'app-homepagecandidate',
@@ -17,10 +16,12 @@ export class HomepagecandidateComponent implements OnInit {
     displaysignup: boolean = false;
     displaysignin:boolean = false;
     msgs: any[];
+    us:Login = new Login("","");
     
     kota:any;
     checked: boolean = false;
     data:any;
+    user:any;
 
 showDialogSignIn() {
   this.displaysignin = true; 
@@ -54,6 +55,19 @@ showSuccess() {
   getCity(){
     this.pros.getCity(this.provinsi.province);
     this.pros.user.subscribe(res => this.city = res);
+  }
+
+  loginuser(){
+    this.regis.LoginUser(this.us);
+    this.regis.user.subscribe(res =>{
+      this.user= res;
+      if(this.regis.data1 =="gagal"){
+        alert(this.user.error);
+      }
+      if(this.regis.data1=="suc"){
+        this.route.navigateByUrl("candidate/dashboard");
+      }
+    })
   }
 
   registerApplicant(){
