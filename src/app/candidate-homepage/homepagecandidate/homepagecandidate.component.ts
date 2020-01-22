@@ -78,7 +78,7 @@ showSuccess() {
         alert(this.data.error);
       }
       if(this.regis.data1=="succes"){
-        this.route.navigateByUrl("//")
+        this.route.navigateByUrl("/candidate/dashboard/")
         alert("register succes")
         
       }

@@ -17,7 +17,7 @@ export class DashboardcandidateComponent implements OnInit {
   detail: boolean = false;
   user:any;
   imageData:string;
-
+  candidate:any;
 
   showDetail(){
     this.detail = true;
@@ -32,16 +32,18 @@ export class DashboardcandidateComponent implements OnInit {
   ngOnInit() {
     this.user = this.login.store.get("user").subscribe( res => {
     this.user=res;
+    
 
     if(res == null){
       this.route.navigateByUrl("#");
     }
     else{
+      this.candidate = this.user.candidate;
       if(this.user.candidate.pic == null){
-        this.imageData =null;
+        this.imageData ="assets/img/team/1.jpg";
       }
       else{
-      this.imageData = 'data:'+this.user.candidate.type+';base64,'+this.user.candidate.pic;   }
+      this.imageData = 'data:'+this.candidate.type+';base64,'+this.candidate.pic;   }
       }
     });
     

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterService } from 'src/app/service/register.service';
 import { Router } from '@angular/router';
+import { Candidate } from 'src/app/model/candidate';
 
 @Component({
   selector: 'app-profilecandidate',
@@ -17,6 +18,20 @@ export class ProfilecandidateComponent implements OnInit {
   skill: boolean = false;
   user:any;
   us:any;
+  imgSrc:any;
+  imageData:any;
+  candidate:any;
+  cds:any = new Candidate("","",null,"",null,"","");
+
+  onfileSelected(event){
+    this.us = <File> event.target.files[0];
+    if(event.target.files && event.target.files[0]){
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = e => this.imgSrc = reader.result;
+      reader.readAsDataURL(file);
+    }
+  }
   
   showSkill(){
     this.skill = true;
@@ -47,25 +62,47 @@ export class ProfilecandidateComponent implements OnInit {
   ngOnInit() {
     this.user = this.login.store.get("user").subscribe( res => {
       this.user=res;
+      this.cds = this.user.candidate;
       if(res == null){
         this.route.navigateByUrl("#");
       }
-      });
-      
+      else{
+        this.candidate = this.user.candidate;
+        if(this.user.candidate.pic == null){
+          this.imageData ="assets/img/team/1.jpg";
+        }
+        else{
+        this.imageData = 'data:'+this.user.candidate.type+';base64,'+this.user.candidate.pic;   }
+        }
+      });   
   }
-
   public uploadPhoto(){
-    this.login.uploadPhoto(this.us,this.user.candidate.id);
+    let formData = new FormData();
+    formData.append("upload",this.us,this.us.name)
+    this.login.uploadPhoto(formData,this.user.candidate.id);
     this.login.user.subscribe(res =>{
       this.user = res;  
       if(this.login.data1 =="gagal"){
         alert(this.user.error);
       }
       if(this.login.data1=="suc"){
+        console.log("succes");
+        this.user = this.login.store.get("user").subscribe( res => {
+          this.user=res;
+          this.cds = this.user.candidate;
+          if(this.user.candidate.pic == null){
+            this.imageData ="assets/img/team/1.jpg";
+          }
+          else{
+          this.imageData = 'data:'+this.candidate.type+';base64,'+this.candidate.pic;  
+          this.route.navigateByUrl("#"); 
+          }
+          
+        });
       }
-      this.login.user.unsubscribe();
     })
   }
+
 
   destroySession(){
     this.login.store.delete('user').subscribe((res) => {this.route.navigateByUrl("#")});

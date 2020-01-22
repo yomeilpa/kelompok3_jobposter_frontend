@@ -39,7 +39,7 @@
           <!-- Photo -->
           <div class="card">
               <div class=" card-body" style="text-align:center;">
-                <img style="width: 170px; height: 225px;" src="assets/img/team/1.jpg" alt="Card image">
+                <img style="width: 170px; height: 225px;" [src]="imageData"  alt="Card image">
               </div>  
           </div>
           <br>
@@ -210,7 +210,7 @@
 
           <div class="form-group">
             <label for="exampleTextarea">Address</label>
-            <textarea name="addres" [(ngModel)]="user.candidate.addres  " class="form-control" id="exampleTextarea" rows="3"></textarea>
+            <textarea name="addres" [(ngModel)]="cds.addres  " class="form-control" id="exampleTextarea" rows="3"></textarea>
           </div>
           
     </div>
@@ -219,22 +219,22 @@
 
         <div class="form-group">
             <label>Email</label>
-            <input type="text" name="email" [(ngModel)]="user.candidate.email" class="form-control" placeholder="Email">
+            <input type="text" name="email" [(ngModel)]="cds.email" class="form-control" placeholder="Email">
         </div>
 
         <div class="form-group">
           <label>Telephone</label>
-          <input type="text" name="phoner" [(ngModel)]="user.candidate.phone" class="form-control" placeholder="Telephone">
+          <input type="text" name="phoner" [(ngModel)]="cds.phone" class="form-control" placeholder="Telephone">
       </div>
 
           <div class="form-group">
             <label>Date of Birth</label>
-            <input name="dob" [(ngModel)]="user.candidate.dob" type="date" class="form-control">
+            <input name="dob" [(ngModel)]="cds.dob" type="date" class="form-control">
           </div>
 
           <div class="form-group">
             <label for="exampleInputFile">Upload Photo</label>
-            <input type="file" class="form-control-file" name="foto" [(ngModel)]="us" id="exampleInputFile" aria-describedby="fileHelp">
+            <input type="file" class="form-control-file" name="foto" (change) ="onfileSelected($event)" id="exampleInputFile" aria-describedby="fileHelp">
             <small id="fileHelp" class="form-text text-muted">Photo yang diharapkan adalah foto yang bagus dan enak diliat</small>
           </div>
 
@@ -242,7 +242,7 @@
 </div>
 
     <p-footer>
-        <button type="button" pButton icon="pi pi-check" (click)="uploadPhoto()" label="Submit"></button>
+        <button type="button" pButton icon="pi pi-check" (click)="uploadPhoto()"  label="Submit"></button>
         <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
     </p-footer>
 </p-dialog>

@@ -14,6 +14,7 @@ export class RegisterService {
   data1:any;
   datas:any;
   datauser:any;
+  ok:any;
 
 
   constructor(private http:HttpClient,public store:StorageMap) { }
@@ -55,14 +56,16 @@ export class RegisterService {
     })
   }
 
-  public uploadPhoto(file:File,id:number){
-    let formdata = new FormData();
-    formdata.append("upload",file);
+  public uploadPhoto(formdata:any,id:any){
     this.http.put<any>(this.apiURL+"/uploadphoto/"+id,formdata).subscribe(res =>{
       this.data = res;
       this.data1="suc";
-      this.user.next(this.data);
-      this.store.set("user",res).subscribe(() => {});
+      this.store.get("user").subscribe( res => {
+        this.ok = res;
+        this.ok.candidate = this.data;
+        this.store.set("user",this.ok).subscribe(() => {});        
+      })
+      
       
       },
       (ress) =>{
