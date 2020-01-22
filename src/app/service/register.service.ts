@@ -54,4 +54,22 @@ export class RegisterService {
 
     })
   }
+
+  public uploadPhoto(file:File,id:number){
+    let formdata = new FormData();
+    formdata.append("upload",file);
+    this.http.put<any>(this.apiURL+"/uploadphoto/"+id,formdata).subscribe(res =>{
+      this.data = res;
+      this.data1="suc";
+      this.user.next(this.data);
+      this.store.set("user",res).subscribe(() => {});
+      
+      },
+      (ress) =>{
+        this.data1 ="gagal";
+        this.data= ress;
+        this.user.next(this.data);
+  
+      })
+  }
 }

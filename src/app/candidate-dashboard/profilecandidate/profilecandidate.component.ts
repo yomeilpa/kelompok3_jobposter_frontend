@@ -15,6 +15,7 @@ export class ProfilecandidateComponent implements OnInit {
   document: boolean = false;
   settings: boolean = false;
   user:any;
+  us:any;
 
 
   showProfile() {
@@ -47,6 +48,19 @@ export class ProfilecandidateComponent implements OnInit {
       }
       });
       
+  }
+
+  public uploadPhoto(){
+    this.login.uploadPhoto(this.us,this.user.candidate.id);
+    this.login.user.subscribe(res =>{
+      this.user = res;  
+      if(this.login.data1 =="gagal"){
+        alert(this.user.error);
+      }
+      if(this.login.data1=="suc"){
+      }
+      this.login.user.unsubscribe();
+    })
   }
 
   destroySession(){
