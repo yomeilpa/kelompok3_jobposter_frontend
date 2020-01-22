@@ -192,45 +192,62 @@
 </p-dialog>
 
 <!-- Profile -->
-<p-dialog header="Change Password" [(visible)]="profile" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
-  <div class="form-group">
-    <label>Profile </label>
-    <input type="password" class="form-control"  placeholder="Old Password">
-  </div>
-  <div class="form-group">
-    <label>New Password </label>
-    <input type="password" class="form-control"  placeholder="New Password">
-  </div>
-  <div class="form-group">
-    <label>Confrim New Password </label>
-    <input type="password" class="form-control"  placeholder="Confrm New Password">
-  </div>
-      <p-footer>
-          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
-          <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
-      </p-footer>
-</p-dialog>
 
-<!-- Education -->
-<p-dialog header="Change Password" [(visible)]="education" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
-  <div class="form-group">
-    <label>Education </label>
-    <input type="password" class="form-control"  placeholder="Old Password">
-  </div>
-  <div class="form-group">
-    <label>New Password </label>
-    <input type="password" class="form-control"  placeholder="New Password">
-  </div>
-  <div class="form-group">
-    <label>Confrim New Password </label>
-    <input type="password" class="form-control"  placeholder="Confrm New Password">
-  </div>
-      <p-footer>
-          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
-          <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
-      </p-footer>
-</p-dialog>
+<!-- Profile -->
+<p-dialog header="Profile" [(visible)]="profile" [modal]="true" [responsive]="true" [style]="{width: '900px', minWidth: '200px'}" [minY]="70">
+  <div class="ui-g">
+    <div class="ui-g-6">
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" class="form-control" placeholder="Full Name">
+          </div>
 
+          <div class="form-group">
+            <label for="exampleSelect2">Gender</label>
+            <select class="form-control" id="exampleSelect1">
+              <option>Woman</option>
+              <option>Man</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleTextarea">Address</label>
+            <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+          </div>
+          
+    </div>
+    <!--  -->
+    <div class="ui-g-6">
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" class="form-control" placeholder="Email">
+        </div>
+
+        <div class="form-group">
+          <label>Telephone</label>
+          <input type="text" class="form-control" placeholder="Telephone">
+      </div>
+
+          <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="date" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputFile">Upload Photo</label>
+            <input type="file" class="form-control-file" name="foto" [(ngModel)]="us" id="exampleInputFile" aria-describedby="fileHelp">
+            <small id="fileHelp" class="form-text text-muted">Photo yang diharapkan adalah foto yang bagus dan enak diliat</small>
+          </div>
+
+    </div>
+</div>
+
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="uploadPhoto()" label="Submit"></button>
+        <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
+    </p-footer>
+</p-dialog>
 <!-- Work Experience -->
 <p-dialog header="Change Password" [(visible)]="work" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
   <div class="form-group">
