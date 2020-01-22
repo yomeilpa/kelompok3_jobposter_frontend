@@ -134,26 +134,26 @@
                 <h4 class="card-title">Update Your Document</h4>
               </div>
             </div>
-          <br>
+            <br>
 
-        <!-- SKill -->
-        <div class="card border-light">
-          <div class="ui-g card-header">
-            <div class="ui-g-12 ui-md-4 ">
-              <h5 class="pi pi-user">
-                Skill
-              </h5>
-            </div>
-            <div class="ui-g-12 ui-md-2 ui-md-offset-6">
-              <button type="button" class="btn btn-outline-warning btn-sm" (click)="showSkill()">Update</button>
-            </div>
-          </div>
+            <!-- SKill -->
+            <div class="card border-light">
+              <div class="ui-g card-header">
+                <div class="ui-g-12 ui-md-4 ">
+                  <h5 class="pi pi-user">
+                  Skill
+                  </h5>
+                </div>
+              <div class="ui-g-12 ui-md-2 ui-md-offset-6">
+                <button type="button" class="btn btn-outline-warning btn-sm" (click)="showSkill()">Update</button>
+              </div>
+              </div>
 
-          <div class="card-body">
-            <h4 class="card-title">Update Your SKill</h4>
-          </div>
-        </div>
-      <br>
+              <div class="card-body">
+                <h4 class="card-title">Update Your SKill</h4>
+              </div>
+              </div>
+            <br>
 
         </div>
 
@@ -192,8 +192,6 @@
 </p-dialog>
 
 <!-- Profile -->
-
-<!-- Profile -->
 <p-dialog header="Profile" [(visible)]="profile" [modal]="true" [responsive]="true" [style]="{width: '900px', minWidth: '200px'}" [minY]="70">
   <div class="ui-g">
     <div class="ui-g-6">
@@ -212,7 +210,7 @@
 
           <div class="form-group">
             <label for="exampleTextarea">Address</label>
-            <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+            <textarea name="addres" [(ngModel)]="user.candidate.addres  " class="form-control" id="exampleTextarea" rows="3"></textarea>
           </div>
           
     </div>
@@ -221,17 +219,17 @@
 
         <div class="form-group">
             <label>Email</label>
-            <input type="text" class="form-control" placeholder="Email">
+            <input type="text" name="email" [(ngModel)]="user.candidate.email" class="form-control" placeholder="Email">
         </div>
 
         <div class="form-group">
           <label>Telephone</label>
-          <input type="text" class="form-control" placeholder="Telephone">
+          <input type="text" name="phoner" [(ngModel)]="user.candidate.phone" class="form-control" placeholder="Telephone">
       </div>
 
           <div class="form-group">
             <label>Date of Birth</label>
-            <input type="date" class="form-control">
+            <input name="dob" [(ngModel)]="user.candidate.dob" type="date" class="form-control">
           </div>
 
           <div class="form-group">
@@ -248,28 +246,76 @@
         <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
     </p-footer>
 </p-dialog>
-<!-- Work Experience -->
-<p-dialog header="Change Password" [(visible)]="work" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
-  <div class="form-group">
-    <label>Work Experience </label>
-    <input type="password" class="form-control"  placeholder="Old Password">
-  </div>
-  <div class="form-group">
-    <label>New Password </label>
-    <input type="password" class="form-control"  placeholder="New Password">
-  </div>
-  <div class="form-group">
-    <label>Confrim New Password </label>
-    <input type="password" class="form-control"  placeholder="Confrm New Password">
-  </div>
+
+<!-- Education -->
+<p-dialog header="Education" [(visible)]="education" [modal]="true" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70">
+  <div class="ui-g-12">
+  
+    <div class="form-group">
+      <label for="exampleInputEmail1">Education</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name of University">
+    </div>
+  
+    <div class="form-group">
+      <label for="exampleInputEmail1">GPA</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="GPA">
+      <small id="emailHelp" class="form-text text-muted">Scale of 4.00</small>
+    </div>
+  
+    <div class="ui-g-6">
+      <div class="form-group">
+        <label>Begin Education</label>
+        <input type="month" class="form-control">
+      </div>
+    </div>
+    <div class="ui-g-6">
+      <div class="form-group">
+        <label>End Education</label>
+        <input type="month" class="form-control">
+      </div>
+    </div>
+  </div >
       <p-footer>
-          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
-          <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Submit"></button>
+          <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
       </p-footer>
+  </p-dialog>
+  
+<!-- Work Experience -->
+<p-dialog header="Work Experience" [(visible)]="work" [modal]="true" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70">
+<div class="ui-g-12">
+
+  <div class="form-group">
+    <label for="exampleInputEmail1">Work Experiance</label>
+    <input type="email" class="form-control" placeholder="Company Name">
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputEmail1">Salary</label>
+    <input type="email" class="form-control"  placeholder="Salary">
+  </div>
+
+  <div class="ui-g-6">
+    <div class="form-group">
+      <label>Begin Work</label>
+      <input type="month" class="form-control">
+    </div>
+  </div>
+  <div class="ui-g-6">
+    <div class="form-group">
+      <label>End Work</label>
+      <input type="month" class="form-control">
+    </div>
+  </div>
+</div >
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Submit"></button>
+        <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
+    </p-footer>
 </p-dialog>
 
 <!-- Document -->
-<p-dialog header="Change Password" [(visible)]="document" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
+<p-dialog header="Document" [(visible)]="document" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
  
  
 

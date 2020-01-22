@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MenuItem} from 'primeng/api';
 
 @Component({
   selector: 'app-dashboardadmin',
@@ -9,7 +10,25 @@ export class DashboardadminComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  add: boolean = false;
+  detail: boolean = false;
+  update: boolean = false;
+
+    showAdd() {
+        this.add = true;
+    }
+
+    showDetail() {
+        this.detail = true;
+    }
+
+    showUpdate() {
+        this.update = true;
+    }
+
+    ngOnInit() {
+    }
+
+
 
 }

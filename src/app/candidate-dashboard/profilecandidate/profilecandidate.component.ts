@@ -17,7 +17,7 @@ export class ProfilecandidateComponent implements OnInit {
   skill: boolean = false;
   user:any;
   us:any;
-
+  
   showSkill(){
     this.skill = true;
   }
