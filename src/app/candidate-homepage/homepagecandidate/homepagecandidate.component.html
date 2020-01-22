@@ -9,25 +9,138 @@
     <ul class="navbar-nav mr-auto">
     </ul>
     <form class="form-inline my-2 my-lg-1">
-      <input class="form-control form-control-sm mr-sm-2" type="text" placeholder="Search Jobs Poster" 
-        style="padding-right: 36px;">
-      <button class="btn btn-outline-info my-2 my-sm-0" type="submit" routerLink="/result">Search</button>
-    </form>
+      <button  data-target="#SignUp" class="btn btn-outline-primary" (click)="showDialogSignUp()"  role="button">Sign Up</button> &nbsp;&nbsp;&nbsp;
+      <button data-target="#SignIn" class="btn btn-outline-primary"(click)="showDialogSignIn()" role="button">Sign In</button>
+      </form>
   </div>
 </nav>
 
 <!-- Title -->
-<div class="jumbotron login-panel">
-  <br><br><br><br>
-  <h1 class="display-3"><font color="white"> Hello, You!</font></h1>
-  <h2><font color="white">Welcome to Lawencon Jobs Poster</font></h2>
-  <h2><font color="white">Your Dream Jobs Start Here !!! </font></h2>
-  <p class="lead">
-    <button  data-target="#SignUp" class="btn btn-outline-primary" (click)="showDialogSignUp()"  role="button">Sign Up</button> &nbsp;
-    <button data-target="#SignIn" class="btn btn-outline-primary"(click)="showDialogSignIn()" role="button">Sign In</button>
-  </p>
-  <br><br>
+<div class="jumbotron login-panel" style="padding-top: 20px;">
+  <div>
+    <div style="text-align: center;">
+      <h2 class="display-3"><font color="white"> Hello, You!</font></h2>
+      <h2><font color="white">Welcome to Lawencon Jobs Poster</font></h2>
+      <h2><font color="white">Your Dream Jobs Start Here !!! </font></h2>  
+    </div>
+     
+  <!-- Body -->
+
+    <!-- Blank Page -->
+    <div class="ui-g-12 ui-md-6 ui-lg-2">
+    </div>
+  
+      <!--  -->
+      <div class="ui-g-12 ui-md-12 ui-lg-8 ui-g-nopad" style="padding-top: 12px;">
+  
+        <!-- Job Poster -->
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+  
+            <!-- Search Job Poster -->
+            <ol style="text-align:center;">
+              <div class="ui-g">
+                <div class="ui-g-1">
+                </div>
+                <div class="ui-g-4">
+                  <input type="text" class="form-control"  placeholder="Search Jobs Poster">
+                </div>
+                <div class="ui-g-2">
+                  <input type="text" class="form-control"placeholder="Salary Min">
+                </div>
+                <div class="ui-g-2">
+                  <input type="text" class="form-control"  placeholder="Salary Max">
+                </div>
+                <div class="ui-g-2">
+                  <button type="button" class="bg-light btn btn-outline-primary ">Search</button>
+                </div>
+              </div>
+            </ol>
+
+            
+  
+            <p-scrollPanel [style]="{width: '100%', height: '270px'}">
+              <!-- Isi Job Poster -->
+                <div class="ccard border-light">
+                  <div class="card-header"><h5>IT Bootcamp</h5></div>
+                  <div class="card-body">
+                    <p class="card-title">
+                      Perkembangan teknologi yang kian pesat merupakan salah satu tantangan yang harus dihadapi oleh 
+                      semua perusahaan  di Indonesia, termasuk Lawencon. Menjawab tantangan ini, Lawencon terus
+                      mengedepankan inovasi agar dapat senantiasa menjadi bank yang dapat diandalkan oleh masyarakat.
+                      Inovasi yang dilakukan Lawencon selama ini membutuhkan dukungan dari semua pihak terutama
+                      bagian IT.</p>
+                      <br>
+                    <p class="card-text">
+                      Open Date : 01-01-2020 &nbsp; Close Date : 02-02-2020
+                    </p><br>
+                      <div>
+                        <button type="button" class="btn btn-outline-info" >Detail</button> &nbsp;
+                        <button type="button" class="btn btn-outline-success">Apply</button>
+                      </div>
+                  </div>
+                  <div class="card-footer">  
+                  </div>
+                </div> <br>
+              <!--  -->
+                <div class="card border-light">
+                  <div class="card-header"><h5>IT Bootcamp</h5></div>
+                  <div class="card-body">
+                    <p class="card-title">
+                      Perkembangan teknologi yang kian pesat merupakan salah satu tantangan yang harus dihadapi oleh 
+                      semua perusahaan  di Indonesia, termasuk Lawencon. Menjawab tantangan ini, Lawencon terus
+                      mengedepankan inovasi agar dapat senantiasa menjadi bank yang dapat diandalkan oleh masyarakat.
+                      Inovasi yang dilakukan Lawencon selama ini membutuhkan dukungan dari semua pihak terutama
+                      bagian IT.</p>
+                      <br>
+                    <p class="card-text">
+                      Open Date : 01-01-2020 &nbsp; Close Date : 02-02-2020
+                    </p><br>
+                    <div>
+                      <button type="button" class="btn btn-outline-info">Detail</button> &nbsp;
+                      <button type="button" class="btn btn-outline-success">Apply</button>
+                    </div>
+                  </div>
+                  <div class="card-footer">  
+                  </div>
+                </div> <br>
+              <!--  -->
+                <div class="card border-light">
+                    <div class="card-header"><h5>IT Bootcamp</h5></div>
+                    <div class="card-body">
+                      <p class="card-title">
+                        Perkembangan teknologi yang kian pesat merupakan salah satu tantangan yang harus dihadapi oleh 
+                        semua perusahaan  di Indonesia, termasuk Lawencon. Menjawab tantangan ini, Lawencon terus
+                        mengedepankan inovasi agar dapat senantiasa menjadi bank yang dapat diandalkan oleh masyarakat.
+                        Inovasi yang dilakukan Lawencon selama ini membutuhkan dukungan dari semua pihak terutama
+                        bagian IT.</p>
+                        <br>
+                      <p class="card-text">
+                        Open Date : 01-01-2020 &nbsp; Close Date : 02-02-2020
+                      </p><br>
+                      <div>
+                        <button type="button" class="btn btn-outline-info" >Detail</button> &nbsp;
+                        <button type="button" class="btn btn-outline-success">Apply</button>
+                      </div>
+                    </div>
+                    <div class="card-footer">  
+                    </div>
+                </div><br>
+              
+            </p-scrollPanel>
+        </div>
+  
+      </div>
+  
+      <!-- Blank Page -->
+      <div class="ui-g-12 ui-md-6 ui-lg-2"><br>
+      </div>
+<br>
+  </div>
+
 </div>
+
+
+
 
 <!-- Modal Sign Up -->
 <p-dialog id="SignUp" header="Sign Up Lawencon Jobs Poster" [(visible)]="displaysignup" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70" 

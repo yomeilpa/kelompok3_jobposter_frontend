@@ -14,8 +14,12 @@ export class ProfilecandidateComponent implements OnInit {
   work: boolean = false;
   document: boolean = false;
   settings: boolean = false;
+  skill: boolean = false;
   user:any;
 
+  showSkill(){
+    this.skill = true;
+  }
 
   showProfile() {
       this.profile = true;
