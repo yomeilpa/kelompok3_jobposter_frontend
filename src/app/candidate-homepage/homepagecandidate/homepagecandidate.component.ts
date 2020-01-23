@@ -56,6 +56,10 @@ showWarn1(warn:any) {
 }
 
   ngOnInit() {
+    this.regis.store.get("user").subscribe( res => {
+      if(res != null){
+        this.route.navigateByUrl("candidate/dashboard");
+      }})
     this.pros.getProvince();
     this.pros.user.subscribe(res => this.province = res);
 

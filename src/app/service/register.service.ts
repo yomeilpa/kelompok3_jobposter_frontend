@@ -59,9 +59,11 @@ export class RegisterService {
 
   public uploadPhoto(formdata:any,id:any){
     this.user = new Subject<any>();
-    this.http.put<any>(this.apiURL+"/uploadphoto/"+id,formdata).subscribe(res =>{
+    this.http.put<any>(this.apiURL+"/uploadphoto/"+id,formdata,{reportProgress : true}).subscribe(res =>{
       this.data = res;
       this.data1="suc";
+      alert("Succes");
+      
       this.store.get("user").subscribe( res => {
         this.ok = res;
         this.ok.candidate = this.data;

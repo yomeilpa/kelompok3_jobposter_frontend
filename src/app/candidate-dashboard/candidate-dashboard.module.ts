@@ -6,6 +6,7 @@ import { ProfilecandidateComponent } from './profilecandidate/profilecandidate.c
 import { NgPrimeModule } from '../app.ngprime.module';
 import { HttpClientModule } from '@angular/common/http';
 import {ToastModule} from 'primeng/toast';
+import {DropdownModule} from 'primeng/dropdown';
 
 
 
@@ -16,7 +17,8 @@ import {ToastModule} from 'primeng/toast';
     CandidateDashboardRoutingModule,
     NgPrimeModule,
     HttpClientModule,
-    ToastModule
+    ToastModule,
+    DropdownModule
 
   ]
 })

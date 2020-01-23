@@ -56,9 +56,7 @@
                 </div>
               </div>
               <div class="ui-g">
-            </div>
-
-              
+            </div>              
             </div>  
         </div>
         <br>
@@ -110,24 +108,14 @@
                 </div>
               </div>
               <table class="table table-hover">
-                  <tr>
-                    <th scope="row">Bina Nusantara</th>
-                    <td>Bachelor Degree</td>
-                    <td>4.00</td>
-                    <td>2015 - 2019</td>
+                  <tr *ngFor="let item of candEdu">
+                    <td>{{item?.name}}</td>
+                    <td>{{item?.education?.education}}</td>
+                    <td>{{item?.gpa}}</td>
+                    <td>{{item?.mulai}} - {{item?.berakhir}}</td>
                     <td>
-                      <button type="button" class="btn btn-outline-warning btn-sm" (click)="showUpdateEducation()">Update</button> &nbsp;
-                      <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Bina Nusantara</th>
-                    <td>Bachelor Degree</td>
-                    <td>4.00</td>
-                    <td>2015 - 2019</td>
-                    <td>
-                      <button type="button" class="btn btn-outline-warning btn-sm" (click)="showUpdateEducation()">Update</button> &nbsp;
-                      <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                      <a type="button" class="btn btn-outline-warning btn-sm" (click) ="getid(item.id)" >Update</a> &nbsp;
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click) ="delete(item.id)">Delete</button>
                     </td>
                   </tr>
               </table>
@@ -148,22 +136,13 @@
             </div>
 
             <table class="table table-hover">
-              <tr>
-                <th scope="row">Indocyber Teknologi</th>
-                <td>Rp. 17352000</td>
-                <td>2015 - 2019</td>
+              <tr *ngFor="let item of works">
+                <th scope="row">{{item?.name}}</th>
+                <td>{{item?.salary}}</td>
+                <td>{{item?.mulai}} - {{item?.berakhir}}</td>
                 <td>
-                  <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdateWork()">Update</button> &nbsp;
-                  <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">Indocyber Teknologi</th>
-                <td>Rp. 17352000</td>
-                <td>2015 - 2019</td>
-                <td>
-                  <button type="button" class="btn btn-outline-warning btn-sm" (click)="showUpdateWork()">Update</button> &nbsp;
-                  <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                  <button type="button" class="btn btn-outline-warning btn-sm"  (click)="getCdId(item.id)">Update</button> &nbsp;
+                  <button type="button" class="btn btn-outline-danger btn-sm" (click)="deletework(item.id)">Delete</button>
                 </td>
               </tr>
           </table>
@@ -270,7 +249,6 @@
             <label>Full Name</label>
             <input type="text" class="form-control" name="name" [(ngModel)]="cds.name" placeholder="Full Name">
           </div>
-
           <div class="form-group">
             <label for="exampleSelect2">Gender</label>
             <select class="form-control" id="exampleSelect1">
@@ -320,44 +298,34 @@
   
     <div class="form-group">
       <label>Education</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name of University">
+      <input type="email" class="form-control" name="ed.education" [(ngModel)]="ed.name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name of University">
     </div>
 
     <div class="form-group">
-      <label>Level of Education</label>
-      <select class="form-control">
-        <option>Senior High School</option>
-        <option>Diploma 1</option>
-        <option>Diploma 2</option>
-        <option>Diploma 3</option>
-        <option>Diploma 4</option>
-        <option>Bachelor Degree</option>
-        <option>Magister Degree</option>
-        <option>Doctor Degree</option>
-      </select>
+      <p-dropdown [options]="educations" optionLabel="education" name="edlevel" [(ngModel)]="ed.education" placeholder ="Education Level"></p-dropdown>
     </div>
   
     <div class="form-group">
       <label for="exampleInputEmail1">GPA</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="GPA">
+      <input type="email" class="form-control" name="edgpas" [(ngModel)]="ed.gpa" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="GPA">
       <small id="emailHelp" class="form-text text-muted">Scale of 4.00</small>
     </div>
   
     <div class="ui-g-6">
       <div class="form-group">
         <label>Begin Education</label>
-        <input type="month" class="form-control">
+        <input type="date" name="edstart" [(ngModel)]="ed.mulai" class="form-control">
       </div>
     </div>
     <div class="ui-g-6">
       <div class="form-group">
         <label>End Education</label>
-        <input type="month" class="form-control">
+        <input type="date" name="edend" [(ngModel)]="ed.berakhir" class="form-control">
       </div>
     </div>
   </div >
       <p-footer>
-          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Submit"></button>
+          <button type="button" pButton icon="pi pi-check" (click)="addEdu()" label="Submit"></button>
           <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
       </p-footer>
 </p-dialog>
@@ -368,44 +336,33 @@
   
     <div class="form-group">
       <label>Education</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name of University">
+      <input type="email" name="eds" [(ngModel)]="eduid.name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name of University">
     </div>
 
     <div class="form-group">
-      <label>Level of Education</label>
-      <select class="form-control">
-        <option>Senior High School</option>
-        <option>Diploma 1</option>
-        <option>Diploma 2</option>
-        <option>Diploma 3</option>
-        <option>Diploma 4</option>
-        <option>Bachelor Degree</option>
-        <option>Magister Degree</option>
-        <option>Doctor Degree</option>
-      </select>
+      <p>Education Level</p>
+      <p-dropdown [options]="educations" name="level" [(ngModel)]="eduid.education" optionLabel="education" placeholder ="Education Level"></p-dropdown>
     </div>
-  
     <div class="form-group">
       <label for="exampleInputEmail1">GPA</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="GPA">
-      <small id="emailHelp" class="form-text text-muted">Scale of 4.00</small>
+      <input type="text" name="gpa" [(ngModel)]="eduid.gpa"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="GPA">
     </div>
   
     <div class="ui-g-6">
       <div class="form-group">
         <label>Begin Education</label>
-        <input type="month" class="form-control">
+        <input type="date" name="begin" [(ngModel)]="eduid.mulai" class="form-control">
       </div>
     </div>
     <div class="ui-g-6">
       <div class="form-group">
         <label>End Education</label>
-        <input type="month" class="form-control">
+        <input type="date" [(ngModel)]="eduid.berakhir" class="form-control">
       </div>
     </div>
   </div >
       <p-footer>
-          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Submit"></button>
+          <button type="button" pButton icon="pi pi-check" (click)="editedu(eduid.id)" label="Submit"></button>
           <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
       </p-footer>
 </p-dialog>
@@ -416,62 +373,62 @@
 
   <div class="form-group">
     <label for="exampleInputEmail1">Work Experiance</label>
-    <input type="email" class="form-control" placeholder="Company Name">
+    <input type="text" name="companys" [(ngModel)]="wn.name" class="form-control" placeholder="Company Name">
   </div>
 
   <div class="form-group">
     <label for="exampleInputEmail1">Salary</label>
-    <input type="email" class="form-control"  placeholder="Salary">
+    <input type="text" name="salarys" [(ngModel)]="wn.salary" class="form-control"  placeholder="Salary">
   </div>
 
   <div class="ui-g-6">
     <div class="form-group">
       <label>Begin Work</label>
-      <input type="month" class="form-control">
+      <input type="date" name="ends" [(ngModel)]="wn.mulai" class="form-control">
     </div>
   </div>
   <div class="ui-g-6">
     <div class="form-group">
       <label>End Work</label>
-      <input type="month" class="form-control">
+      <input type="date" name="sts" [(ngModel)]="wn.berakhir" class="form-control">
     </div>
   </div>
 </div >
     <p-footer>
-        <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Submit"></button>
+        <button type="button" pButton icon="pi pi-check" (click)="addwork()" label="Submit"></button>
         <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
     </p-footer>
 </p-dialog>
 
 <!-- Update Work Experience -->
 <p-dialog header=" Update Work Experience" [(visible)]="updatework" [modal]="true" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70">
+  <p-toast [style]="{marginTop: '80px'}"  key="tc"></p-toast>
   <div class="ui-g-12">
-  
     <div class="form-group">
       <label for="exampleInputEmail1">Work Experiance</label>
-      <input type="email" class="form-control" placeholder="Company Name">
+      <input type="email" name="we" [(ngModel)]="workcd.name" class="form-control" placeholder="Company Name">
     </div>
   
     <div class="form-group">
       <label for="exampleInputEmail1">Salary</label>
-      <input type="email" class="form-control"  placeholder="Salary">
+      <input type="email" name="salary" [(ngModel)]="workcd.salary" class="form-control"  placeholder="Salary">
     </div>
   
     <div class="ui-g-6">
       <div class="form-group">
         <label>Begin Work</label>
-        <input type="month" class="form-control">
+        <input type="date" name="begin" [(ngModel)]="workcd.mulai" class="form-control">
       </div>
     </div>
     <div class="ui-g-6">
       <div class="form-group">
         <label>End Work</label>
-        <input type="month" class="form-control">
+        <input type="date" name="end" [(ngModel)]="workcd.berakhir" class="form-control">
       </div>
     </div>
   </div >
       <p-footer>
-          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Submit"></button>
+          <button type="button" pButton icon="pi pi-check" (click)="putwork(workcd.id)" label="Submit"></button>
           <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
       </p-footer>
   </p-dialog>
