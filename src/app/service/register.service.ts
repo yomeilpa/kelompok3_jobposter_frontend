@@ -25,22 +25,23 @@ export class RegisterService {
   
 
   registerCandidate(any){
+    this.user = new Subject<any>();
     this.http.post(this.apiURL+"/register",any).subscribe(res =>{
       this.data1 ="succes";
       this.datauser = res;
-      this.user.next(this.data);
+      this.user.next(this.datauser);
     },
     (res) =>
     {
       this.data1 = "gagal";
       this.datauser = res;
-      this.user.next(this.data);
+      this.user.next(this.datauser);
     }
     )
   }
 
   public LoginUser(data:any){
-    
+    this.user = new Subject<any>();
     this.http.post<any>(this.apiURL+"/login",data).subscribe(res =>{
     this.data = res;
     this.data1="suc";
@@ -57,6 +58,7 @@ export class RegisterService {
   }
 
   public uploadPhoto(formdata:any,id:any){
+    this.user = new Subject<any>();
     this.http.put<any>(this.apiURL+"/uploadphoto/"+id,formdata).subscribe(res =>{
       this.data = res;
       this.data1="suc";

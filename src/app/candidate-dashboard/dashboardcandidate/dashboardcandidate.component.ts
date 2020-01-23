@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RegisterService } from 'src/app/service/register.service';
 import { Router } from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';  
+import { MessageService } from 'primeng/api';
+
 
 
 
@@ -9,7 +11,8 @@ import {DomSanitizer} from '@angular/platform-browser';
 @Component({
   selector: 'app-dashboardcandidate',
   templateUrl: './dashboardcandidate.component.html',
-  styleUrls: ['./dashboardcandidate.component.css']
+  styleUrls: ['./dashboardcandidate.component.css'],
+  providers: [MessageService]
 })
 export class DashboardcandidateComponent implements OnInit {
 
@@ -27,8 +30,11 @@ export class DashboardcandidateComponent implements OnInit {
       this.settings = true;
   }
 
-  constructor(private login:RegisterService,private route:Router,private sanitizer:DomSanitizer) { }
+  constructor(private login:RegisterService,private route:Router,private sanitizer:DomSanitizer,private messageService: MessageService) { }
 
+  showWarn(warn:any) {
+    this.messageService.add({severity:'error', summary: 'Error', detail:warn});
+}
   ngOnInit() {
     this.user = this.login.store.get("user").subscribe( res => {
     this.user=res;

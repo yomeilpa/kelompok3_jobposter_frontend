@@ -10,6 +10,7 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 import { HttpClientModule } from '@angular/common/http';
 import {DropdownModule} from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
+import {ToastModule} from 'primeng/toast';
 
 
 
@@ -23,7 +24,8 @@ import {CalendarModule} from 'primeng/calendar';
     AutoCompleteModule,
     HttpClientModule,
     DropdownModule,
-    CalendarModule
+    CalendarModule,
+    ToastModule
   ]
 })
 export class CandidateHomepageModule { }

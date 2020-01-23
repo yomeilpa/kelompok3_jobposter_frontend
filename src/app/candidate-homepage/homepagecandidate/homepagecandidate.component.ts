@@ -5,11 +5,13 @@ import { RegisterService } from 'src/app/service/register.service';
 import { Candidate } from 'src/app/model/candidate';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/model/login';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-homepagecandidate',
   templateUrl: './homepagecandidate.component.html',
-  styleUrls: ['./homepagecandidate.component.css']
+  styleUrls: ['./homepagecandidate.component.css'],
+  providers: [MessageService]
 })
 export class HomepagecandidateComponent implements OnInit {
     images: any[];
@@ -43,8 +45,15 @@ showSuccess() {
   pross:Province[];  
   test:string;
   register:Candidate = new Candidate("","",null,"",null,"","");
-  constructor(private pros:ProvinceService,private regis:RegisterService,private route:Router) { }
+  constructor(private pros:ProvinceService,private regis:RegisterService,private route:Router,private messageService: MessageService) { }
   
+  showWarn(warn:any) {
+    this.messageService.add({key:'tl',severity:'error', summary: 'Error', detail:warn});
+}
+
+showWarn1(warn:any) {
+  this.messageService.add({key:'tc',severity:'warn', summary: 'Error', detail:warn});
+}
 
   ngOnInit() {
     this.pros.getProvince();
@@ -62,20 +71,20 @@ showSuccess() {
     this.regis.user.subscribe(res =>{
       this.user= res;
       if(this.regis.data1 =="gagal"){
-        alert(this.user.error);
-      }
+        this.showWarn1(this.user.error);
+              }
       if(this.regis.data1=="suc"){
         this.route.navigateByUrl("candidate/dashboard");
       }
     })
   }
-
   registerApplicant(){
     this.regis.registerCandidate(this.register);
     this.regis.user.subscribe(res =>{
       this.data = res
       if(this.regis.data1 =="gagal"){
-        alert(this.data.error);
+        
+        this.showWarn(this.data.error);
       }
       if(this.regis.data1=="succes"){
         this.route.navigateByUrl("/candidate/dashboard/")

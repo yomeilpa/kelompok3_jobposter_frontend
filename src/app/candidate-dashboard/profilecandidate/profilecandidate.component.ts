@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { RegisterService } from 'src/app/service/register.service';
 import { Router } from '@angular/router';
 import { Candidate } from 'src/app/model/candidate';
+import { MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-profilecandidate',
   templateUrl: './profilecandidate.component.html',
-  styleUrls: ['./profilecandidate.component.css']
+  styleUrls: ['./profilecandidate.component.css'],
+  providers: [MessageService]
 })
 export class ProfilecandidateComponent implements OnInit {
 
@@ -57,7 +60,11 @@ export class ProfilecandidateComponent implements OnInit {
     this.settings = true;
 }
 
-  constructor(private login:RegisterService,private route:Router) { }
+  constructor(private login:RegisterService,private route:Router,private messageService: MessageService) { }
+
+  showWarn(warn:any) {
+    this.messageService.add({key:'tc',severity:'error', summary: 'Error', detail:warn});
+}
 
   ngOnInit() {
     this.user = this.login.store.get("user").subscribe( res => {
@@ -83,7 +90,7 @@ export class ProfilecandidateComponent implements OnInit {
     this.login.user.subscribe(res =>{
       this.user = res;  
       if(this.login.data1 =="gagal"){
-        alert(this.user.error);
+        this.showWarn(this.user.error);
       }
       if(this.login.data1=="suc"){
         console.log("succes");

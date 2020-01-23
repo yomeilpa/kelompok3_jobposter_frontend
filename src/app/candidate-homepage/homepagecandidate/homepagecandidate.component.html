@@ -1,3 +1,4 @@
+
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
   <img #img src="assets/logolarge.png"> 
@@ -14,6 +15,8 @@
       </form>
   </div>
 </nav>
+
+
 
 <!-- Title -->
 <div class="jumbotron login-panel" style="padding-top: 10px;">
@@ -141,6 +144,7 @@
 <p-messages [(value)]="msgs"></p-messages>
 <br>
 <form>
+  <p-toast [style]="{marginTop: '80px'}"  key="tl"></p-toast>
 <span class="ui-float-label">
     <input id="float-input1" name="fullname" type="text" size="40" [(ngModel)]="register.name" pInputText> 
     <label for="float-input1">Fullname</label>
@@ -209,6 +213,7 @@
 [baseZIndex]="10000">
 <br>
 <form>
+  <p-toast [style]="{marginTop: '80px'}"  key="tc"></p-toast>
 <span class="ui-float-label">
   <input id="float-inpu" name="email" [(ngModel)]="us.username" type="text" size="40" pInputText> 
   <label for="float-inpu">Email</label>

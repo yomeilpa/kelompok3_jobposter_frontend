@@ -5,6 +5,8 @@ import { DashboardcandidateComponent } from './dashboardcandidate/dashboardcandi
 import { ProfilecandidateComponent } from './profilecandidate/profilecandidate.component';
 import { NgPrimeModule } from '../app.ngprime.module';
 import { HttpClientModule } from '@angular/common/http';
+import {ToastModule} from 'primeng/toast';
+
 
 
 @NgModule({
@@ -13,7 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     CandidateDashboardRoutingModule,
     NgPrimeModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastModule
 
   ]
 })
