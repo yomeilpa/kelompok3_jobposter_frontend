@@ -27,6 +27,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { TabViewModule } from 'primeng/tabview';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { FileUploadModule } from 'primeng/fileupload';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { SplitButtonModule } from 'primeng/splitbutton';
         CheckboxModule,
         TabViewModule,
         ScrollPanelModule,
-        SplitButtonModule
+        SplitButtonModule,
+        FileUploadModule
     ]
 })
 export class NgPrimeModule { }

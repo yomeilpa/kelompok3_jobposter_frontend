@@ -13,20 +13,30 @@ import { MessageService } from 'primeng/api';
 })
 export class ProfilecandidateComponent implements OnInit {
 
+  updateprofile: boolean = false;
+  updateeducation: boolean = false;
+  updatework: boolean = false;
+  updatedocument: boolean = false;
+  updateskill: boolean = false;
+
   profile: boolean = false;
   education: boolean = false;
   work: boolean = false;
   document: boolean = false;
-  settings: boolean = false;
   skill: boolean = false;
+
+  settings: boolean = false;
   user:any;
   us:any;
+  imgs:String = "Choose Photo";
   imgSrc:any;
   imageData:any;
   candidate:any;
+  imgss:any = null;
   cds:any = new Candidate("","",null,"",null,"","");
 
   onfileSelected(event){
+    this.imgs = this.imgss.replace(/^.*\\/, "");
     this.us = <File> event.target.files[0];
     if(event.target.files && event.target.files[0]){
       const file = event.target.files[0];
@@ -56,9 +66,25 @@ export class ProfilecandidateComponent implements OnInit {
     this.document = true;
   }
 
-  showDialog() {
+  showSetting() {
     this.settings = true;
-}
+  }
+
+  showUpdateWork(){
+    this.updatework = true;
+  }
+
+  showUpdateEducation(){
+    this.updateeducation = true;
+  }
+
+  showUpdateSkill(){
+    this.updateskill = true;
+  }
+
+  showUpdateDocument(){
+    this.updatedocument = true;
+  }
 
   constructor(private login:RegisterService,private route:Router,private messageService: MessageService) { }
 
@@ -69,14 +95,14 @@ export class ProfilecandidateComponent implements OnInit {
   ngOnInit() {
     this.user = this.login.store.get("user").subscribe( res => {
       this.user=res;
-      this.cds = this.user.candidate;
       if(res == null){
         this.route.navigateByUrl("#");
       }
       else{
         this.candidate = this.user.candidate;
+        this.cds = this.user.candidate;
         if(this.user.candidate.pic == null){
-          this.imageData ="assets/img/team/1.jpg";
+          this.imageData ="assets/img/team/blank.png";
         }
         else{
         this.imageData = 'data:'+this.user.candidate.type+';base64,'+this.user.candidate.pic;   }
@@ -102,8 +128,9 @@ export class ProfilecandidateComponent implements OnInit {
           }
           else{
           this.imageData = 'data:'+this.candidate.type+';base64,'+this.candidate.pic;  
-          this.route.navigateByUrl("#"); 
+          
           }
+this.route.navigateByUrl("#"); 
           
         });
       }

@@ -13,7 +13,7 @@
                 <a class="nav-link" href="candidate/profile">Profile <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link">Setting</a>
+                <a class="nav-link" (click)="showSetting()">Setting</a>
             </li>
           </ul>
           <ul class="navbar-nav ml-auto my-lg-1">
@@ -24,151 +24,221 @@
     </div>
 </nav>
 
-  <!-- Body -->
-  <div class="ui-g">
-    <div class="ui-g-2 ui-md-12 ui-lg-2">
-    </div>
+<!-- Body -->
+<div class="ui-g">
+  <div class="ui-g-2 ui-md-12 ui-lg-2">
+  </div>
 
-    <!--  -->
-    <div class="ui-g-8 ui-g-nopad">
-        <br>
+  <!--  -->
+  <div class="ui-g-8 ui-g-nopad">
+      <br>
 
-        <!--  -->
-        <div class="ui-g-12 ui-md-12 ui-lg-4">
+      <!--  -->
+      <div class="ui-g-12 ui-md-12 ui-lg-4">
 
-          <!-- Photo -->
-          <div class="card">
-              <div class=" card-body" style="text-align:center;">
-                <img style="width: 170px; height: 225px;" [src]="imageData"  alt="Card image">
-              </div>  
-          </div>
-          <br>
-
-          <!-- Profile -->
-          <div class="card border-light">
-            <div class="ui-g card-header">
-              <div class="ui-g-6 ui-md-6 ">
-                <h5 class="pi pi-user">
-                  Profile
-                </h5>
-              </div>
-              <div class="ui-g-2 ui-md-2 ui-md-offset-2">
-                <button type="button" class="btn btn-outline-warning btn-sm" (click)="showProfile()">Update</button>
-              </div>
+        <!-- Photo -->
+        <div class="card" >
+            <div class=" card-body" style="text-align:center;">
+              <img style="width: 170px; height: 240px;" [src]="imageData"  alt="Card image">
             </div>
 
-              <div class="card-body">
-                <p class="card-text">Birth {{user?.candidate?.dob}}</p>
-                <p class="card-text">Gender {{user?.candidate?.gender}}</p>
-                <p class="card-text">{{user?.candidate?.addres}}, {{user?.candidate?.city?.city}}</p>
+            <div class="card-footer">
+              <div class="form-group">
+                <small>
+                  <label>Upload Photo</label>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" [(ngModel)]="imgss" name="foto" (change) ="onfileSelected($event)" id="inputGroupFile02" aria-describedby="fileHelp">  
+                    <label class="custom-file-label" for="inputGroupFile02">{{imgs}}</label>
+                </div>
+                </small><br><br>
+                <div style="text-align: center;">
+                  <button type="button" class="btn btn-outline-secondary" (click)="uploadPhoto()">Upload</button>
+                </div>
               </div>
+              <div class="ui-g">
+            </div>
 
-              <div class="card-footer">
-                <p class="card-text">{{user?.candidate?.phone}}</p>
-                <p class="card-text">{{user?.candidate?.email}}</p>
-              </div>
+              
+            </div>  
+        </div>
+        <br>
 
+        <!-- Profile -->
+        <div class="card border-light">
+          <div class="ui-g card-header">
+            <div class="ui-g-6 ui-md-6 ">
+              <h5 class="pi pi-user">
+                Profile
+              </h5>
+            </div>
+            <div class="ui-g-2 ui-md-2 ui-md-offset-2">
+              <button type="button" class="btn btn-outline-warning btn-sm" (click)="showProfile()">Update</button>
+            </div>
           </div>
+
+            <div class="card-body">
+              <p class="card-text">Birth {{user?.candidate?.dob}}</p>
+              <p class="card-text">Gender {{user?.candidate?.gender}}</p>
+              <p class="card-text">{{user?.candidate?.addres}}, {{user?.candidate?.city?.city}}</p>
+            </div>
+
+            <div class="card-footer">
+              <p class="card-text">{{user?.candidate?.phone}}</p>
+              <p class="card-text">{{user?.candidate?.email}}</p>
+            </div>
 
         </div>
 
-        <!-- Name User -->
-        <div class="ui-g-12 ui-md-12 ui-lg-8">
-            <br>
-            <h1 class="display-3" style="text-align:center;">{{user?.candidate?.name}}</h1>
-            <br>
+      </div>
 
-            <!-- Education -->
-            <div class="card border-light">
-                <div class="ui-g card-header">
-                  <div class="ui-g-12 ui-md-4 ">
-                    <h5 class="pi pi-user">
-                      Education
-                    </h5>
-                  </div>
-                  <div class="ui-g-12 ui-md-2 ui-md-offset-6">
-                    <button type="button" class="btn btn-outline-warning btn-sm" (click)="showEducation()">Update</button>
-                  </div>
-                </div>
+      <!-- Name User -->
+      <div class="ui-g-12 ui-md-12 ui-lg-8">
+          <br>
+          <h1 class="display-3" style="text-align:center;">{{user?.candidate?.name}}</h1>
+          <br>
 
-                <div class="card-body">
-                  <p class="card-text">SMA 79 Jakarta Selatan</p>
-                  <p class="card-text">S1 Bina Nusantara Teknik Informatika</p>
-                </div>
-            </div>
-            <br>
-
-            <!-- Work Experince -->
-            <div class="card border-light">
-              <div class="ui-g card-header">
-                <div class="ui-g-12 ui-md-5 ">
-                  <h5 class="pi pi-user">
-                    Work Experience
-                  </h5>
-                </div>
-                <div class="ui-g-12 ui-md-2 ui-md-offset-5">
-                  <button type="button" class="btn btn-outline-warning btn-sm" (click)="showWork()">Update</button>
-                </div>
-              </div>
-
-              <div class="card-body">
-                <h4 class="card-title">Update Your Work Experience</h4>
-              </div>
-            </div>
-            <br>
-
-            <!-- Document -->
-            <div class="card border-light">
+          <!-- Education -->
+          <div class="card border-light">
               <div class="ui-g card-header">
                 <div class="ui-g-12 ui-md-4 ">
                   <h5 class="pi pi-user">
-                    Document
+                    Education
                   </h5>
                 </div>
                 <div class="ui-g-12 ui-md-2 ui-md-offset-6">
-                  <button type="button" class="btn btn-outline-warning btn-sm" (click)="showProfile()">Update</button>
+                  <button type="button" class="btn btn-outline-info btn-sm" (click)="showEducation()">Add Education</button>
                 </div>
               </div>
+              <table class="table table-hover">
+                  <tr>
+                    <th scope="row">Bina Nusantara</th>
+                    <td>Bachelor Degree</td>
+                    <td>4.00</td>
+                    <td>2015 - 2019</td>
+                    <td>
+                      <button type="button" class="btn btn-outline-warning btn-sm" (click)="showUpdateEducation()">Update</button> &nbsp;
+                      <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Bina Nusantara</th>
+                    <td>Bachelor Degree</td>
+                    <td>4.00</td>
+                    <td>2015 - 2019</td>
+                    <td>
+                      <button type="button" class="btn btn-outline-warning btn-sm" (click)="showUpdateEducation()">Update</button> &nbsp;
+                      <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                    </td>
+                  </tr>
+              </table>
+          </div>
+          <br>
 
-              <div class="card-body">
-                <h4 class="card-title">Update Your Document</h4>
+          <!-- Work Experince -->
+          <div class="card border-light">
+            <div class="ui-g card-header">
+              <div class="ui-g-12 ui-md-5 ">
+                <h5 class="pi pi-user">
+                  Work Experience
+                </h5>
+              </div>
+              <div class="ui-g-12 ui-md-2 ui-md-offset-5">
+                <button type="button" class="btn btn-outline-info btn-sm" (click)="showWork()">Add Work Experience</button>
               </div>
             </div>
-            <br>
 
-            <!-- SKill -->
-            <div class="card border-light">
-              <div class="ui-g card-header">
-                <div class="ui-g-12 ui-md-4 ">
-                  <h5 class="pi pi-user">
-                  Skill
-                  </h5>
-                </div>
+            <table class="table table-hover">
+              <tr>
+                <th scope="row">Indocyber Teknologi</th>
+                <td>Rp. 17352000</td>
+                <td>2015 - 2019</td>
+                <td>
+                  <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdateWork()">Update</button> &nbsp;
+                  <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Indocyber Teknologi</th>
+                <td>Rp. 17352000</td>
+                <td>2015 - 2019</td>
+                <td>
+                  <button type="button" class="btn btn-outline-warning btn-sm" (click)="showUpdateWork()">Update</button> &nbsp;
+                  <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                </td>
+              </tr>
+          </table>
+          </div>
+          <br>
+
+          <!-- Document -->
+          <div class="card border-light">
+            <div class="ui-g card-header">
+              <div class="ui-g-12 ui-md-4 ">
+                <h5 class="pi pi-user">
+                  Document
+                </h5>
+              </div>
               <div class="ui-g-12 ui-md-2 ui-md-offset-6">
-                <button type="button" class="btn btn-outline-warning btn-sm" (click)="showSkill()">Update</button>
+                <button type="button" class="btn btn-outline-info btn-sm" (click)="showProfile()">Add Document</button>
               </div>
-              </div>
+            </div>
+            <div class="ui-g card-body">
+              <h4>Update Your Documents</h4>
+            </div>
+          </div>
+          <br>
 
+          <!-- SKill -->
+          <div class="card border-light">
+            <div class="ui-g card-header">
+              <div class="ui-g-12 ui-md-4 ">
+                <h5 class="pi pi-user">
+                Skill
+                </h5>
+              </div>
+            <div class="ui-g-12 ui-md-2 ui-md-offset-6">
+              <button type="button" class="btn btn-outline-info btn-sm" (click)="showSkill()">Add Skill</button>
+            </div>
+            </div>
+
+            <div class="card-body">
               <div class="card-body">
-                <h4 class="card-title">Update Your SKill</h4>
-              </div>
-              </div>
-            <br>
+              <table class="table table-hover">
+                <tr>
+                  <th scope="row">Angular</th>
+                  <td>Beginner</td>
+                  <td>
+                    <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdateSkill()">Update</button> &nbsp;
+                    <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Angular</th>
+                  <td>Beginner</td>
+                  <td>
+                    <button type="button" class="btn btn-outline-warning btn-sm" (click)="showUpdateSkill()">Update</button> &nbsp;
+                    <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                  </td>
+                </tr>
+            </table>
+            </div>
+            </div>
+          </div>
+          <br>
 
-        </div>
+      </div>
 
-        <!--  -->
-        <div class="ui-g-12">
-        </div>
-
-    </div>
-    <!--  -->
-
-    <div class="ui-g-2">
-    </div>
+      <!--  -->
+      <div class="ui-g-12">
+      </div>
 
   </div>
+  <!--  -->
 
+  <div class="ui-g-2">
+  </div>
+
+</div>
 
 <!-- Show Dialog -->
 <!-- Password -->
@@ -233,12 +303,6 @@
             <input name="dob" [(ngModel)]="cds.dob" type="date" class="form-control">
           </div>
 
-          <div class="form-group">
-            <label for="exampleInputFile">Upload Photo</label>
-            <input type="file" class="form-control-file" name="foto" (change) ="onfileSelected($event)" id="exampleInputFile" aria-describedby="fileHelp">
-            <small id="fileHelp" class="form-text text-muted">Photo yang diharapkan adalah foto yang bagus dan enak diliat</small>
-          </div>
-
     </div>
 </div>
 
@@ -248,13 +312,29 @@
     </p-footer>
 </p-dialog>
 
+
+
 <!-- Education -->
 <p-dialog header="Education" [(visible)]="education" [modal]="true" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70">
   <div class="ui-g-12">
   
     <div class="form-group">
-      <label for="exampleInputEmail1">Education</label>
+      <label>Education</label>
       <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name of University">
+    </div>
+
+    <div class="form-group">
+      <label>Level of Education</label>
+      <select class="form-control">
+        <option>Senior High School</option>
+        <option>Diploma 1</option>
+        <option>Diploma 2</option>
+        <option>Diploma 3</option>
+        <option>Diploma 4</option>
+        <option>Bachelor Degree</option>
+        <option>Magister Degree</option>
+        <option>Doctor Degree</option>
+      </select>
     </div>
   
     <div class="form-group">
@@ -280,7 +360,55 @@
           <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Submit"></button>
           <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
       </p-footer>
-  </p-dialog>
+</p-dialog>
+
+<!-- Update Education -->
+<p-dialog header="Update Education" [(visible)]="updateeducation" [modal]="true" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70">
+  <div class="ui-g-12">
+  
+    <div class="form-group">
+      <label>Education</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name of University">
+    </div>
+
+    <div class="form-group">
+      <label>Level of Education</label>
+      <select class="form-control">
+        <option>Senior High School</option>
+        <option>Diploma 1</option>
+        <option>Diploma 2</option>
+        <option>Diploma 3</option>
+        <option>Diploma 4</option>
+        <option>Bachelor Degree</option>
+        <option>Magister Degree</option>
+        <option>Doctor Degree</option>
+      </select>
+    </div>
+  
+    <div class="form-group">
+      <label for="exampleInputEmail1">GPA</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="GPA">
+      <small id="emailHelp" class="form-text text-muted">Scale of 4.00</small>
+    </div>
+  
+    <div class="ui-g-6">
+      <div class="form-group">
+        <label>Begin Education</label>
+        <input type="month" class="form-control">
+      </div>
+    </div>
+    <div class="ui-g-6">
+      <div class="form-group">
+        <label>End Education</label>
+        <input type="month" class="form-control">
+      </div>
+    </div>
+  </div >
+      <p-footer>
+          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Submit"></button>
+          <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
+      </p-footer>
+</p-dialog>
   
 <!-- Work Experience -->
 <p-dialog header="Work Experience" [(visible)]="work" [modal]="true" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70">
@@ -315,11 +443,62 @@
     </p-footer>
 </p-dialog>
 
+<!-- Update Work Experience -->
+<p-dialog header=" Update Work Experience" [(visible)]="updatework" [modal]="true" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70">
+  <div class="ui-g-12">
+  
+    <div class="form-group">
+      <label for="exampleInputEmail1">Work Experiance</label>
+      <input type="email" class="form-control" placeholder="Company Name">
+    </div>
+  
+    <div class="form-group">
+      <label for="exampleInputEmail1">Salary</label>
+      <input type="email" class="form-control"  placeholder="Salary">
+    </div>
+  
+    <div class="ui-g-6">
+      <div class="form-group">
+        <label>Begin Work</label>
+        <input type="month" class="form-control">
+      </div>
+    </div>
+    <div class="ui-g-6">
+      <div class="form-group">
+        <label>End Work</label>
+        <input type="month" class="form-control">
+      </div>
+    </div>
+  </div >
+      <p-footer>
+          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Submit"></button>
+          <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
+      </p-footer>
+  </p-dialog>
+
 <!-- Document -->
 <p-dialog header="Document" [(visible)]="document" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
- 
- 
+  <div class="form-group">
+    <label>Document </label>
+    <input type="password" class="form-control"  placeholder="Old Password">
+  </div>
+  <div class="form-group">
+    <label>New Password </label>
+    <input type="password" class="form-control"  placeholder="New Password">
+  </div>
+  <div class="form-group">
+    <label>Confrim New Password </label>
+    <input type="password" class="form-control"  placeholder="Confrm New Password">
+  </div>
 
+      <p-footer>
+          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
+          <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+      </p-footer>
+</p-dialog>
+
+<!-- Update Document -->
+<p-dialog header=" Update Document" [(visible)]="updatedocument" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
   <div class="form-group">
     <label>Document </label>
     <input type="password" class="form-control"  placeholder="Old Password">
@@ -341,6 +520,26 @@
 
 <!-- Skill -->
 <p-dialog header="Skill" [(visible)]="skill" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
+  <div class="form-group">
+    <label>Skill Name</label>
+    <input type="text" class="form-control"  placeholder="Skill Name">
+  </div>
+  <div class="form-group">
+    <label>Skill Level</label>
+    <select class="form-control">
+      <option>Beginner</option>
+      <option>Intermediate</option>
+      <option>Expert</option>
+    </select>
+  </div>
+      <p-footer>
+          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
+          <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+      </p-footer>
+</p-dialog>
+
+<!-- Update Skill -->
+<p-dialog header="Update Skill" [(visible)]="updateskill" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
   <div class="form-group">
     <label>Skill Name</label>
     <input type="text" class="form-control"  placeholder="Skill Name">
