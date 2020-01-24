@@ -139,12 +139,25 @@
 </div>
 
 <!-- Modal Sign Up -->
-<p-dialog id="SignUp" header="Sign Up Lawencon Jobs Poster" [(visible)]="displaysignup" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70" 
+<p-dialog id="SignUp" header="Sign Up Lawencon Jobs Poster" [(visible)]="displaysignup" [modal]="true" [responsive]="true"  [style]="{width: 'auto', minWidth: '200px'}" [minY]="70" 
 [baseZIndex]="10000">
 <p-messages [(value)]="msgs"></p-messages>
 <br>
 <form>
-  <p-toast [style]="{marginTop: '80px'}"  key="tl"></p-toast>
+  <p-toast [style]="{marginTop: '80px'}"  key="tc"></p-toast>
+  <p-toast position="center" key="tl" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <h3>{{message.summary}}</h3>
+            <p style="font-size: 12pt;">{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+                <a type="button" style="text-align: center;" pButton href="/" label="Yes" class="ui-button-success"></a>
+            
+        </div>
+    </ng-template>
+</p-toast>
+
 <span class="ui-float-label">
     <input id="float-input1" name="fullname" type="text" size="40" [(ngModel)]="register.name" pInputText> 
     <label for="float-input1">Fullname</label>
@@ -169,7 +182,8 @@
 
 <br>
 <span class="ui-float-label">
-  <input id="float-inpu2" type="date" size="40" pInputText name="date" [(ngModel)]="register.dob"> 
+  <p style="font-size: 15pt;">Date Of Birth</p>
+  <p-calendar name="dob" [monthNavigator]="true" [yearNavigator]="true" yearRange="1800:2030" [inline]="true" [(ngModel)]="register.dob"></p-calendar>
 </span>
 <br>
 <span class="ui-float-label">
@@ -179,7 +193,7 @@
 
 <br>
 <span class="ui-float-label">
-  <p-dropdown placeholder="Select a Province" [options]="province" name="provinsi" [(ngModel)]="provinsi" filter="true" optionLabel ="province" [showClear]="true"> 
+  <p-dropdown [placeholder]="ps" [options]="province" name="provinsi" [(ngModel)]="provinsi" (click)="proNull()" (change)="getCity()" filter="true" optionLabel ="province" [showClear]="true"> 
 </p-dropdown>  
 </span>
 

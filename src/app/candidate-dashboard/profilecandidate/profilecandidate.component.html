@@ -43,18 +43,23 @@
             </div>
 
             <div class="card-footer">
-              <div class="form-group">
-                <small>
-                  <label>Upload Photo</label>
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" [(ngModel)]="imgss" name="foto" (change) ="onfileSelected($event)" id="inputGroupFile02" aria-describedby="fileHelp">  
-                    <label class="custom-file-label" for="inputGroupFile02">{{imgs}}</label>
-                </div>
-                </small><br><br>
-                <div style="text-align: center;">
-                  <button type="button" class="btn btn-outline-secondary" (click)="uploadPhoto()">Upload</button>
-                </div>
-              </div>
+              <p-accordion>
+                <p-accordionTab header="Upload Photo">
+                  <div class="form-group">
+
+                      <label>Upload Photo</label>
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" [(ngModel)]="imgss" name="foto" (change) ="onfileSelected($event)" id="inputGroupFile02" aria-describedby="fileHelp">  
+                        <label class="custom-file-label" for="inputGroupFile02">{{imgs}}</label>
+                    </div>
+                      <br><br>
+                    <div style="text-align: center;">
+                      <button type="button" class="btn btn-outline-secondary" (click)="uploadPhoto()">Upload</button>
+                    </div>
+                  </div>
+                </p-accordionTab>
+            </p-accordion>
+
               <div class="ui-g">
             </div>              
             </div>  
@@ -75,9 +80,11 @@
           </div>
 
             <div class="card-body">
-              <p class="card-text">Birth {{user?.candidate?.dob}}</p>
-              <p class="card-text">Gender {{user?.candidate?.gender}}</p>
-              <p class="card-text">{{user?.candidate?.addres}}, {{user?.candidate?.city?.city}}</p>
+              <p>Birth {{user?.candidate?.dob}}</p>
+              <p>Gender {{user?.candidate?.gender}}</p>
+              <p>{{user?.candidate?.addres}}</p>
+              <p>{{user?.candidate?.city?.city}}</p>
+              <p>{{user?.candidate?.city?.province?.province}}</p>
             </div>
 
             <div class="card-footer">
@@ -138,6 +145,7 @@
             <table class="table table-hover">
               <tr *ngFor="let item of works">
                 <th scope="row">{{item?.name}}</th>
+                <td>{{item?.position}}</td>
                 <td>{{item?.salary}}</td>
                 <td>{{item?.mulai}} - {{item?.berakhir}}</td>
                 <td>
@@ -158,11 +166,19 @@
                 </h5>
               </div>
               <div class="ui-g-12 ui-md-2 ui-md-offset-6">
-                <button type="button" class="btn btn-outline-info btn-sm" (click)="showProfile()">Add Document</button>
+                <button type="button" class="btn btn-outline-info btn-sm" (click)="showDocument()">Add Document</button>
               </div>
             </div>
             <div class="ui-g card-body">
-              <h4>Update Your Documents</h4>
+              <table class="table table-hover">
+                <tr>
+                  <th scope="row">KTP</th>
+                  <td>
+                    <button type="button" class="btn btn-outline-warning btn-sm" (click)="showUpdateDocument()" >Update</button> &nbsp;
+                    <button type="button" class="btn btn-outline-danger btn-sm" >Delete</button>
+                  </td>
+                </tr>
+            </table>
             </div>
           </div>
           <br>
@@ -183,20 +199,12 @@
             <div class="card-body">
               <div class="card-body">
               <table class="table table-hover">
-                <tr>
-                  <th scope="row">Angular</th>
-                  <td>Beginner</td>
+                <tr *ngFor="let item of skillcd">
+                  <th scope="row">{{item?.skillname}}</th>
+                  <td>{{item?.level?.level}}</td>
                   <td>
-                    <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdateSkill()">Update</button> &nbsp;
-                    <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Angular</th>
-                  <td>Beginner</td>
-                  <td>
-                    <button type="button" class="btn btn-outline-warning btn-sm" (click)="showUpdateSkill()">Update</button> &nbsp;
-                    <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                    <button type="button" class="btn btn-outline-warning btn-sm"  (click)="getSkillbyid(item.id)">Update</button> &nbsp;
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteSkill(item.id)">Delete</button>
                   </td>
                 </tr>
             </table>
@@ -250,16 +258,26 @@
             <input type="text" class="form-control" name="name" [(ngModel)]="cds.name" placeholder="Full Name">
           </div>
           <div class="form-group">
-            <label for="exampleSelect2">Gender</label>
-            <select class="form-control" id="exampleSelect1">
-              <option>Woman</option>
-              <option>Man</option>
-            </select>
+            <p-radioButton name="groupname" value="Laki-Laki" label=" Male " [(ngModel)]="cds.gender"></p-radioButton>
+            <p-radioButton name="groupname" value="Perempuan" label=" Female " [(ngModel)]="cds.gender"></p-radioButton>
+          
           </div>
+
+          <br>
+          <span class="ui-float-label">
+            <p-dropdown [placeholder]="ps" [options]="province" name="provinsi" [(ngModel)]="provinsi" (click)="proNull()" optionLabel ="province" [showClear]="true"> 
+          </p-dropdown>  
+          </span>
+          
+          <br>
+          <span class="ui-float-label">
+            <p-dropdown [placeholder]="cs" [options]="city" name="ashkah" [(ngModel)]="cds.city" (click)="getCity()" optionLabel ="city" [showClear]="true">
+          </p-dropdown>  
+          </span>
 
           <div class="form-group">
             <label for="exampleTextarea">Address</label>
-            <textarea name="addres" [(ngModel)]="cds.addres  " class="form-control" id="exampleTextarea" rows="3"></textarea>
+            <textarea name="addres" [(ngModel)]="cds.addres" class="form-control" id="exampleTextarea" rows="3"></textarea>
           </div>
           
     </div>
@@ -280,17 +298,14 @@
             <label>Date of Birth</label>
             <input name="dob" [(ngModel)]="cds.dob" type="date" class="form-control">
           </div>
-
     </div>
 </div>
 
     <p-footer>
-        <button type="button" pButton icon="pi pi-check" (click)="uploadPhoto()"  label="Submit"></button>
+        <button type="button" pButton icon="pi pi-check" (click)="update()"  label="Submit"></button>
         <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
     </p-footer>
 </p-dialog>
-
-
 
 <!-- Education -->
 <p-dialog header="Education" [(visible)]="education" [modal]="true" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70">
@@ -377,6 +392,11 @@
   </div>
 
   <div class="form-group">
+    <label for="exampleInputEmail1">Positions</label>
+    <input type="text" name="positions" [(ngModel)]="wn.position" class="form-control" placeholder="Positions">
+  </div>
+
+  <div class="form-group">
     <label for="exampleInputEmail1">Salary</label>
     <input type="text" name="salarys" [(ngModel)]="wn.salary" class="form-control"  placeholder="Salary">
   </div>
@@ -408,7 +428,12 @@
       <label for="exampleInputEmail1">Work Experiance</label>
       <input type="email" name="we" [(ngModel)]="workcd.name" class="form-control" placeholder="Company Name">
     </div>
-  
+
+    <div class="form-group">
+      <label for="exampleInputEmail1">Positions</label>
+      <input type="text" name="positionsss" [(ngModel)]="workcd.position" class="form-control" placeholder="Positions">
+    </div>
+
     <div class="form-group">
       <label for="exampleInputEmail1">Salary</label>
       <input type="email" name="salary" [(ngModel)]="workcd.salary" class="form-control"  placeholder="Salary">
@@ -436,18 +461,22 @@
 <!-- Document -->
 <p-dialog header="Document" [(visible)]="document" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
   <div class="form-group">
-    <label>Document </label>
-    <input type="password" class="form-control"  placeholder="Old Password">
+    <label for="exampleSelect2">Type Document</label>
+    <select class="form-control" id="exampleSelect1">
+      <option>KTP</option>
+      <option>SIM</option>
+      <option>Ijazah</option>
+      <option>Kartu Keluarga</option>
+    </select>
   </div>
   <div class="form-group">
-    <label>New Password </label>
-    <input type="password" class="form-control"  placeholder="New Password">
-  </div>
-  <div class="form-group">
-    <label>Confrim New Password </label>
-    <input type="password" class="form-control"  placeholder="Confrm New Password">
-  </div>
 
+      <label>Upload Document</label>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input"  name="doc" id="inputGroupFile02" aria-describedby="fileHelp">  
+        <label class="custom-file-label" for="inputGroupFile02">{{imgs}}</label>
+    </div>
+  </div>
       <p-footer>
           <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
           <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
@@ -455,20 +484,24 @@
 </p-dialog>
 
 <!-- Update Document -->
-<p-dialog header=" Update Document" [(visible)]="updatedocument" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
+<p-dialog header="Update Document" [(visible)]="updatedocument" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
   <div class="form-group">
-    <label>Document </label>
-    <input type="password" class="form-control"  placeholder="Old Password">
+    <label for="exampleSelect2">Type Document</label>
+    <select class="form-control" id="exampleSelect1">
+      <option>KTP</option>
+      <option>SIM</option>
+      <option>Ijazah</option>
+      <option>Kartu Keluarga</option>
+    </select>
   </div>
   <div class="form-group">
-    <label>New Password </label>
-    <input type="password" class="form-control"  placeholder="New Password">
-  </div>
-  <div class="form-group">
-    <label>Confrim New Password </label>
-    <input type="password" class="form-control"  placeholder="Confrm New Password">
-  </div>
 
+      <label>Upload Document</label>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input"  name="doc" id="inputGroupFile02" aria-describedby="fileHelp">  
+        <label class="custom-file-label" for="inputGroupFile02">{{imgs}}</label>
+    </div>
+  </div>
       <p-footer>
           <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
           <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
@@ -479,38 +512,31 @@
 <p-dialog header="Skill" [(visible)]="skill" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
   <div class="form-group">
     <label>Skill Name</label>
-    <input type="text" class="form-control"  placeholder="Skill Name">
+    <input type="text" class="form-control" name="sks" [(ngModel)]="newSkill.skillname"  placeholder="Skill Name">
   </div>
+ 
   <div class="form-group">
-    <label>Skill Level</label>
-    <select class="form-control">
-      <option>Beginner</option>
-      <option>Intermediate</option>
-      <option>Expert</option>
-    </select>
+    <p-dropdown [options]="level" optionLabel="level" name="lvzsd" [(ngModel)]="newSkill.level"  placeholder ="Skill Level"></p-dropdown>
   </div>
+
       <p-footer>
-          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
+          <button type="button" pButton icon="pi pi-check" (click)="addSkill()" label="Yes"></button>
           <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
       </p-footer>
 </p-dialog>
 
 <!-- Update Skill -->
 <p-dialog header="Update Skill" [(visible)]="updateskill" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
+  <p-toast [style]="{marginTop: '80px'}"  key="tc"></p-toast>
   <div class="form-group">
     <label>Skill Name</label>
-    <input type="text" class="form-control"  placeholder="Skill Name">
+    <input type="text" class="form-control" name="skull" [(ngModel)]="cdSkill.skillname" placeholder="Skill Name">
   </div>
-  <div class="form-group">
-    <label>Skill Level</label>
-    <select class="form-control">
-      <option>Beginner</option>
-      <option>Intermediate</option>
-      <option>Expert</option>
-    </select>
+ <div class="form-group">
+    <p-dropdown [options]="level" optionLabel="level" name="lvs" [(ngModel)]="cdSkill.level"  placeholder ="Skill Level"></p-dropdown>
   </div>
       <p-footer>
-          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
+          <button type="button" pButton icon="pi pi-check" (click)="putSkill(cdSkill.id)" label="Yes"></button>
           <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
       </p-footer>
 </p-dialog>

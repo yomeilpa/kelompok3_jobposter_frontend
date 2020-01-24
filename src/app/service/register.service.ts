@@ -40,6 +40,8 @@ export class RegisterService {
     )
   }
 
+  
+
   public LoginUser(data:any){
     this.user = new Subject<any>();
     this.http.post<any>(this.apiURL+"/login",data).subscribe(res =>{
@@ -60,6 +62,29 @@ export class RegisterService {
   public uploadPhoto(formdata:any,id:any){
     this.user = new Subject<any>();
     this.http.put<any>(this.apiURL+"/uploadphoto/"+id,formdata,{reportProgress : true}).subscribe(res =>{
+      this.data = res;
+      this.data1="suc";
+      alert("Succes");
+      
+      this.store.get("user").subscribe( res => {
+        this.ok = res;
+        this.ok.candidate = this.data;
+        this.store.set("user",this.ok).subscribe(() => {});        
+      })
+      
+      
+      },
+      (ress) =>{
+        this.data1 ="gagal";
+        this.data= ress;
+        this.user.next(this.data);
+  
+      })
+  }
+
+  public updateCandidate(formdata:any,id:any){
+    this.user = new Subject<any>();
+    this.http.put<any>(this.apiURL+"/update/"+id,formdata).subscribe(res =>{
       this.data = res;
       this.data1="suc";
       alert("Succes");

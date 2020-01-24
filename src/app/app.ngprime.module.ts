@@ -28,6 +28,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { FileUploadModule } from 'primeng/fileupload';
+import { AccordionModule } from 'primeng/accordion';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { FileUploadModule } from 'primeng/fileupload';
         TabViewModule,
         ScrollPanelModule,
         SplitButtonModule,
-        FileUploadModule
+        FileUploadModule,
+        AccordionModule
     ]
 })
 export class NgPrimeModule { }

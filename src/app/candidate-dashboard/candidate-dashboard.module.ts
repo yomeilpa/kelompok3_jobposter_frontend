@@ -7,6 +7,7 @@ import { NgPrimeModule } from '../app.ngprime.module';
 import { HttpClientModule } from '@angular/common/http';
 import {ToastModule} from 'primeng/toast';
 import {DropdownModule} from 'primeng/dropdown';
+import {RadioButtonModule} from 'primeng/radiobutton';
 
 
 
@@ -18,7 +19,8 @@ import {DropdownModule} from 'primeng/dropdown';
     NgPrimeModule,
     HttpClientModule,
     ToastModule,
-    DropdownModule
+    DropdownModule,
+    RadioButtonModule
 
   ]
 })

@@ -23,14 +23,15 @@ export class HomepagecandidateComponent implements OnInit {
     kota:any;
     checked: boolean = false;
     data:any;
-    user:any;
+    user:any
+    ps:any = "Choose Province";
 
 showDialogSignIn() {
   this.displaysignin = true; 
   }
 
 showDialogSignUp() {
-  this.displaysignup = true; 
+  this.displaysignup =!this.displaysignup; 
 }
 
 showSuccess() {
@@ -51,6 +52,9 @@ showSuccess() {
     this.messageService.add({key:'tl',severity:'error', summary: 'Error', detail:warn});
 }
 
+showSucces(warn:any) {
+  this.messageService.add({key: 'tl', sticky: true, severity:'success', summary:warn, detail:'Please Check Your Email for your Password to Login '});
+}
 showWarn1(warn:any) {
   this.messageService.add({key:'tc',severity:'warn', summary: 'Error', detail:warn});
 }
@@ -60,15 +64,22 @@ showWarn1(warn:any) {
       if(res != null){
         this.route.navigateByUrl("candidate/dashboard");
       }})
+  }
+  proNull(){
+    this.ps === 'Choose Province';
     this.pros.getProvince();
     this.pros.user.subscribe(res => this.province = res);
-
-    
   }
+
   getCity(){
     this.pros.getCity(this.provinsi.province);
-    this.pros.user.subscribe(res => this.city = res);
+    this.pros.user.subscribe(res => {this.city = res
+    this.ps = this.provinsi.province});
   }
+  getClearCity(){
+    this.city == null;
+  }
+
 
   loginuser(){
     this.regis.LoginUser(this.us);
@@ -88,11 +99,10 @@ showWarn1(warn:any) {
       this.data = res
       if(this.regis.data1 =="gagal"){
         
-        this.showWarn(this.data.error);
+        this.showWarn1(this.data.error);
       }
       if(this.regis.data1=="succes"){
-        this.route.navigateByUrl("/candidate/dashboard/")
-        alert("register succes")
+        this.showSucces("Register Succes")
         
       }
     })
