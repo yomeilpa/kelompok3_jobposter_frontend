@@ -48,6 +48,7 @@ export class ProfilecandidateComponent implements OnInit {
   skill: boolean = false;
   ok:any;
   settings: boolean = false;
+  pdf:boolean = false;
   user:any;
   us:any;
   educations:any;
@@ -79,19 +80,16 @@ export class ProfilecandidateComponent implements OnInit {
   req:any;
   req1:any = new Doctype(null,null,null,null);
   cddoc:any = new CandidateDocument(null,null,null,null);
-  pdf:any;
   constructor(private http:HttpClient, private dts:DoctypeService, private pros:ProvinceService,private sk:SkillService, private ws:WorkexperienceService, private edss:EducationService, private login:RegisterService,private route:Router,private messageService: MessageService) { }
 
   openPdf(){
-    let pdfWindow = window;
-    pdfWindow.document.write("<iframe width='100%' height='100%' src='data:"+this.cds.type+";base64, " + encodeURI(this.cds.pic)+"'></iframe>")    
-    pdfWindow.document.open
-    //window.open("data:application/octet-stream;charset=utf-16le;base64,"+this.cds.pic); 
+    // this.pdf = !this.pdf;
+//     window.open("data:application/octet-stream;charset=utf-16le;base64,"+this.cds.pic); 
 
-//     let a = document.createElement("a");
-//     a.href = "data:"+this.cds.type+";base64,"+this.cds.pic;
-//     a.download = this.cds.filename;
-//     a.click();
+    let a = document.createElement("a");
+    a.href = "data:"+this.cds.type+";base64,"+this.cds.pic;
+    a.download = this.cds.filename;
+    a.click();
 
 // let x=window.open('about:whatever');  
 // let iframe=x.document.createElement('iframe')
@@ -100,6 +98,7 @@ export class ProfilecandidateComponent implements OnInit {
 // iframe.src=this.imageData;
 // x.document.body.appendChild(iframe)
   }
+  
   ngOnInit() {
     
     this.user = this.login.store.get("user").subscribe( res => {

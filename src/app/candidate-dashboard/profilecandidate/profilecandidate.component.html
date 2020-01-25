@@ -184,7 +184,7 @@
             <div class="ui-g card-body">
               <p style="color:green;">Additional Document</p>
               <table class="table table-hover">
-                <tr *ngFor="let item of req">
+                <tr *ngFor="let item of cek">
                   <td>{{item?.typename}}</td>
                   <td>
                     <button type="button" class="btn btn-outline-warning btn-sm" (click)="showUpdateDocument()" >Update</button> &nbsp;
@@ -278,13 +278,13 @@
 
           <br>
           <span class="ui-float-label">
-            <p-dropdown [placeholder]="ps" [options]="province" name="provinsi" [(ngModel)]="provinsi" (click)="proNull()" optionLabel ="province" [showClear]="true"> 
+            <p-dropdown [placeholder]="ps" [options]="province" name="provinsi" [filter]="true" [(ngModel)]="provinsi" (click)="proNull()" optionLabel ="province" [showClear]="true"> 
           </p-dropdown>  
           </span>
           
           <br>
           <span class="ui-float-label">
-            <p-dropdown [placeholder]="cs" [options]="city" name="ashkah" [(ngModel)]="cds.city" (click)="getCity()" optionLabel ="city" [showClear]="true">
+            <p-dropdown [placeholder]="cs" [filter]="true" [options]="city" name="ashkah" [(ngModel)]="cds.city" (click)="getCity()" optionLabel ="city" [showClear]="true">
           </p-dropdown>  
           </span>
 
@@ -502,18 +502,18 @@
     <input type="text" class="form-control" disabled [(ngModel)]="req1.typename" id="exampleSelect1">
   </div>
 
-  <a [href]="imageData" (click)="openPdf()">{{cds.type}}</a>
+  <input type="text" disabled class="form-control" name="do" [(ngModel)]="cds.filename">
 
   <div class="form-group">
       <label>Upload Document</label>
       <div class="custom-file">
-        <input type="file" class="custom-file-input"  name="doc" id="inputGroupFile02" aria-describedby="fileHelp">  
+        <input type="file"  class="custom-file-input"  name="doc" id="inputGroupFile02" aria-describedby="fileHelp">  
         <label class="custom-file-label" for="inputGroupFile02">{{docs}}</label>
     </div>
   </div>
       <p-footer>
-          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
-          <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+          <button type="button"  (click)="openPdf()" pButton icon="pi pi-download" (click)="display=false" label="Download"></button>
+          <button type="button" pButton icon="pi pi-close" (click)="display=false" label="Update" class="ui-button-warning"></button>
       </p-footer>
 </p-dialog>
 

@@ -9,6 +9,8 @@ import {ToastModule} from 'primeng/toast';
 import {DropdownModule} from 'primeng/dropdown';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {ProgressBarModule} from 'primeng/progressbar';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 
 
 
@@ -22,7 +24,8 @@ import {ProgressBarModule} from 'primeng/progressbar';
     ToastModule,
     DropdownModule,
     RadioButtonModule,
-    ProgressBarModule
+    ProgressBarModule,
+    PdfViewerModule
 
   ]
 })
