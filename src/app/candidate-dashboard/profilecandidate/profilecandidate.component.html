@@ -234,18 +234,18 @@
 <p-dialog header="Change Password" [(visible)]="settings" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
   <div class="form-group">
     <label>Old Password </label>
-    <input type="password" class="form-control"  placeholder="Old Password">
+    <input type="password" name="old" [(ngModel)]="password.old" class="form-control"  placeholder="Old Password">
   </div>
   <div class="form-group">
     <label>New Password </label>
-    <input type="password" class="form-control"  placeholder="New Password">
+    <input type="password" pPassword name="new1" [(ngModel)]="password.newPas1" class="form-control"  placeholder="New Password">
   </div>
   <div class="form-group">
     <label>Confrim New Password </label>
-    <input type="password" class="form-control"  placeholder="Confrm New Password">
+    <input type="password" pPassword name="new2" [(ngModel)]="password.newPas2" class="form-control"  placeholder="Confrm New Password">
   </div>
       <p-footer>
-          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
+          <button type="button" pButton icon="pi pi-check" (click)="resetPassword()" label="Yes"></button>
           <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
       </p-footer>
 </p-dialog>
@@ -274,8 +274,7 @@
             <p-dropdown [placeholder]="ps" [options]="province" name="provinsi" [filter]="true" [(ngModel)]="provinsi" (click)="proNull()" optionLabel ="province" [showClear]="true"> 
           </p-dropdown>  
           </span>
-          
-          <br>
+              <br>
           <span class="ui-float-label">
             <p-dropdown [placeholder]="cs" [filter]="true" [options]="city" name="ashkah" [(ngModel)]="cds.city" (click)="getCity()" optionLabel ="city" [showClear]="true">
           </p-dropdown>  
@@ -296,10 +295,11 @@
         </div>
 
         <div class="form-group">
-          <label>Telephone</label>
-          <input type="text" name="phoner" [(ngModel)]="cds.phone" class="form-control" placeholder="Telephone">
+          <div class="ui-g-12 ui-md-6 ui-lg-4">
+          <label>Phone Number</label>
+          <p-inputMask mask="(999) 999-9999"  name="phoner" [(ngModel)]="cds.phone"  placeholder="Telephone"></p-inputMask>
       </div>
-
+        </div>
           <div class="form-group">
             <label>Date of Birth</label>
             <input name="dob" [(ngModel)]="cds.dob" type="date" class="form-control">

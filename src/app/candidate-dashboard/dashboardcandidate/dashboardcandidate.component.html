@@ -12,9 +12,6 @@
               <li class="nav-item">
                   <a class="nav-link" href="candidate/profile">Profile</a>
               </li>
-              <li class="nav-item">
-                  <a class="nav-link" (click)="showDialog()">Setting</a>
-              </li>
             </ul>
             <ul class="navbar-nav ml-auto my-lg-1">
               <li class="nav-item">
@@ -48,11 +45,15 @@
 
     <!-- Profile -->
     <div class="ui-g-12 ui-md-6 ui-lg-2"><br>
-      <div class="card">
+      <div class="card" style="margin-top:40pt;">
           <div class="card-body" style="text-align:center;">
             <img [src]='imageData' width="170px" height="240px" alt="Card image">
-            <h5 class="card-title">{{candidate?.name}}</h5>
+            <h4 class="card-title">{{candidate?.name}}</h4>
+            <div class="card">
+            <h6 class="card-subtitle text-muted">Expected Salary</h6>
+            <br>
             <h5 class="card-subtitle text-muted" style="font-style: italic; text-align: center;">{{candidate?.salary | currency:'Rp. '}}</h5>  
+          </div>
             <br>
           </div>  
       </div>

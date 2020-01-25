@@ -10,6 +10,9 @@ import {DropdownModule} from 'primeng/dropdown';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {ProgressBarModule} from 'primeng/progressbar';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import {PasswordModule} from 'primeng/password';
+import {InputMaskModule} from 'primeng/inputmask';
+
 
 
 
@@ -25,7 +28,9 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     DropdownModule,
     RadioButtonModule,
     ProgressBarModule,
-    PdfViewerModule
+    PdfViewerModule,
+    PasswordModule,
+    InputMaskModule
 
   ]
 })

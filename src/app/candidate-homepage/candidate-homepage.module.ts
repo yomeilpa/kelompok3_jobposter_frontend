@@ -11,6 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
 import {DropdownModule} from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
 import {ToastModule} from 'primeng/toast';
+import {PasswordModule} from 'primeng/password';
+import {InputMaskModule} from 'primeng/inputmask';
+
 
 
 
@@ -25,7 +28,9 @@ import {ToastModule} from 'primeng/toast';
     HttpClientModule,
     DropdownModule,
     CalendarModule,
-    ToastModule
+    ToastModule,
+    PasswordModule,
+    InputMaskModule
   ]
 })
 export class CandidateHomepageModule { }

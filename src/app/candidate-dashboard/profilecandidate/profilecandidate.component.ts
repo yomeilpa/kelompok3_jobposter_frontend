@@ -18,6 +18,7 @@ import { Doctype } from 'src/app/model/doctype';
 import { CandidateDocument } from 'src/app/model/candidate-document';
 import {HttpClient, HttpEventType} from '@angular/common/http'
 import { Subject, Observable } from 'rxjs';
+import { ChangePassword } from 'src/app/model/change-password';
 
 @Component({
   selector: 'app-profilecandidate',
@@ -80,6 +81,7 @@ export class ProfilecandidateComponent implements OnInit {
   cs:any;  
   req:any;
   ds:any;
+  password:any = new ChangePassword(null,null,null);
   req1:any = new Doctype(null,null,null,null);
   cddoc:any = new CandidateDocument(null,null,null,null);
   constructor(private http:HttpClient, private dts:DoctypeService, private pros:ProvinceService,private sk:SkillService, private ws:WorkexperienceService, private edss:EducationService, private login:RegisterService,private route:Router,private messageService: MessageService) { }
@@ -217,7 +219,20 @@ getCdDocument(id,is){
   }
 
   showProfile() {
-      this.profile = true;
+      this.profile = !this.profile;
+  }
+  oks:any;
+  resetPassword(){
+    this.login.resetPassword(this.user.id,this.password);
+    this.login.user.subscribe(res =>{
+      this.oks= res;
+      if(this.login.data1 =="gagal"){
+        alert(this.oks.error);
+              }
+      if(this.login.data1=="suc"){
+        this.route.navigateByUrl("candidate/dashboard");
+      }
+    })
   }
 
   showEducation(){

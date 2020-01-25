@@ -58,6 +58,24 @@ export class RegisterService {
 
     })
   }
+
+  
+  public resetPassword(id,data:any){
+    this.user = new Subject<any>();
+    this.http.put<any>(this.apiURL+"/update/password/"+id,data).subscribe(res =>{
+    this.data = res;
+    this.data1="suc";
+    this.user.next(this.data);
+    this.store.set("user",res).subscribe(() => {});
+    
+    },
+    (ress) =>{
+      this.data1 ="gagal";
+      this.data= ress;
+      this.user.next(this.data);
+
+    })
+  }
   public uploadPhoto(formdata:any,id:any){
     this.user = new Subject<any>();
     this.http.put<any>(this.apiURL+"/uploadphoto/"+id,formdata,{reportProgress : true}).subscribe(res =>{
