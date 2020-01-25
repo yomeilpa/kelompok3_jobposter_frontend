@@ -41,12 +41,15 @@
             <div class=" card-body" style="text-align:center;">
               <img style="width: 170px; height: 240px;" [src]="imageData"  alt="Card image">
             </div>
+          
 
             <div class="card-footer">
               <p-accordion>
                 <p-accordionTab header="Upload Photo">
                   <div class="form-group">
-
+                    <div *ngIf="fileUploadProgress">
+                      <p-progressBar [value]="fileUploadProgress"></p-progressBar>
+                  </div>
                       <label>Upload Photo</label>
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" [(ngModel)]="imgss" name="foto" (change) ="onfileSelected($event)" id="inputGroupFile02" aria-describedby="fileHelp">  
@@ -165,14 +168,24 @@
                   Document
                 </h5>
               </div>
-              <div class="ui-g-12 ui-md-2 ui-md-offset-6">
-                <button type="button" class="btn btn-outline-info btn-sm" (click)="showDocument()">Add Document</button>
-              </div>
             </div>
             <div class="ui-g card-body">
+              <p style="color: red;">Required Document</p>
               <table class="table table-hover">
-                <tr>
-                  <th scope="row">KTP</th>
+                <tr *ngFor="let item of req">
+                  <td>{{item?.typename}}</td>
+                  <td>
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="showUpdateDocument(item.id)">Cek</button> &nbsp;
+                    <button type="button" class="btn btn-outline-danger btn-sm" >Delete</button>
+                  </td>
+                </tr>
+            </table>
+            </div>
+            <div class="ui-g card-body">
+              <p style="color:green;">Additional Document</p>
+              <table class="table table-hover">
+                <tr *ngFor="let item of req">
+                  <td>{{item?.typename}}</td>
                   <td>
                     <button type="button" class="btn btn-outline-warning btn-sm" (click)="showUpdateDocument()" >Update</button> &nbsp;
                     <button type="button" class="btn btn-outline-danger btn-sm" >Delete</button>
@@ -486,20 +499,16 @@
 <!-- Update Document -->
 <p-dialog header="Update Document" [(visible)]="updatedocument" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
   <div class="form-group">
-    <label for="exampleSelect2">Type Document</label>
-    <select class="form-control" id="exampleSelect1">
-      <option>KTP</option>
-      <option>SIM</option>
-      <option>Ijazah</option>
-      <option>Kartu Keluarga</option>
-    </select>
+    <input type="text" class="form-control" disabled [(ngModel)]="req1.typename" id="exampleSelect1">
   </div>
-  <div class="form-group">
 
+  <a [href]="imageData" (click)="openPdf()">{{cds.type}}</a>
+
+  <div class="form-group">
       <label>Upload Document</label>
       <div class="custom-file">
         <input type="file" class="custom-file-input"  name="doc" id="inputGroupFile02" aria-describedby="fileHelp">  
-        <label class="custom-file-label" for="inputGroupFile02">{{imgs}}</label>
+        <label class="custom-file-label" for="inputGroupFile02">{{docs}}</label>
     </div>
   </div>
       <p-footer>

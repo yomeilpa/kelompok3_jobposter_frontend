@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {ToastModule} from 'primeng/toast';
 import {DropdownModule} from 'primeng/dropdown';
 import {RadioButtonModule} from 'primeng/radiobutton';
+import {ProgressBarModule} from 'primeng/progressbar';
 
 
 
@@ -20,7 +21,8 @@ import {RadioButtonModule} from 'primeng/radiobutton';
     HttpClientModule,
     ToastModule,
     DropdownModule,
-    RadioButtonModule
+    RadioButtonModule,
+    ProgressBarModule
 
   ]
 })

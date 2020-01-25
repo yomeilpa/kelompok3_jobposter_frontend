@@ -13,7 +13,11 @@ import { Skillcandidate } from 'src/app/model/skillcandidate';
 import { Province } from 'src/app/model/province';
 import { ProvinceService } from 'src/app/service/province.service';
 import { City } from 'src/app/model/city';
-
+import { DoctypeService } from 'src/app/service/doctype.service';
+import { Doctype } from 'src/app/model/doctype';
+import { CandidateDocument } from 'src/app/model/candidate-document';
+import {HttpClient, HttpEventType} from '@angular/common/http'
+import { Subject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profilecandidate',
@@ -23,6 +27,14 @@ import { City } from 'src/app/model/city';
 })
 export class ProfilecandidateComponent implements OnInit {
 
+  private apiURL = 'http://bootcamp.linovhr.com:8080/jobposter1';
+  
+  users:Subject<any> = new Subject<any>();
+  candidates:Subject<any> = new Subject<any>();
+  data:any;
+  data1:any;
+  datas:any;
+  datauser:any;
   updateprofile: boolean = false;
   updateeducation: boolean = false;
   updatework: boolean = false;
@@ -34,13 +46,14 @@ export class ProfilecandidateComponent implements OnInit {
   work: boolean = false;
   document: boolean = false;
   skill: boolean = false;
-
+  ok:any;
   settings: boolean = false;
   user:any;
   us:any;
   educations:any;
   edpost:any;
   imgs:String = "Choose Photo";
+  docs:String = "Choose Document";
   imgSrc:any;
   imageData:any;
   candidate:any;
@@ -63,8 +76,68 @@ export class ProfilecandidateComponent implements OnInit {
   pross:Province[];
   ps:any;
   cs:any;  
+  req:any;
+  req1:any = new Doctype(null,null,null,null);
+  cddoc:any = new CandidateDocument(null,null,null,null);
+  pdf:any;
+  constructor(private http:HttpClient, private dts:DoctypeService, private pros:ProvinceService,private sk:SkillService, private ws:WorkexperienceService, private edss:EducationService, private login:RegisterService,private route:Router,private messageService: MessageService) { }
 
-  constructor(private pros:ProvinceService,private sk:SkillService, private ws:WorkexperienceService, private edss:EducationService, private login:RegisterService,private route:Router,private messageService: MessageService) { }
+  openPdf(){
+    let pdfWindow = window;
+    pdfWindow.document.write("<iframe width='100%' height='100%' src='data:"+this.cds.type+";base64, " + encodeURI(this.cds.pic)+"'></iframe>")    
+    pdfWindow.document.open
+    //window.open("data:application/octet-stream;charset=utf-16le;base64,"+this.cds.pic); 
+
+//     let a = document.createElement("a");
+//     a.href = "data:"+this.cds.type+";base64,"+this.cds.pic;
+//     a.download = this.cds.filename;
+//     a.click();
+
+// let x=window.open('about:whatever');  
+// let iframe=x.document.createElement('iframe')
+// iframe.width='100%'
+// iframe.height='100%'
+// iframe.src=this.imageData;
+// x.document.body.appendChild(iframe)
+  }
+  ngOnInit() {
+    
+    this.user = this.login.store.get("user").subscribe( res => {
+      this.user=res;
+      if(res == null){
+        this.route.navigateByUrl("#");
+      }
+      else{
+        this.candidate = this.user.candidate;
+        this.cds = this.user.candidate;
+        this.getEduCandidate(this.cds.id);
+        this.getCdWork(this.cds.id);
+        this.getRequire();
+        this.getCdSkill(this.cds.id);
+        this.cs = this.cds.city.city;
+        this.provinsi = this.cds.city.province;
+        this.ps = this.cds.city.province.province;
+        if(this.user.candidate.pic == null){
+          this.imageData ="assets/img/team/blank.png";
+        }
+        else{
+        this.imageData = 'data:'+this.user.candidate.type+';base64,'+this.user.candidate.pic;   
+      }
+        }
+      });   
+  }
+ 
+  getIdDoctype(id){
+    this.dts.getDocTypeID(id);
+    this.dts.user.subscribe(res => {this.req1 = res
+    this.cddoc.doctype = this.req1
+  console.log(this.cddoc.doctype.typename)})
+    
+  }
+  getRequire(){
+    this.dts.getDocTypeTrue();
+    this.dts.user.subscribe(res => this.req = res);
+  }
 
   getCity(){
     this.ps = this.provinsi.province;
@@ -108,12 +181,6 @@ export class ProfilecandidateComponent implements OnInit {
   onfileSelected(event){
     this.imgs = this.imgss.replace(/^.*\\/, "");
     this.us = <File> event.target.files[0];
-    if(event.target.files && event.target.files[0]){
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = e => this.imgSrc = reader.result;
-      reader.readAsDataURL(file);
-    }
   }
 
   
@@ -172,8 +239,9 @@ export class ProfilecandidateComponent implements OnInit {
     this.updateskill = true;
   }
 
-  showUpdateDocument(){
-    this.updatedocument = true;
+  showUpdateDocument(id){
+    this.updatedocument = !this.updatedocument;
+    this.getIdDoctype(id);
   }
 
 
@@ -189,62 +257,69 @@ proNull(){
   this.cs = "Choose City";
   this.pros.getProvince();
   this.pros.user.subscribe(res => this.province = res);
-}
+}  
+fileUploadProgress:any = null;
 
-  ngOnInit() {
-    
-    this.user = this.login.store.get("user").subscribe( res => {
-      this.user=res;
-      if(res == null){
-        this.route.navigateByUrl("#");
-      }
-      else{
-        this.candidate = this.user.candidate;
-        this.cds = this.user.candidate;
-        this.getEduCandidate(this.cds.id);
-        this.getCdWork(this.cds.id);
-        this.getCdSkill(this.cds.id);
-        this.cs = this.cds.city.city;
-        this.provinsi = this.cds.city.province;
-        this.ps = this.cds.city.province.province;
-        if(this.user.candidate.pic == null){
-          this.imageData ="assets/img/team/blank.png";
-        }
-        else{
-        this.imageData = 'data:'+this.user.candidate.type+';base64,'+this.user.candidate.pic;   }
-        }
-      });   
-  }
   public uploadPhoto(){
     let formData = new FormData();
-    formData.append("upload",this.us,this.us.name)
-    this.login.uploadPhoto(formData,this.user.candidate.id);
-    this.login.user.subscribe(res =>{
-      this.user = res;  
-      if(this.login.data1 =="gagal"){
-        this.showWarn(this.user.error);
-      }
-      if(this.login.data1=="suc"){
-        console.log("succes");
-        this.user = this.login.store.get("user").subscribe( res => {
-          this.user=res;
-          this.cds = this.user.candidate;
-          if(this.user.candidate.pic == null){
-            this.imageData ="assets/img/team/1.jpg";
+    this.fileUploadProgress = 0;
+    formData.append("upload",this.us,this.us.name);
+    this.http.post(this.apiURL+"/uploadphoto/"+this.cds.id,formData, {
+      reportProgress: true,
+      observe: 'events'   
+    }).subscribe(events =>{
+      if(events.type === HttpEventType.UploadProgress) {
+        this.fileUploadProgress = Math.round(events.loaded / events.total * 100);
+      } else if(events.type === HttpEventType.Response) {
+        this.fileUploadProgress = '';        
+        this.login.store.get("user").subscribe( res => {
+          this.ok = res;
+          this.ok.candidate = events.body;
+          this.login.store.set("user",this.ok).subscribe(() => {});        
+          this.login.store.get("user").subscribe( res => {
+                  this.user=res;
+                  this.cds = this.user.candidate;
+                  if(this.user.candidate.pic == null){
+                    this.imageData ="assets/img/team/1.jpg";
+                  }
+                  else{
+                  this.imageData = 'data:'+this.candidate.type+';base64,'+this.candidate.pic;  
+                  }
+                   
+                });
+                this.route.navigateByUrl("candidate/dashboard");
+        },
+        (events) => {
+          if(events.type === HttpEventType.Response){
+            alert("Gagal");
           }
-          else{
-          this.imageData = 'data:'+this.candidate.type+';base64,'+this.candidate.pic;  
+        })
+      }
+         
+    }) 
+    // this.login.uploadPhoto(formData,this.user.candidate.id);
+    // this.login.user.subscribe(res =>{
+    //   this.user = res;  
+    //   if(this.login.data1 =="gagal"){
+    //     this.showWarn(this.user.error);
+    //   }
+    //   if(this.login.data1=="suc"){
+    //     console.log("succes");
+    //     this.user = this.login.store.get("user").subscribe( res => {
+    //       this.user=res;
+    //       this.cds = this.user.candidate;
+    //       if(this.user.candidate.pic == null){
+    //         this.imageData ="assets/img/team/1.jpg";
+    //       }
+    //       else{
+    //       this.imageData = 'data:'+this.candidate.type+';base64,'+this.candidate.pic;  
           
-          }
-          this.route.navigateByUrl("#"); 
-        });
-      }
-    })
+    //       }
+    //       this.route.navigateByUrl("#"); 
+    //     });
+    //   }
+    // })
   }
-
-
-
-
   public update(){
     this.login.updateCandidate(this.cds,this.user.candidate.id);
     this.login.user.subscribe(res =>{
@@ -267,9 +342,6 @@ proNull(){
       }
     })
   }
-
-  
-  
   
   addEdu(){
     this.edss.postEducandiate(this.ed,this.cds.id);
