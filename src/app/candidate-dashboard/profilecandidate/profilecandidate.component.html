@@ -83,7 +83,7 @@
           </div>
 
             <div class="card-body">
-              <p>Birth {{user?.candidate?.dob}}</p>
+              <p>Birth {{user?.candidate?.dob | date:'yyyy-MMMM-dd'}}</p>
               <p>Gender {{user?.candidate?.gender}}</p>
               <p>{{user?.candidate?.addres}}</p>
               <p>{{user?.candidate?.city?.city}}</p>
@@ -117,18 +117,21 @@
                   <button type="button" class="btn btn-outline-info btn-sm" (click)="showEducation()">Add Education</button>
                 </div>
               </div>
+              <div class="table-responsive">
               <table class="table table-hover">
                   <tr *ngFor="let item of candEdu">
                     <td>{{item?.name}}</td>
                     <td>{{item?.education?.education}}</td>
                     <td>{{item?.gpa}}</td>
-                    <td>{{item?.mulai}} - {{item?.berakhir}}</td>
+                    <td>{{item?.mulai}}</td>
+                    <td>{{item?.berakhir}}</td>
                     <td>
                       <a type="button" class="btn btn-outline-warning btn-sm" (click) ="getid(item.id)" >Update</a> &nbsp;
                       <button type="button" class="btn btn-outline-danger btn-sm" (click) ="delete(item.id)">Delete</button>
                     </td>
                   </tr>
               </table>
+            </div>
           </div>
           <br>
 
@@ -144,19 +147,21 @@
                 <button type="button" class="btn btn-outline-info btn-sm" (click)="showWork()">Add Work Experience</button>
               </div>
             </div>
-
+            <div class="table-responsive">
             <table class="table table-hover">
               <tr *ngFor="let item of works">
                 <th scope="row">{{item?.name}}</th>
                 <td>{{item?.position}}</td>
-                <td>{{item?.salary}}</td>
-                <td>{{item?.mulai}} - {{item?.berakhir}}</td>
+                <td>{{item?.salary | currency:'Rp. '}}</td>
+                <td>{{item?.mulai}}</td>
+                <td>{{item?.berakhir}}</td>
                 <td>
                   <button type="button" class="btn btn-outline-warning btn-sm"  (click)="getCdId(item.id)">Update</button> &nbsp;
                   <button type="button" class="btn btn-outline-danger btn-sm" (click)="deletework(item.id)">Delete</button>
                 </td>
               </tr>
           </table>
+          </div>
           </div>
           <br>
 
@@ -171,6 +176,7 @@
             </div>
             <div class="ui-g card-body">
               <p style="color: red;">Required Document</p>
+              <div class="table-responsive">
               <table class="table table-hover">
                 <tr *ngFor="let item of req">
                   <td>{{item?.typename}}</td>
@@ -179,6 +185,7 @@
                   </td>
                 </tr>
             </table>
+            </div>
             </div>
             <div class="ui-g card-body">
             </div>
@@ -200,6 +207,7 @@
 
             <div class="card-body">
               <div class="card-body">
+                <div class="table-responsive">
               <table class="table table-hover">
                 <tr *ngFor="let item of skillcd">
                   <th scope="row">{{item?.skillname}}</th>
@@ -210,6 +218,7 @@
                   </td>
                 </tr>
             </table>
+            </div>
             </div>
             </div>
           </div>
@@ -291,15 +300,14 @@
 
         <div class="form-group">
             <label>Email</label>
-            <input type="text" name="email" [(ngModel)]="cds.email" class="form-control" placeholder="Email">
+            <input disabled type="text" name="email" [(ngModel)]="cds.email" class="form-control" placeholder="Email">
         </div>
 
         <div class="form-group">
-          <div class="ui-g-12 ui-md-6 ui-lg-4">
           <label>Phone Number</label>
-          <p-inputMask mask="(999) 999-9999"  name="phoner" [(ngModel)]="cds.phone"  placeholder="Telephone"></p-inputMask>
+          <br>
+          <input type="text"  class="form-control" name="phoner" [(ngModel)]="cds.phone"  placeholder="Telephone">
       </div>
-        </div>
           <div class="form-group">
             <label>Date of Birth</label>
             <input name="dob" [(ngModel)]="cds.dob" type="date" class="form-control">

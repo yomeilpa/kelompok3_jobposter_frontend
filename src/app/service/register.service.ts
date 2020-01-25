@@ -40,6 +40,21 @@ export class RegisterService {
     )
   }
 
+  registerAdmin(any){
+    this.user = new Subject<any>();
+    this.http.post(this.apiURL+"/register/admin",any).subscribe(res =>{
+      this.data1 ="succes";
+      this.datauser = res;
+      this.user.next(this.datauser);
+    },
+    (res) =>
+    {
+      this.data1 = "gagal";
+      this.datauser = res;
+      this.user.next(this.datauser);
+    }
+    )
+  }
   
 
   public LoginUser(data:any){
