@@ -47,7 +47,36 @@ export class DoctypeService {
     )
   }
 
-
+  getCd(id,is){
+    this.user = new Subject<any>();
+    this.httpclient.get(this.apiURL+"/doc/"+id+"/"+is).subscribe(res =>{
+      this.data1 ="succes";
+      this.data = res;
+      this.user.next(this.data);
+    },
+    (res) =>
+    {
+      this.data1 = "gagal";
+      this.data = res;
+      this.user.next(this.data);
+    }
+    )
+  }
+  delete(id,is){
+    this.user = new Subject<any>();
+    this.httpclient.delete(this.apiURL+"/doc/"+id+"/"+is).subscribe(res =>{
+      this.data1 ="succes";
+      this.data = res;
+      this.user.next(this.data);
+    },
+    (res) =>
+    {
+      this.data1 = "gagal";
+      this.data = res;
+      this.user.next(this.data);
+    }
+    )
+  }
   getDocTypeTrue(){
     this.user = new Subject<any>();
     this.httpclient.get(this.apiURL+"/doctype/true").subscribe(res =>{

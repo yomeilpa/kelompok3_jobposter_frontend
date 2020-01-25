@@ -176,22 +176,11 @@
                   <td>{{item?.typename}}</td>
                   <td>
                     <button type="button" class="btn btn-outline-primary btn-sm" (click)="showUpdateDocument(item.id)">Cek</button> &nbsp;
-                    <button type="button" class="btn btn-outline-danger btn-sm" >Delete</button>
                   </td>
                 </tr>
             </table>
             </div>
             <div class="ui-g card-body">
-              <p style="color:green;">Additional Document</p>
-              <table class="table table-hover">
-                <tr *ngFor="let item of cek">
-                  <td>{{item?.typename}}</td>
-                  <td>
-                    <button type="button" class="btn btn-outline-warning btn-sm" (click)="showUpdateDocument()" >Update</button> &nbsp;
-                    <button type="button" class="btn btn-outline-danger btn-sm" >Delete</button>
-                  </td>
-                </tr>
-            </table>
             </div>
           </div>
           <br>
@@ -266,6 +255,10 @@
   <div class="ui-g">
     <p-toast [style]="{marginTop: '80px'}"  key="tc"></p-toast>
     <div class="ui-g-6">
+      <div class="form-group">
+        <label>Salary Expected </label>
+        <input type="text" class="form-control" name="name" [(ngModel)]="cds.salary" placeholder="Salary Expected">
+      </div>
         <div class="form-group">
             <label>Full Name</label>
             <input type="text" class="form-control" name="name" [(ngModel)]="cds.name" placeholder="Full Name">
@@ -498,22 +491,26 @@
 
 <!-- Update Document -->
 <p-dialog header="Update Document" [(visible)]="updatedocument" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
+ 
+  <div *ngIf="fileUploadProgress">
+    <p-progressBar [value]="fileUploadProgress"></p-progressBar>
+</div>
   <div class="form-group">
     <input type="text" class="form-control" disabled [(ngModel)]="req1.typename" id="exampleSelect1">
   </div>
 
-  <input type="text" disabled class="form-control" name="do" [(ngModel)]="cds.filename">
+  <input type="text" placeholder="Documnent not uploaded yet" disabled class="form-control" name="do" [(ngModel)]="cddoc.filename">
 
-  <div class="form-group">
-      <label>Upload Document</label>
-      <div class="custom-file">
-        <input type="file"  class="custom-file-input"  name="doc" id="inputGroupFile02" aria-describedby="fileHelp">  
-        <label class="custom-file-label" for="inputGroupFile02">{{docs}}</label>
-    </div>
-  </div>
+ 
+<label>Upload Document</label>
+<div class="custom-file">
+  <input type="file" class="custom-file-input" [(ngModel)]="pxd" name="lalala" (change) ="onfileSelected1($event)" id="inputGroupFile01" aria-describedby="fileHelp">  
+  <label class="custom-file-label" for="inputGroupFile01">{{docs}}</label>
+</div>
+
       <p-footer>
           <button type="button"  (click)="openPdf()" pButton icon="pi pi-download" (click)="display=false" label="Download"></button>
-          <button type="button" pButton icon="pi pi-close" (click)="display=false" label="Update" class="ui-button-warning"></button>
+          <button type="button" pButton icon="pi pi-close" (click)="uploadDocument()" label="Update" class="ui-button-warning"></button>
       </p-footer>
 </p-dialog>
 

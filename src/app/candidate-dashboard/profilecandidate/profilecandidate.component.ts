@@ -62,6 +62,7 @@ export class ProfilecandidateComponent implements OnInit {
   ed:any = new Appedu(null,null,null,null,null,null);
   eduid:Appedu = new Appedu(null,null,null,null,null,null);
   imgss:any = null;
+  pxd:any = null;
   cds:any = new Candidate("","",null,"",new City("","","",new Province("","","")),"","");
   workcd:any = new Workexperience(null,null,null,null,null);
   wn:any = new Workexperience(null,null,null,null,null);
@@ -78,6 +79,7 @@ export class ProfilecandidateComponent implements OnInit {
   ps:any;
   cs:any;  
   req:any;
+  ds:any;
   req1:any = new Doctype(null,null,null,null);
   cddoc:any = new CandidateDocument(null,null,null,null);
   constructor(private http:HttpClient, private dts:DoctypeService, private pros:ProvinceService,private sk:SkillService, private ws:WorkexperienceService, private edss:EducationService, private login:RegisterService,private route:Router,private messageService: MessageService) { }
@@ -87,8 +89,8 @@ export class ProfilecandidateComponent implements OnInit {
 //     window.open("data:application/octet-stream;charset=utf-16le;base64,"+this.cds.pic); 
 
     let a = document.createElement("a");
-    a.href = "data:"+this.cds.type+";base64,"+this.cds.pic;
-    a.download = this.cds.filename;
+    a.href = "data:"+this.cddoc.type+";base64,"+this.cddoc.pic;
+    a.download = this.cddoc.filename;
     a.click();
 
 // let x=window.open('about:whatever');  
@@ -99,6 +101,11 @@ export class ProfilecandidateComponent implements OnInit {
 // x.document.body.appendChild(iframe)
   }
   
+getCdDocument(id,is){
+  this.dts.getCd(id,is);
+  this.dts.user.subscribe(res => {this.cddoc = res})
+}
+
   ngOnInit() {
     
     this.user = this.login.store.get("user").subscribe( res => {
@@ -117,7 +124,7 @@ export class ProfilecandidateComponent implements OnInit {
         this.provinsi = this.cds.city.province;
         this.ps = this.cds.city.province.province;
         if(this.user.candidate.pic == null){
-          this.imageData ="assets/img/team/blank.png";
+          this.imageData ="assets/img/team/1.jpg";
         }
         else{
         this.imageData = 'data:'+this.user.candidate.type+';base64,'+this.user.candidate.pic;   
@@ -125,13 +132,10 @@ export class ProfilecandidateComponent implements OnInit {
         }
       });   
   }
- 
   getIdDoctype(id){
     this.dts.getDocTypeID(id);
     this.dts.user.subscribe(res => {this.req1 = res
-    this.cddoc.doctype = this.req1
-  console.log(this.cddoc.doctype.typename)})
-    
+      this.getCdDocument(this.cds.id,this.req1.id)}) 
   }
   getRequire(){
     this.dts.getDocTypeTrue();
@@ -179,7 +183,13 @@ export class ProfilecandidateComponent implements OnInit {
 
   onfileSelected(event){
     this.imgs = this.imgss.replace(/^.*\\/, "");
+    this.docs = this.imgss.replace(/^.*\\/, "");
     this.us = <File> event.target.files[0];
+  }
+
+  onfileSelected1(event){
+    this.docs = this.pxd.replace(/^.*\\/, "");
+    this.ds = <File> event.target.files[0];
   }
 
   
@@ -318,6 +328,38 @@ fileUploadProgress:any = null;
     //     });
     //   }
     // })
+  }
+
+
+  
+  public uploadDocument(){
+    let formData = new FormData();
+    this.fileUploadProgress = 0;
+    if(this.cddoc != null){
+      this.dts.delete(this.cds.id,this.req1.id);
+    }
+    formData.append("docx",this.ds,this.ds.name);
+    formData.append("iddoctype",this.req1.id);
+    this.http.post(this.apiURL+"/doc/"+this.cds.id,formData, {
+      reportProgress: true,
+      observe: 'events'   
+    }).subscribe(events =>{
+      if(events.type === HttpEventType.UploadProgress) {
+        this.fileUploadProgress = Math.round(events.loaded / events.total * 100);
+      } else if(events.type === HttpEventType.Response) {
+        this.fileUploadProgress = '';        
+        this.login.store.get("user").subscribe( res => {
+          this.cddoc = res;
+          this.updatedocument = false;
+        },
+        (events) => {
+          if(events.type === HttpEventType.Response){
+            alert("Gagal");
+          }
+        })
+      }
+         
+    })
   }
   public update(){
     this.login.updateCandidate(this.cds,this.user.candidate.id);

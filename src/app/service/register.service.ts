@@ -58,7 +58,6 @@ export class RegisterService {
 
     })
   }
-
   public uploadPhoto(formdata:any,id:any){
     this.user = new Subject<any>();
     this.http.put<any>(this.apiURL+"/uploadphoto/"+id,formdata,{reportProgress : true}).subscribe(res =>{
@@ -71,14 +70,11 @@ export class RegisterService {
         this.ok.candidate = this.data;
         this.store.set("user",this.ok).subscribe(() => {});        
       })
-      
-      
       },
       (ress) =>{
         this.data1 ="gagal";
         this.data= ress;
         this.user.next(this.data);
-  
       })
   }
 

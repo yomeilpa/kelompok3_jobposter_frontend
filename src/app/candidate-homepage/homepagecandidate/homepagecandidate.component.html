@@ -190,6 +190,11 @@
   <input id="float-input2a" type="text" size="40" pInputText name="addres" [(ngModel)]="register.addres"> 
   <label for="float-input2">Address</label>
 </span>
+<br>
+<span class="ui-float-label">
+  <input id="float-input2a" type="text" size="40" pInputText name="salary" [(ngModel)]="register.salary"> 
+  <label for="float-input2">Salary Expected</label>
+</span>
 
 <br>
 <span class="ui-float-label">
@@ -217,8 +222,9 @@
 <br>
 
 </form>
-<!-- <button type="button" routerLink='admin/dashboard' pButton (click)="showSuccess()" label="Submit" class="ui-button-info"></button> -->
+<p-footer style="color: grey;"><!-- <button type="button" routerLink='admin/dashboard' pButton (click)="showSuccess()" label="Submit" class="ui-button-info"></button> -->
 <button type="button" (click)="registerApplicant()" pButton  label="Submit" class="ui-button-info"></button>
+</p-footer>
 
 </p-dialog>
 
