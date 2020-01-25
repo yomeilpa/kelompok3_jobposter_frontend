@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardadminComponent } from './dashboardadmin/dashboardadmin.component';
 import { ApprovedcandidateComponent } from './approvedcandidate/approvedcandidate.component';
 import { InvitedcandidateComponent } from './invitedcandidate/invitedcandidate.component';
+import { HomepageadminComponent } from './homepageadmin/homepageadmin.component';
+import { JoblistComponent } from './joblist/joblist.component';
 
 
 const routes: Routes = [
@@ -17,6 +19,14 @@ const routes: Routes = [
   {
     path : 'invited',
     component : InvitedcandidateComponent
+  },
+  {
+    path : '',
+    component : HomepageadminComponent
+  },
+  {
+    path : 'joblist',
+    component : JoblistComponent
   },
 ];
 

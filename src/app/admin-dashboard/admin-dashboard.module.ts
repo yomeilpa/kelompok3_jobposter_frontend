@@ -6,14 +6,19 @@ import { DashboardadminComponent } from './dashboardadmin/dashboardadmin.compone
 import { NgPrimeModule } from '../app.ngprime.module';
 import { ApprovedcandidateComponent } from './approvedcandidate/approvedcandidate.component';
 import { InvitedcandidateComponent } from './invitedcandidate/invitedcandidate.component';
+import { HomepageadminComponent } from './homepageadmin/homepageadmin.component';
+import { HttpClientModule } from '@angular/common/http';
+import { JoblistComponent } from './joblist/joblist.component';
 
 
 @NgModule({
-  declarations: [DashboardadminComponent, ApprovedcandidateComponent, InvitedcandidateComponent],
+  declarations: [DashboardadminComponent, ApprovedcandidateComponent, InvitedcandidateComponent, HomepageadminComponent, JoblistComponent],
   imports: [
     CommonModule,
     AdminDashboardRoutingModule,
-    NgPrimeModule
+    NgPrimeModule,
+    HttpClientModule
+ 
   ]
 })
 export class AdminDashboardModule { }

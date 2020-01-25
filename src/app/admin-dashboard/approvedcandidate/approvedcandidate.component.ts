@@ -7,6 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApprovedcandidateComponent implements OnInit {
 
+  detailcandidate: boolean;
+  settings: boolean;
+
+  showSettings(){
+    this.settings = true;
+  }
+
+  showDetailCandidate(){
+    this.detailcandidate = true;
+  }
+
   constructor() { }
 
   ngOnInit() {

@@ -29,6 +29,9 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { FileUploadModule } from 'primeng/fileupload';
 import { AccordionModule } from 'primeng/accordion';
+import { DropdownModule } from 'primeng/dropdown';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 
 @NgModule({
@@ -62,7 +65,11 @@ import { AccordionModule } from 'primeng/accordion';
         ScrollPanelModule,
         SplitButtonModule,
         FileUploadModule,
-        AccordionModule
+        AccordionModule,
+        RadioButtonModule,
+        AutoCompleteModule,
+        DropdownModule,
+
     ]
 })
 export class NgPrimeModule { }

@@ -1,0 +1,597 @@
+<!-- Password -->
+<p-dialog header="Change Password" [(visible)]="settings" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
+  <div class="form-group">
+    <label>Old Password </label>
+    <input type="password" class="form-control"  placeholder="Old Password">
+  </div>
+  <div class="form-group">
+    <label>New Password </label>
+    <input type="password" class="form-control"  placeholder="New Password">
+  </div>
+  <div class="form-group">
+    <label>Confrim New Password </label>
+    <input type="password" class="form-control"  placeholder="Confrm New Password">
+  </div>
+      <p-footer>
+          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
+          <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+      </p-footer>
+</p-dialog>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <img #img src="assets/logolarge.png"> &nbsp;
+  <div class="collapse navbar-collapse" id="navbar"> &nbsp;
+        <ul class="navbar-nav ml-auto my-lg-1">
+          <li class="nav-item">
+              <a class="nav-link" href="/admin" >Sign Out</a>
+          </li>
+      </ul>
+  </div>
+</nav>
+
+<!-- Sidebar -->
+<div class="d-flex" id="wrapper">
+<!-- Sidebar -->
+<div class="bg-light border-right" id="sidebar-wrapper">
+  <div class="sidebar-heading">Hello Admin, Yusuf</div>
+  <div class="list-group list-group-flush">
+  <a href="/admin/dashboard" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+  <a href="/admin/joblist" class="list-group-item list-group-item-action bg-primary active">Job</a>
+  <a href="/admin/invited" class="list-group-item list-group-item-action bg-light">Invited Candidate</a>
+  <a href="/admin/approved" class="list-group-item list-group-item-action bg-light">Approved Candidate</a>
+  <a class="list-group-item list-group-item-action bg-light" (click)="showSettings()">Settings</a>
+  </div>
+</div>
+
+<!-- Page Content -->
+<div id="page-content-wrapper">
+  <div class="container-fluid" >
+    <div class="ui-g">
+      <!-- List Application -->
+      <div class="ui-g-12 ui-md-12 ui-lg-12">
+        <br><h2 style="text-align:center; margin-bottom:12px;">List Application</h2><br>
+        <button type="button" class="btn btn-outline-primary" style="margin-bottom: 8px;" (click)="showAddJob()">Add Application</button><br>
+        <table class="table table-hover" style="text-align:center">
+            <thead >
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Application Name</th>
+                <th scope="col">Application Category</th>
+                <th scope="col">Date Begin</th>
+                <th scope="col">Date End</th>
+                <th scope="col">Total Applier</th>
+                <th scope="col">Action</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>IT Bootcamp</td>
+                <td>IT Bootcamp</td>
+                <td>02-02-2020</td>
+                <td>02-02-2020</td>
+                <td>253</td>
+                <td>
+                    <button type="button" class="btn btn-outline-primary btn-sm"  (click)="showDetailJob()">Detail</button> &nbsp;
+                    <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdateJob()">Update</button>
+                </td>
+              </tr>
+            </tbody>
+        </table> 
+      </div>
+
+      <!-- Job Position -->
+      <div class="ui-g-12 ui-md-6 ui-lg-6">
+        <br><h2 style="text-align:center; margin-bottom:12px;">Job Position</h2><br>
+        <button type="button" class="btn btn-outline-primary" style="margin-bottom: 8px;" (click)="showAddPosition()">Add Position</button><br>
+        <table class="table table-hover" style="text-align:center">
+          <thead >
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Position Name</th>
+              <th scope="col">Category</th>
+              <th scope="col">Action</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>IT Bootcamp</td>
+              <td>IT Bootcamp</td>
+              <td>
+                  <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdatePosition()">Update</button> &nbsp;
+                  <button type="button" class="btn btn-outline-danger btn-sm" >Delete</button> 
+                </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Job Category -->
+      <div class="ui-g-12 ui-md-6 ui-lg-6">
+        <br><h2 style="text-align:center; margin-bottom:12px;">Job Category</h2><br>
+        <button type="button" class="btn btn-outline-primary" style="margin-bottom: 8px;" (click)="showAddCategory()">Add Category</button><br>
+        <table class="table table-hover" style="text-align:center">
+          <thead >
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Category Name</th>
+              <th scope="col">Category Code</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>IT Bootcamp</td>
+              <td>IT Bootcamp</td>
+              <td>
+                <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdateCategory()">Update</button> &nbsp;
+                <button type="button" class="btn btn-outline-danger btn-sm" >Delete</button> 
+            </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- Show Dialog List Application-->
+<div>
+<!-- Add -->
+<p-dialog header="Add Application" [(visible)]="addjob" [modal]="true" [responsive]="true" 
+[style]="{width: '80vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+<div class="ui-g">
+  <!-- Kiri -->
+  <div class="ui-g-6">
+    <div class="form-group">
+      <label>Application Name</label>
+      <input type="text" class="form-control" placeholder="Application Name">
+    </div>
+
+    <div class="form-group">
+      <label for="exampleSelect1">Application Category</label>
+      <select class="form-control" id="exampleSelect1">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Salary</label>
+      <input type="text" class="form-control" placeholder="Salary">
+    </div>
+
+    <div class="form-group">
+      <label for="exampleTextarea">Job Description</label>
+      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+    </div>
+  </div>
+
+  <!-- Kanan  -->
+  <div class="ui-g-6">
+
+    <div class="ui-g-6">
+      <div class="form-group">
+          <label>Date Begin</label>
+          <input type="date" class="form-control" placeholder="Position Level">
+        </div>
+    </div>
+    
+    <div class="ui-g-6">
+      <div class="form-group">
+          <label>Date End</label>
+          <input type="date" class="form-control" placeholder="Position Level">
+        </div>
+    </div>
+
+    <div class="ui-g-6">
+      <div class="form-group">
+        <label for="exampleSelect1">Province</label>
+        <select class="form-control" id="exampleSelect1">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="ui-g-6">
+      <div class="form-group">
+        <label for="exampleSelect1">City</label>
+        <select class="form-control" id="exampleSelect1">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="exampleTextarea">Job Requirment</label>
+      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+    </div>
+
+  </div>
+</div>
+
+<p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Submit"></button>
+    <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
+</p-footer>
+</p-dialog>
+
+<!-- Update -->
+<p-dialog header="Update Application" [(visible)]="updatejob" [modal]="true" [responsive]="true" 
+[style]="{width: '80vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+<div class="ui-g">
+  <!-- Kiri -->
+  <div class="ui-g-6">
+    <div class="form-group">
+      <label>Application Name</label>
+      <input type="text" class="form-control" placeholder="Application Name">
+    </div>
+
+    <div class="form-group">
+      <label for="exampleSelect1">Application Category</label>
+      <select class="form-control" id="exampleSelect1">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Salary</label>
+      <input type="text" class="form-control" placeholder="Salary">
+    </div>
+
+    <div class="form-group">
+      <label for="exampleTextarea">Job Description</label>
+      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+    </div>
+  </div>
+
+  <!-- Kanan  -->
+  <div class="ui-g-6">
+
+    <div class="ui-g-6">
+      <div class="form-group">
+          <label>Date Begin</label>
+          <input type="date" class="form-control" placeholder="Position Level">
+        </div>
+    </div>
+    
+    <div class="ui-g-6">
+      <div class="form-group">
+          <label>Date End</label>
+          <input type="date" class="form-control" placeholder="Position Level">
+        </div>
+    </div>
+
+    <div class="ui-g-6">
+      <div class="form-group">
+        <label for="exampleSelect1">Province</label>
+        <select class="form-control" id="exampleSelect1">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="ui-g-6">
+      <div class="form-group">
+        <label for="exampleSelect1">City</label>
+        <select class="form-control" id="exampleSelect1">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="exampleTextarea">Job Requirment</label>
+      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+    </div>
+
+  </div>
+</div>
+
+<p-footer>
+    <button type="button" pButton icon="pi pi-check" label="Submit"></button>
+    <button type="reset" pButton icon="pi pi-close" label="Reset" class="ui-button-secondary"></button>
+</p-footer>
+</p-dialog>
+
+<!-- Detail -->
+<p-dialog header="Detail Application" [(visible)]="detailjob" [modal]="true" [responsive]="true" 
+[style]="{width: '80vw'}"  [draggable]="false" [resizable]="false">
+<div class="ui-g">
+  <div class="ui-g-12">
+    <table class="table table-hover" style="text-align:center">
+      <thead >
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Name Applier</th>
+          <th scope="col">Apply Date</th>
+          <th scope="col">Action</th>
+          <th scope="col">Status</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Bayunu</td>
+          <td>02-02-2020</td>
+          <td>
+              <button type="button" class="btn btn-outline-primary btn-sm" (click)="showDetailCandidate()">Detail</button>
+          </td>
+          <td>Not Viewed</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</p-dialog>
+
+<!-- Detail Candidate -->
+<p-dialog header="Detail Candidate" [(visible)]="detailcandidate" [modal]="true" [responsive]="true" 
+[style]="{width: '90vw'}" [draggable]="false" [resizable]="false">
+
+<!-- Body -->
+<div class="ui-g">
+<!-- Photo -->
+<div class="ui-g-4">
+  <div class="card">
+      <div class=" card-body" style="text-align:center;">
+        <img style="width: 170px; height: 225px;" [src]="imageData"  alt="Card image">
+      </div>  
+  </div>
+
+  <!-- Profile -->
+  <div class="card border-light">
+    <div class="ui-g card-header">
+      <div class="ui-g-6 ui-md-6 ">
+        <h5 class="pi pi-user">
+          Profile
+        </h5>
+      </div>
+    </div>
+
+      <div class="card-body">
+        <p class="card-text">Birth {{user?.candidate?.dob}}</p>
+        <p class="card-text">Gender {{user?.candidate?.gender}}</p>
+        <p class="card-text">{{user?.candidate?.addres}}, {{user?.candidate?.city?.city}}</p>
+      </div>
+
+      <div class="card-footer">
+        <p class="card-text">{{user?.candidate?.phone}}</p>
+        <p class="card-text">{{user?.candidate?.email}}</p>
+      </div>
+
+  </div>
+</div>
+
+<!-- Isi -->
+<div class="ui-g-8 ui-g-nopad">
+  <!-- Nama Lengkap -->
+  <div class="ui-g-12">
+    <h1 class="display-3" style="text-align:center;">{{user?.candidate?.name}} Nama</h1>
+  </div>
+  <!-- Kiri -->
+  <div class="ui-g-6">
+    <!-- Education -->
+    <div class="card border-light">
+      <div class="ui-g card-header">
+        <div class="ui-g-12 ui-md-4 ">
+          <h5 class="pi pi-user">
+            Education
+          </h5>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <h4 class="card-title">Update Your Education</h4>
+      </div>
+  </div>
+  <br>
+
+  <!-- Work Experince -->
+  <div class="card border-light">
+    <div class="ui-g card-header">
+      <div class="ui-g-12 ui-md-6 ">
+        <h5 class="pi pi-user">
+          Work Experience
+        </h5>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <h4 class="card-title">Update Your Work Experience</h4>
+    </div>
+  </div>
+  <br>
+  </div>
+
+  <!-- Kanan -->
+  <div class="ui-g-6">
+    <!-- Document -->
+    <div class="card border-light">
+      <div class="ui-g card-header">
+        <div class="ui-g-12 ui-md-4 ">
+          <h5 class="pi pi-user">
+            Document
+          </h5>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <h4 class="card-title">Update Your Document</h4>
+      </div>
+    </div>
+    <br>
+
+    <!-- SKill -->
+    <div class="card border-light">
+      <div class="ui-g card-header">
+        <div class="ui-g-12 ui-md-4 ">
+          <h5 class="pi pi-user">
+          Skill
+          </h5>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <table class="table table-hover">
+          <tbody>
+            <tr>
+              <td>Angular</td>
+              <td>Expert</td>
+            </tr>
+            </tbody>
+            </table>
+      </div>
+    </div>
+    <br>
+  </div>
+    
+</div>
+</div>
+
+<p-footer>
+  <button type="button" class="btn btn-outline-success">Invite</button>
+  <button type="button" class="btn btn-outline-danger">Reject</button>
+</p-footer>
+</p-dialog>
+</div>
+
+<!-- Show Dialog Job Category -->
+<div>
+<!-- Add Category -->
+<p-dialog header="Add Application Category" [(visible)]="addcategory" [modal]="true" [responsive]="true" 
+[style]="{width: '20vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+<div class="ui-g">
+  <!-- Isi -->
+    <div class="form-group">
+      <label>Category Name</label>
+      <input type="text" class="form-control" placeholder="Category Name">
+    </div>
+    <br>
+    <div class="form-group">
+      <label>Category Code</label>
+      <input type="text" class="form-control" placeholder="Category Code">
+    </div>
+</div>
+
+<p-footer>
+    <button type="button" pButton icon="pi pi-check" label="Submit"></button>
+    <button type="reset" pButton icon="pi pi-close" label="Reset" class="ui-button-secondary"></button>
+</p-footer>
+</p-dialog>
+
+<!-- Update Category -->
+<p-dialog header="Update Application Category" [(visible)]="updatecategory" [modal]="true" [responsive]="true" 
+[style]="{width: '20vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+<div class="ui-g">
+<!-- Isi -->
+  <div class="form-group">
+    <label>Category Name</label>
+    <input type="text" class="form-control" placeholder="Category Name">
+  </div>
+  <br>
+  <div class="form-group">
+    <label>Category Code</label>
+    <input type="text" class="form-control" placeholder="Category Code">
+  </div>
+</div>
+
+<p-footer>
+    <button type="button" pButton icon="pi pi-check" label="Submit"></button>
+    <button type="reset" pButton icon="pi pi-close" label="Reset" class="ui-button-secondary"></button>
+</p-footer>
+</p-dialog>
+</div>
+
+<!-- Show Dialog Job Positon -->
+<div>
+<!-- Add Position -->
+<p-dialog header="Add Job Position" [(visible)]="addposition" [modal]="true" [responsive]="true" 
+[style]="{width: '20vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  <div class="ui-g">
+    <!-- Isi -->
+      <div class="form-group">
+        <label>Postion Name</label>
+        <input type="text" class="form-control" placeholder="Postion Name">
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="exampleSelect1">Category Type</label>
+        <select class="form-control" id="exampleSelect1">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+
+  </div>
+
+  <p-footer>
+      <button type="button" pButton icon="pi pi-check" label="Submit"></button>
+      <button type="reset" pButton icon="pi pi-close" label="Reset" class="ui-button-secondary"></button>
+  </p-footer>
+</p-dialog>
+
+<!-- Update Category -->
+<!-- Add Position -->
+<p-dialog header="Update Job Position" [(visible)]="updateposition" [modal]="true" [responsive]="true" 
+[style]="{width: '20vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  <div class="ui-g">
+    <!-- Isi -->
+      <div class="form-group">
+        <label>Postion Name</label>
+        <input type="text" class="form-control" placeholder="Postion Name">
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="exampleSelect1">Category Type</label>
+        <select class="form-control" id="exampleSelect1">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+
+  </div>
+
+  <p-footer>
+      <button type="button" pButton icon="pi pi-check" label="Submit"></button>
+      <button type="reset" pButton icon="pi pi-close" label="Reset" class="ui-button-secondary"></button>
+  </p-footer>
+</p-dialog>
+</div>
