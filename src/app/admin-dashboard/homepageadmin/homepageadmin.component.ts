@@ -80,7 +80,7 @@ loginuser(){
   })
 }
 registerApplicant(){
-  this.regis.registerCandidate(this.register);
+  this.regis.registerAdmin(this.register);
   this.regis.user.subscribe(res =>{
     this.data = res
     if(this.regis.data1 =="gagal"){
