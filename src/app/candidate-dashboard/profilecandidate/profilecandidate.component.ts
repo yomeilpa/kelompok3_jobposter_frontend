@@ -126,6 +126,23 @@ getCdDocument(id,is){
   this.dts.user.subscribe(res => {this.cddoc = res})
 }
 
+
+  getCdsf(){
+    console.log("ini id"+this.user.candidate.id)
+    this.login.findByid(this.user.candidate.id);
+    this.login.user.subscribe(res => {this.cds = res
+      this.getEduCandidate(this.cds.id);
+      this.getCdWork(this.cds.id);
+      this.getRequire();
+      this.getCdSkill(this.cds.id);
+      this.cs = this.cds.city.city;
+      this.provinsi = this.cds.city.province;
+      this.ps = this.cds.city.province.province;
+      this.candidate = res;
+     
+    });
+  }
+
   ngOnInit() {
     
     this.user = this.login.store.get("user").subscribe( res => {
@@ -134,15 +151,7 @@ getCdDocument(id,is){
         this.route.navigateByUrl("#");
       }
       else{
-        this.candidate = this.user.candidate;
-        this.cds = this.user.candidate;
-        this.getEduCandidate(this.cds.id);
-        this.getCdWork(this.cds.id);
-        this.getRequire();
-        this.getCdSkill(this.cds.id);
-        this.cs = this.cds.city.city;
-        this.provinsi = this.cds.city.province;
-        this.ps = this.cds.city.province.province;
+        this.getCdsf();        
         if(this.user.candidate.pic == null){
           this.imageData ="assets/img/team/1.jpg";
         }
@@ -281,8 +290,14 @@ getCdDocument(id,is){
     this.updateskill = true;
   }
 
+  getCds(){
+    this.login.findByid(this.user.candidate.id);
+    this.login.user.subscribe(res => this.cds = res);
+  }
+
   showUpdateDocument(id){
     this.updatedocument = !this.updatedocument;
+    this.docs = "Choose Document"
     this.getIdDoctype(id);
   }
 
@@ -384,14 +399,17 @@ fileUploadProgress:any = null;
         this.login.store.get("user").subscribe( res => {
           this.cddoc = res;
           this.updatedocument = false;
-        },
-        (events) => {
-          if(events.type === HttpEventType.Response){
-            alert("Gagal");
-          }
         })
       }
          
+    },
+    (res) => {
+      let dat = res
+        alert(dat.error);
+        console.log(this.cddoc);
+        this.http.post(this.apiURL+"/add/del",this.cddoc).subscribe(res =>{ this.cddoc = res
+        this.fileUploadProgress =0
+        this.updatedocument = false})
     })
   }
   public update(){

@@ -74,6 +74,13 @@ export class RegisterService {
     })
   }
 
+  public findByid(id){
+    this.user = new Subject<any>();
+    this.http.get(this.apiURL+"/candidate/"+id).subscribe(res => {
+      this.data = res;
+      console.log("Candidate data "+this.data.name)
+      this.user.next(this.data)});
+  }
   
   public resetPassword(id,data:any){
     this.user = new Subject<any>();
