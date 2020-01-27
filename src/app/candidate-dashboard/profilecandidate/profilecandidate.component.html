@@ -1,3 +1,7 @@
+<p-dialog header="Title" [(visible)]="cek">
+  {{ta}}
+</p-dialog>
+
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <img #img src="assets/logolarge.png"> &nbsp;
@@ -186,6 +190,20 @@
                 </tr>
             </table>
             </div>
+            <p style="color: red;">Cek</p>
+              <div class="table-responsive">
+              <table class="table table-hover">
+                <tr *ngFor="let item of tst">
+                  <td>{{item}}</td>
+                  <td>
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="showCek(item)">Cek</button> &nbsp;
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="addCek()">Add</button> &nbsp;
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="deleteCek(item)">delete</button> &nbsp;
+                  </td>
+                </tr>
+            </table>
+            </div>
+   
             </div>
             <div class="ui-g card-body">
             </div>

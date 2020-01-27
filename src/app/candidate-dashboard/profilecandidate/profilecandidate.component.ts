@@ -85,7 +85,25 @@ export class ProfilecandidateComponent implements OnInit {
   req1:any = new Doctype(null,null,null,null);
   cddoc:any = new CandidateDocument(null,null,null,null);
   constructor(private http:HttpClient, private dts:DoctypeService, private pros:ProvinceService,private sk:SkillService, private ws:WorkexperienceService, private edss:EducationService, private login:RegisterService,private route:Router,private messageService: MessageService) { }
+  tst =  ['1','2','a'];
+  cek:boolean =false;
+  ta:any;
 
+  showCek(hah){
+    this.cek = !this.cek;
+    let i = this.tst.indexOf(hah);
+    this.ta = this.tst[i];
+  }
+  addCek(){
+    let a = this.tst.push("hahah");
+  }
+
+  deleteCek(item){
+    let a = this.tst.indexOf(item);
+    let b = this.tst.splice(a,1);
+    console.log(this.tst);
+  }
+  
   openPdf(){
     // this.pdf = !this.pdf;
 //     window.open("data:application/octet-stream;charset=utf-16le;base64,"+this.cds.pic); 
@@ -314,7 +332,7 @@ fileUploadProgress:any = null;
                 this.route.navigateByUrl("candidate/dashboard");
         },
         (events) => {
-          if(events.type === HttpEventType.Response){
+          {
             alert("Gagal");
           }
         })
