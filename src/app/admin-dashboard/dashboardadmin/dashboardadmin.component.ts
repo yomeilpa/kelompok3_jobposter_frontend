@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ChangePassword } from 'src/app/model/change-password';
+import { RegisterService } from 'src/app/service/register.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-dashboardadmin',
@@ -7,14 +11,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardadminComponent implements OnInit {
     settings: boolean;
+    password:any = new ChangePassword(null,null,null);
+    user:any;
 
     showSettings(){
         this.settings = true;
     }
+    oks:any;
+    resetPassword(){
+      this.login.resetPassword(this.user.id,this.password);
+      this.login.user.subscribe(res =>{
+        this.oks= res;
+        if(this.login.data1 =="gagal"){
+          alert(this.oks.error);
+                }
+        if(this.login.data1=="suc"){
+          this.route.navigateByUrl("candidate/dashboard");
+        }
+      })
+    }
+
 
     data: any;
 
-    constructor() {
+    constructor( private login:RegisterService,private route:Router) {
         this.data = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [

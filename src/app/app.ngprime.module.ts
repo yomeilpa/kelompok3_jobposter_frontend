@@ -32,6 +32,8 @@ import { AccordionModule } from 'primeng/accordion';
 import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { InputMaskModule } from 'primeng/inputmask';
+import { PasswordModule } from 'primeng/password';
 
 
 @NgModule({
@@ -69,6 +71,8 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
         RadioButtonModule,
         AutoCompleteModule,
         DropdownModule,
+        PasswordModule,
+        InputMaskModule
 
     ]
 })

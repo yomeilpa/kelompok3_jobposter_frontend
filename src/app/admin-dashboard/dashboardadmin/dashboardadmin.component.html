@@ -24,6 +24,9 @@
     <div class="collapse navbar-collapse" id="navbar"> &nbsp;
         <ul class="navbar-nav ml-auto my-lg-1">
           <li class="nav-item">
+            <a class="nav-link" (click)="showSettings()" >Settings</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/admin" >Sign Out</a>
           </li>
         </ul>
@@ -40,7 +43,6 @@
     <a href="/admin/joblist" class="list-group-item list-group-item-action bg-light">Job List</a>
     <a href="/admin/invited" class="list-group-item list-group-item-action bg-light">Invited Candidate</a>
     <a href="/admin/approved" class="list-group-item list-group-item-action bg-light">Approved Candidate</a>
-    <a class="list-group-item list-group-item-action bg-light" (click)="showSettings()">Settings</a>
     </div>
   </div>
   <!-- Page Content -->

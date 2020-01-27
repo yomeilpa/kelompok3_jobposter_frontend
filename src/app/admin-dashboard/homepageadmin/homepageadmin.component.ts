@@ -25,6 +25,7 @@ export class HomepageadminComponent implements OnInit {
   checked: boolean = false;
   data:any;
   user:any;
+  ps:any = "Choose Province";
 
 showDialogSignIn() {
 this.displaysignin = true; 
@@ -52,19 +53,33 @@ showWarn(warn:any) {
   this.messageService.add({key:'tl',severity:'error', summary: 'Error', detail:warn});
 }
 
+showSucces(warn:any) {
+  this.messageService.add({key: 'tl', sticky: true, severity:'success', summary:warn, detail:'Please Check Your Email for your Password to Login '});
+}
+
 showWarn1(warn:any) {
 this.messageService.add({key:'tc',severity:'warn', summary: 'Error', detail:warn});
 }
 
 ngOnInit() {
+  this.regis.store.get("user").subscribe( res => {
+    if(res != null){
+      this.route.navigateByUrl("candidate/dashboard");
+    }})
+}
+proNull(){
+  this.ps === 'Choose Province';
   this.pros.getProvince();
   this.pros.user.subscribe(res => this.province = res);
-
-  
 }
+
 getCity(){
   this.pros.getCity(this.provinsi.province);
-  this.pros.user.subscribe(res => this.city = res);
+  this.pros.user.subscribe(res => {this.city = res
+  this.ps = this.provinsi.province});
+}
+getClearCity(){
+  this.city == null;
 }
 
 loginuser(){

@@ -1,23 +1,3 @@
-<!-- Password -->
-<p-dialog header="Change Password" [(visible)]="settings" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
-  <div class="form-group">
-    <label>Old Password </label>
-    <input type="password" class="form-control"  placeholder="Old Password">
-  </div>
-  <div class="form-group">
-    <label>New Password </label>
-    <input type="password" class="form-control"  placeholder="New Password">
-  </div>
-  <div class="form-group">
-    <label>Confrim New Password </label>
-    <input type="password" class="form-control"  placeholder="Confrm New Password">
-  </div>
-      <p-footer>
-          <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
-          <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
-      </p-footer>
-</p-dialog>
-
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <img #img src="assets/logolarge.png"> &nbsp;
@@ -40,7 +20,6 @@
   <a href="/admin/joblist" class="list-group-item list-group-item-action bg-primary active">Job</a>
   <a href="/admin/invited" class="list-group-item list-group-item-action bg-light">Invited Candidate</a>
   <a href="/admin/approved" class="list-group-item list-group-item-action bg-light">Approved Candidate</a>
-  <a class="list-group-item list-group-item-action bg-light" (click)="showSettings()">Settings</a>
   </div>
 </div>
 
@@ -150,13 +129,36 @@
 <div class="ui-g">
   <!-- Kiri -->
   <div class="ui-g-6">
-    <div class="form-group">
-      <label>Application Name</label>
-      <input type="text" class="form-control" placeholder="Application Name">
+    <div class="ui-g-6">
+      <div class="form-group">
+        <label>Application Name</label>
+        <input type="text" class="form-control" placeholder="Application Name">
+      </div>
     </div>
 
+    <div class="ui-g-6">
+      <div class="form-group">
+        <label>Salary</label>
+        <input type="number" class="form-control" placeholder="Salary">
+      </div>
+    </div>
+
+    <div class="ui-g-6">
+      <div class="form-group">
+        <label for="exampleSelect1">Application Category</label>
+        <select class="form-control" id="exampleSelect1">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="ui-g-6">
     <div class="form-group">
-      <label for="exampleSelect1">Application Category</label>
+      <label for="exampleSelect1">Application Position</label>
       <select class="form-control" id="exampleSelect1">
         <option>1</option>
         <option>2</option>
@@ -165,16 +167,29 @@
         <option>5</option>
       </select>
     </div>
-
-    <div class="form-group">
-      <label>Salary</label>
-      <input type="text" class="form-control" placeholder="Salary">
     </div>
 
     <div class="form-group">
-      <label for="exampleTextarea">Job Description</label>
-      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+      <label for="exampleTextarea">Job Description</label> &nbsp;
+      <button pButton type="button" icon="pi pi-plus" title="Add Column" (click)="addColumn()" [disabled]="columns.length === 20" style="margin-right: .5em"></button>   
+      <button pButton type="button" icon="pi pi-minus" title="Remove Column" (click)="removeColumn()"[disabled]="columns.length === 0"></button>
+      <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+        <div style="padding:1em;line-height:1.5">
+          <div class="p-grid" style="margin-top: .5em">
+            <div *ngFor="let col of columns; let i=index" [@animation]="'visible'">
+              <div class="box">
+                <table>
+                  <td>
+                    <input class="form-control" name="item" [(ngModel)]="item[i]" type="text" placeholder="Job Description">
+                  </td> &nbsp;
+                </table>
+              </div>
+            </div>
+          </div>    
+        </div>
+    </p-scrollPanel>
     </div>
+
   </div>
 
   <!-- Kanan  -->
@@ -221,15 +236,30 @@
     </div>
 
     <div class="form-group">
-      <label for="exampleTextarea">Job Requirment</label>
-      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+      <label for="exampleTextarea">Job Requirment</label> &nbsp;
+      <button pButton type="button" icon="pi pi-plus" title="Add Column" (click)="addColumnDes()" [disabled]="columndescription.length === 20" style="margin-right: .5em"></button>          
+      <button pButton type="button" icon="pi pi-minus" title="Remove Column" (click)="removeColumnDes()" [disabled]="columndescription.length === 0"></button>  
+      <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+        <div style="padding:1em;line-height:1.5">
+          <div class="p-grid" style="margin-top: .5em">
+            <div class="p-col" *ngFor="let col of columndescription; let i=index" [@animation]="'visible'">
+              <div class="box">
+                <table>
+                  <td><input class="form-control" name="req" [(ngModel)]="req[ireq]" type="text" placeholder="Job Requirment"></td>
+                </table>
+              </div>
+            </div>
+          </div>    
+        </div>
+    </p-scrollPanel>
     </div>
 
   </div>
+
 </div>
 
 <p-footer>
-    <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Submit"></button>
+    <button type="button" pButton icon="pi pi-check" (click)="confirmasi()" label="Submit"></button>
     <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
 </p-footer>
 </p-dialog>
@@ -240,13 +270,36 @@
 <div class="ui-g">
   <!-- Kiri -->
   <div class="ui-g-6">
-    <div class="form-group">
-      <label>Application Name</label>
-      <input type="text" class="form-control" placeholder="Application Name">
+    <div class="ui-g-6">
+      <div class="form-group">
+        <label>Application Name</label>
+        <input type="text" class="form-control" placeholder="Application Name">
+      </div>
     </div>
 
+    <div class="ui-g-6">
+      <div class="form-group">
+        <label>Salary</label>
+        <input type="number" class="form-control" placeholder="Salary">
+      </div>
+    </div>
+
+    <div class="ui-g-6">
+      <div class="form-group">
+        <label for="exampleSelect1">Application Category</label>
+        <select class="form-control" id="exampleSelect1">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="ui-g-6">
     <div class="form-group">
-      <label for="exampleSelect1">Application Category</label>
+      <label for="exampleSelect1">Application Position</label>
       <select class="form-control" id="exampleSelect1">
         <option>1</option>
         <option>2</option>
@@ -255,16 +308,29 @@
         <option>5</option>
       </select>
     </div>
-
-    <div class="form-group">
-      <label>Salary</label>
-      <input type="text" class="form-control" placeholder="Salary">
     </div>
 
     <div class="form-group">
-      <label for="exampleTextarea">Job Description</label>
-      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+      <label for="exampleTextarea">Job Description</label> &nbsp;
+      <button pButton type="button" icon="pi pi-plus" title="Add Column" (click)="upaddColumn()" [disabled]="upcolumns.length === 20" style="margin-right: .5em"></button>   
+      <button pButton type="button" icon="pi pi-minus" title="Remove Column" (click)="upremoveColumn()"[disabled]="upcolumns.length === 0"></button>
+      <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+        <div style="padding:1em;line-height:1.5">
+          <div class="p-grid" style="margin-top: .5em">
+            <div *ngFor="let col of upcolumns; let i=index" [@animation]="'visible'">
+              <div class="box">
+                <table>
+                  <td>
+                    <input class="form-control" name="item" [(ngModel)]="item[i]" type="text" placeholder="Job Description">
+                  </td> &nbsp;
+                </table>
+              </div>
+            </div>
+          </div>    
+        </div>
+    </p-scrollPanel>
     </div>
+
   </div>
 
   <!-- Kanan  -->
@@ -311,16 +377,31 @@
     </div>
 
     <div class="form-group">
-      <label for="exampleTextarea">Job Requirment</label>
-      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+      <label for="exampleTextarea">Job Requirment</label> &nbsp;
+      <button pButton type="button" icon="pi pi-plus" title="Add Column" (click)="upaddColumnDes()" [disabled]="upcolumndescription.length === 20" style="margin-right: .5em"></button>          
+      <button pButton type="button" icon="pi pi-minus" title="Remove Column" (click)="upremoveColumnDes()" [disabled]="upcolumndescription.length === 0"></button>  
+      <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+        <div style="padding:1em;line-height:1.5">
+          <div class="p-grid" style="margin-top: .5em">
+            <div class="p-col" *ngFor="let col of upcolumndescription; let i=index" [@animation]="'visible'">
+              <div class="box">
+                <table>
+                  <td><input class="form-control" name="req" [(ngModel)]="req[ireq]" type="text" placeholder="Job Requirment"></td>
+                </table>
+              </div>
+            </div>
+          </div>    
+        </div>
+    </p-scrollPanel>
     </div>
 
   </div>
+
 </div>
 
 <p-footer>
-    <button type="button" pButton icon="pi pi-check" label="Submit"></button>
-    <button type="reset" pButton icon="pi pi-close" label="Reset" class="ui-button-secondary"></button>
+    <button type="button" pButton icon="pi pi-check" (click)="confirmasi()" label="Submit"></button>
+    <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
 </p-footer>
 </p-dialog>
 
