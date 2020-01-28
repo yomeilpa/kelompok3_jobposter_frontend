@@ -48,15 +48,12 @@ pross:Province[];
 test:string;
 register:Candidate = new Candidate("","",null,"",null,"","");
 constructor(private pros:ProvinceService,private regis:RegisterService,private route:Router,private messageService: MessageService) { }
-
 showWarn(warn:any) {
   this.messageService.add({key:'tl',severity:'error', summary: 'Error', detail:warn});
 }
-
 showSucces(warn:any) {
   this.messageService.add({key: 'tl', sticky: true, severity:'success', summary:warn, detail:'Please Check Your Email for your Password to Login '});
 }
-
 showWarn1(warn:any) {
 this.messageService.add({key:'tc',severity:'warn', summary: 'Error', detail:warn});
 }
@@ -64,7 +61,7 @@ this.messageService.add({key:'tc',severity:'warn', summary: 'Error', detail:warn
 ngOnInit() {
   this.regis.store.get("user").subscribe( res => {
     if(res != null){
-      this.route.navigateByUrl("candidate/dashboard");
+      this.route.navigateByUrl("admin/dashboard");
     }})
 }
 proNull(){
@@ -90,7 +87,12 @@ loginuser(){
       this.showWarn1(this.user.error);
             }
     if(this.regis.data1=="suc"){
-      this.route.navigateByUrl("candidate/dashboard");
+      if(this.user.role != "applicant"){
+        this.route.navigateByUrl("admin/dashboard");
+      }
+      else{
+        this.showWarn1("You are Not an Admin");
+      }
     }
   })
 }
@@ -103,37 +105,14 @@ registerApplicant(){
       this.showWarn(this.data.error);
     }
     if(this.regis.data1=="succes"){
-      this.route.navigateByUrl("/candidate/dashboard/")
+      this.route.navigateByUrl("/admin");
+      this.displaysignup = false;
       alert("register succes")
       
     }
   })
 }
 }
-
-// filterBrands(event) {
-//   this.pross = [];
-//   for(let i = 0; i < this.province.length; i++) {
-//       let brand = this.province[i];
-//       if(brand.province.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
-//           this.pross.push(brand);
-//       }
-//   }
-
-
-
-
-
-// filterCity(event){
-//   let query = event.query;
-//   this.citis = [];
-//   for(let i = 0; i < this.city.length; i++) {
-//       let brand = this.city[i];
-//       if(brand.city.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
-//           this.citis.push(brand);
-//       }
-//   }
-// }
 
 
 

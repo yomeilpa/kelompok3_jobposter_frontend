@@ -1,5 +1,9 @@
 import { Component, OnInit ,ViewEncapsulation } from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
+import { RegisterService } from 'src/app/service/register.service';
+import { Router } from '@angular/router';
+import { ProvinceService } from 'src/app/service/province.service';
+
 
 @Component({
   selector: 'app-joblist',
@@ -34,7 +38,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
             border-radius: 6px;
         }
 
-        .nested-grid .p-col-6 {
+        .nested-grid .p-col-1 {
             padding-bottom: 1em;
         }
     `],
@@ -69,13 +73,21 @@ export class JoblistComponent implements OnInit {
   ireq: any = 0;
   item =[];
   itemList = [];
+  regItem = [];
   i:any = 0;
+  user:any;
+  imageData:any;
+  candidate:any;
 
   confirmasi(){
     for(let i in this.columns){
       this.itemList.push(this.item[i]);
     }
+    for(let i in this.columns){
+      this.regItem.push(this.req[i]);
+    }
     console.log(this.itemList);
+    console.log(this.regItem);
   }
 
   showSettings(){
@@ -113,9 +125,10 @@ export class JoblistComponent implements OnInit {
   showUpdatePosition(){
     this.updateposition = true;
   }
-
-  constructor() { }
-
+  destroySession(){
+    this.regis.store.delete('user').subscribe((res) => {this.route.navigateByUrl("/admin")});
+  }
+  constructor(private pros:ProvinceService,private regis:RegisterService,private route:Router) { }
   columns: number[];
   columndescription : number[];
 
@@ -124,6 +137,25 @@ export class JoblistComponent implements OnInit {
         this.columndescription = [];
         this.upcolumns = [];
         this.upcolumndescription = [];
+        this.user = this.regis.store.get("user").subscribe( res => {
+          this.user=res;
+          if(res == null){
+            this.route.navigateByUrl("/admin");
+          }
+          else{
+            if(this.user.role != "HR"){
+              alert("You are not logged as admin")
+              this.destroySession();
+            }
+            this.candidate = this.user.candidate;
+            if(this.user.candidate.pic == null){
+              this.imageData ="assets/img/team/1.jpg";
+            }
+            else{
+            this.imageData = 'data:'+this.candidate.type+';base64,'+this.candidate.pic;   }
+            }
+          });
+        
     }
 
     addColumn() {

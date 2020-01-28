@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RegisterService } from 'src/app/service/register.service';
 import { Router } from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';  
@@ -14,8 +14,12 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./dashboardcandidate.component.css'],
   providers: [MessageService]
 })
-export class DashboardcandidateComponent implements OnInit {
+export class DashboardcandidateComponent implements OnInit,OnDestroy{
 
+  ngOnDestroy(){
+    this.login.store.delete('user').subscribe((res) => {this.route.navigateByUrl("#")});
+  }
+ 
   settings: boolean = false;
   detail: boolean = false;
   user:any;
@@ -38,12 +42,14 @@ export class DashboardcandidateComponent implements OnInit {
   ngOnInit() {
     this.user = this.login.store.get("user").subscribe( res => {
     this.user=res;
-    
-
     if(res == null){
       this.route.navigateByUrl("#");
     }
     else{
+      if(this.user.role == "HR"){
+        alert("You are not logged in as Applicant");
+        this.destroySession();
+      }
       this.candidate = this.user.candidate;
       if(this.user.candidate.pic == null){
         this.imageData ="assets/img/team/1.jpg";

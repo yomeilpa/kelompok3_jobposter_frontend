@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RegisterService } from 'src/app/service/register.service';
 import { Router } from '@angular/router';
 import { Candidate } from 'src/app/model/candidate';
@@ -19,6 +19,8 @@ import { CandidateDocument } from 'src/app/model/candidate-document';
 import {HttpClient, HttpEventType} from '@angular/common/http'
 import { Subject, Observable } from 'rxjs';
 import { ChangePassword } from 'src/app/model/change-password';
+import { DomSanitizer } from '@angular/platform-browser';
+import { base64StringToBlob } from 'blob-util';
 
 @Component({
   selector: 'app-profilecandidate',
@@ -26,7 +28,10 @@ import { ChangePassword } from 'src/app/model/change-password';
   styleUrls: ['./profilecandidate.component.css'],
   providers: [MessageService]
 })
-export class ProfilecandidateComponent implements OnInit {
+export class ProfilecandidateComponent implements OnInit,OnDestroy {
+  ngOnDestroy(){
+    this.login.store.delete('user').subscribe((res) => {this.route.navigateByUrl("#")});
+  }
 
   private apiURL = 'http://bootcamp.linovhr.com:8080/jobposter1';
   
@@ -84,7 +89,7 @@ export class ProfilecandidateComponent implements OnInit {
   password:any = new ChangePassword(null,null,null);
   req1:any = new Doctype(null,null,null,null);
   cddoc:any = new CandidateDocument(null,null,null,null);
-  constructor(private http:HttpClient, private dts:DoctypeService, private pros:ProvinceService,private sk:SkillService, private ws:WorkexperienceService, private edss:EducationService, private login:RegisterService,private route:Router,private messageService: MessageService) { }
+  constructor(private sani:DomSanitizer, private http:HttpClient, private dts:DoctypeService, private pros:ProvinceService,private sk:SkillService, private ws:WorkexperienceService, private edss:EducationService, private login:RegisterService,private route:Router,private messageService: MessageService) { }
   tst =  ['1','2','a'];
   cek:boolean =false;
   ta:any;
@@ -103,32 +108,38 @@ export class ProfilecandidateComponent implements OnInit {
     let b = this.tst.splice(a,1);
     console.log(this.tst);
   }
-  
+
   openPdf(){
     // this.pdf = !this.pdf;
 //     window.open("data:application/octet-stream;charset=utf-16le;base64,"+this.cds.pic); 
 
     let a = document.createElement("a");
-    a.href = "data:"+this.cddoc.type+";base64,"+this.cddoc.pic;
+    const blob = base64StringToBlob(this.cddoc.pic,this.cddoc.type);
+    this.fileUrl = this.sani.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+    console.log(this.cddoc)
+    a.href = this.fileUrl;
     a.download = this.cddoc.filename;
     a.click();
+
+
 
 // let x=window.open('about:whatever');  
 // let iframe=x.document.createElement('iframe')
 // iframe.width='100%'
 // iframe.height='100%'
-// iframe.src=this.imageData;
+// iframe.src=this.fileUrl;
 // x.document.body.appendChild(iframe)
   }
   
 getCdDocument(id,is){
   this.dts.getCd(id,is);
-  this.dts.user.subscribe(res => {this.cddoc = res})
+  this.dts.user.subscribe(res => {this.cddoc = res
+    const blob = base64StringToBlob(this.cddoc.pic,this.cddoc.type);
+    this.fileUrl = this.sani.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));})
 }
 
 
   getCdsf(){
-    console.log("ini id"+this.user.candidate.id)
     this.login.findByid(this.user.candidate.id);
     this.login.user.subscribe(res => {this.cds = res
       this.getEduCandidate(this.cds.id);
@@ -151,6 +162,10 @@ getCdDocument(id,is){
         this.route.navigateByUrl("#");
       }
       else{
+        if(this.user.role == "HR"){
+          alert("You are not logged in as Applicant");
+          this.destroySession();
+        }
         this.getCdsf();        
         if(this.user.candidate.pic == null){
           this.imageData ="assets/img/team/1.jpg";
@@ -161,10 +176,14 @@ getCdDocument(id,is){
         }
       });   
   }
+  go:any;
   getIdDoctype(id){
     this.dts.getDocTypeID(id);
+    this.cddoc = new CandidateDocument(null,null,null,null);
     this.dts.user.subscribe(res => {this.req1 = res
-      this.getCdDocument(this.cds.id,this.req1.id)}) 
+      this.go = 1;
+      this.getCdDocument(this.cds.id,this.req1.id);
+    }) 
   }
   getRequire(){
     this.dts.getDocTypeTrue();
@@ -294,7 +313,7 @@ getCdDocument(id,is){
     this.login.findByid(this.user.candidate.id);
     this.login.user.subscribe(res => this.cds = res);
   }
-
+  fileUrl;
   showUpdateDocument(id){
     this.updatedocument = !this.updatedocument;
     this.docs = "Choose Document"
@@ -383,7 +402,7 @@ fileUploadProgress:any = null;
   public uploadDocument(){
     let formData = new FormData();
     this.fileUploadProgress = 0;
-    if(this.cddoc != null){
+    if(this.cddoc.pic != null){
       this.dts.delete(this.cds.id,this.req1.id);
     }
     formData.append("docx",this.ds,this.ds.name);

@@ -13,6 +13,8 @@ export class DashboardadminComponent implements OnInit {
     settings: boolean;
     password:any = new ChangePassword(null,null,null);
     user:any;
+    imageData:any;
+    candidate:any;
 
     showSettings(){
         this.settings = true;
@@ -61,6 +63,30 @@ export class DashboardadminComponent implements OnInit {
     }
 
     ngOnInit() {
+
+      this.user = this.login.store.get("user").subscribe( res => {
+        this.user=res;
+        if(res == null){
+          this.route.navigateByUrl("/admin");
+        }
+        else{
+          if(this.user.role != "HR"){
+            alert("You are not logged as admin")
+            this.destroySession();
+          }
+          this.candidate = this.user.candidate;
+          if(this.user.candidate.pic == null){
+            this.imageData ="assets/img/team/1.jpg";
+          }
+          else{
+          this.imageData = 'data:'+this.candidate.type+';base64,'+this.candidate.pic;   }
+          }
+        });
     }
+
+    
+  destroySession(){
+    this.login.store.delete('user').subscribe((res) => {this.route.navigateByUrl("/admin")});
+  }
 
 }

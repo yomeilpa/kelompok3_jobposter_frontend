@@ -127,8 +127,8 @@
                     <td>{{item?.name}}</td>
                     <td>{{item?.education?.education}}</td>
                     <td>{{item?.gpa}}</td>
-                    <td>{{item?.mulai}}</td>
-                    <td>{{item?.berakhir}}</td>
+                    <td>{{item?.mulai | date:'yyyy-MMMM-dd'}}</td>
+                    <td>{{item?.berakhir | date:'yyyy-MMMM-dd'}}</td>
                     <td>
                       <a type="button" class="btn btn-outline-warning btn-sm" (click) ="getid(item.id)" >Update</a> &nbsp;
                       <button type="button" class="btn btn-outline-danger btn-sm" (click) ="delete(item.id)">Delete</button>
@@ -157,8 +157,8 @@
                 <th scope="row">{{item?.name}}</th>
                 <td>{{item?.position}}</td>
                 <td>{{item?.salary | currency:'Rp. '}}</td>
-                <td>{{item?.mulai}}</td>
-                <td>{{item?.berakhir}}</td>
+                <td>{{item?.mulai | date:'yyyy-MMMM-dd'}}</td>
+                <td>{{item?.berakhir | date:'yyyy-MMMM-dd'}}</td>
                 <td>
                   <button type="button" class="btn btn-outline-warning btn-sm"  (click)="getCdId(item.id)">Update</button> &nbsp;
                   <button type="button" class="btn btn-outline-danger btn-sm" (click)="deletework(item.id)">Delete</button>
@@ -502,26 +502,30 @@
 </p-dialog>
 
 <!-- Update Document -->
+
 <p-dialog header="Update Document" [(visible)]="updatedocument" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
- 
+  <div style="align-items: center;text-align: center;" [hidden] ="cddoc.pic!=null || cddoc.id != null">
+    <p-progressSpinner ></p-progressSpinner>   
+    <p>Please Wait...</p>   
+  </div>  
   <div *ngIf="fileUploadProgress">
     <p-progressBar [value]="fileUploadProgress"></p-progressBar>
 </div>
   <div class="form-group">
-    <input type="text" class="form-control" disabled [(ngModel)]="req1.typename" id="exampleSelect1">
+    <input type="text"  [hidden]="cddoc.id == null" class="form-control" disabled [(ngModel)]="req1.typename" id="exampleSelect1">
   </div>
 
-  <input type="text" placeholder="Documnent not uploaded yet" disabled class="form-control" name="do" [(ngModel)]="cddoc.filename">
+  <input type="text"  [hidden]="cddoc.id == null"  placeholder="Documnent not uploaded yet" disabled class="form-control" name="do" [(ngModel)]="cddoc.filename">
 
  
-<label>Upload Document</label>
-<div class="custom-file">
-  <input type="file" class="custom-file-input" [(ngModel)]="pxd" name="lalala" (change) ="onfileSelected1($event)" id="inputGroupFile01" aria-describedby="fileHelp">  
+<label [hidden]="cddoc.id == null">Upload Document</label>
+<div [hidden]="cddoc.id == null" class="custom-file">
+  <input type="file"  class="custom-file-input" [(ngModel)]="pxd" name="lalala" (change) ="onfileSelected1($event)" id="inputGroupFile01" aria-describedby="fileHelp">  
   <label class="custom-file-label" for="inputGroupFile01">{{docs}}</label>
 </div>
-
-      <p-footer>
-          <button type="button"  (click)="openPdf()" pButton icon="pi pi-download" (click)="display=false" label="Download"></button>
+<!-- <a [href]="fileUrl" [download]="cddoc.filename">Download</a> -->
+<p-footer>
+          <a type="button" [hidden] ="cddoc.pic==null" pButton icon="pi pi-download" [href]="fileUrl" [download]="cddoc.filename"  label="Download"></a>
           <button type="button" pButton icon="pi pi-close" (click)="uploadDocument()" label="Update" class="ui-button-warning"></button>
       </p-footer>
 </p-dialog>

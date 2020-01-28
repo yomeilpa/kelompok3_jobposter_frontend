@@ -36,6 +36,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { PasswordModule } from 'primeng/password';
 
 
+
 @NgModule({
     exports: [
         InputTextModule,
@@ -72,7 +73,7 @@ import { PasswordModule } from 'primeng/password';
         AutoCompleteModule,
         DropdownModule,
         PasswordModule,
-        InputMaskModule
+        InputMaskModule,
 
     ]
 })

@@ -78,7 +78,6 @@ export class RegisterService {
     this.user = new Subject<any>();
     this.http.get(this.apiURL+"/candidate/"+id).subscribe(res => {
       this.data = res;
-      console.log("Candidate data "+this.data.name)
       this.user.next(this.data)});
   }
   
