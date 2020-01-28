@@ -156,17 +156,17 @@
             </div>
             <div class="table-responsive">
             <table class="table table-hover">
-              <tr *ngFor="let item of works">
-                <th scope="row">{{item?.name}}</th>
-                <td>{{item?.position}}</td>
-                <td>{{item?.salary | currency:'Rp. '}}</td>
-                <td>{{item?.mulai | date:'yyyy-MMMM-dd'}}</td>
-                <td>{{item?.berakhir | date:'yyyy-MMMM-dd'}}</td>
-                <td>
+              <div *ngFor="let item of works">
+                <th style="width:auto;" scope="row">{{item?.name}}</th>
+                <td style="width:auto;">{{item?.position}}</td>
+                <td style="width:auto;">{{item?.salary | currency:'Rp. '}}</td>
+                <td style="width:auto;">{{item?.mulai | date:'yyyy-MMMM-dd'}}</td>
+                <td style="width:auto;" >{{item?.berakhir | date:'yyyy-MMMM-dd'}}</td>
+                <td style="width:auto;">
                   <button type="button" class="btn btn-outline-warning btn-sm"  (click)="getCdId(item.id)">Update</button> &nbsp;
                   <button type="button" class="btn btn-outline-danger btn-sm" (click)="deletework(item.id)">Delete</button>
                 </td>
-              </tr>
+              </div>
           </table>
           </div>
           </div>
