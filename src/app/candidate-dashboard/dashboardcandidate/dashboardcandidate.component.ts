@@ -14,11 +14,8 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./dashboardcandidate.component.css'],
   providers: [MessageService]
 })
-export class DashboardcandidateComponent implements OnInit,OnDestroy{
+export class DashboardcandidateComponent implements OnInit{
 
-  ngOnDestroy(){
-    this.login.store.delete('user').subscribe((res) => {this.route.navigateByUrl("#")});
-  }
  
   settings: boolean = false;
   detail: boolean = false;

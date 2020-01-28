@@ -28,10 +28,8 @@ import { base64StringToBlob } from 'blob-util';
   styleUrls: ['./profilecandidate.component.css'],
   providers: [MessageService]
 })
-export class ProfilecandidateComponent implements OnInit,OnDestroy {
-  ngOnDestroy(){
-    this.login.store.delete('user').subscribe((res) => {this.route.navigateByUrl("#")});
-  }
+export class ProfilecandidateComponent implements OnInit {
+ 
 
   private apiURL = 'http://bootcamp.linovhr.com:8080/jobposter1';
   
