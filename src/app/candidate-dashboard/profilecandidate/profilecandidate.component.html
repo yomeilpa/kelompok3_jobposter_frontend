@@ -27,9 +27,12 @@
         </ul>
     </div>
 </nav>
-
+<div style="align-items: center;text-align: center;" [hidden] ="cds.id!=null">
+  <p-progressSpinner ></p-progressSpinner>   
+  <p>Please Wait...</p>   
+</div>
 <!-- Body -->
-<div class="ui-g">
+<div class="ui-g" [hidden]="cds.id == null">
   <div class="ui-g-2 ui-md-12 ui-lg-2">
   </div>
 

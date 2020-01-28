@@ -202,11 +202,11 @@ getCdDocument(id,is){
 
   getSkillbyid(id){
     this.sk.getSkillid(id);
-    this.sk.user.subscribe(res => this.cdSkill = res);
+    this.sk.user.subscribe(res => {this.cdSkill = res
+    });
     this.showUpdateSkill();
   }
   
-
   getCdSkill(id){
     this.sk.getSkillCandidate(id);
     this.sk.user.subscribe(res => {this.skillcd = res
