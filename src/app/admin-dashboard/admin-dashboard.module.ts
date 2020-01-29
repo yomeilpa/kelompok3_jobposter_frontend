@@ -9,6 +9,7 @@ import { InvitedcandidateComponent } from './invitedcandidate/invitedcandidate.c
 import { HomepageadminComponent } from './homepageadmin/homepageadmin.component';
 import { HttpClientModule } from '@angular/common/http';
 import { JoblistComponent } from './joblist/joblist.component';
+import {DropdownModule} from 'primeng/dropdown';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { JoblistComponent } from './joblist/joblist.component';
     CommonModule,
     AdminDashboardRoutingModule,
     NgPrimeModule,
-    HttpClientModule
+    HttpClientModule,
+    DropdownModule
  
   ]
 })

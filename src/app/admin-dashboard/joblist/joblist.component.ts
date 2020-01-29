@@ -3,6 +3,14 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
 import { RegisterService } from 'src/app/service/register.service';
 import { Router } from '@angular/router';
 import { ProvinceService } from 'src/app/service/province.service';
+import { JobKategoriModel } from 'src/app/model/job-kategori-model';
+import { JobKategoriService } from 'src/app/service/job-kategori.service';
+import { JobPosition } from 'src/app/model/job-position';
+import { JobPositionServiceService } from 'src/app/service/job-position-service.service';
+import { JobRecuitmentModel } from 'src/app/model/job-recuitment-model';
+import { JobDetailModel } from 'src/app/model/job-detail-model';
+import { JobPostingModel } from 'src/app/model/job-posting-model';
+import { PostingjobService } from 'src/app/service/postingjob.service';
 
 
 @Component({
@@ -72,22 +80,78 @@ export class JoblistComponent implements OnInit {
   req = [];
   ireq: any = 0;
   item =[];
-  itemList = [];
-  regItem = [];
+  jobDetail = [];
+  jobReq = [];
   i:any = 0;
   user:any;
   imageData:any;
   candidate:any;
+  jb:any = new JobDetailModel(null,null,null);
+  js:any = new JobRecuitmentModel(null,null,null);
+  posting:any = new JobPostingModel(null,null,null,null,null,null,null,null,null);
+  provinsi:any;
+  ps:any = "Choose Province";
+  city:any[];
+  province:any[];
+  kate:any;
+  getPosKa:any;
+
+  getPos1(){
+    this.positionSer.getJobPositionbyIdKate(this.kate.id);
+    this.positionSer.user.subscribe(res => this.getPosKa = res);
+  }
+  posNull(){
+    this.posting.jobposotion=null;
+  }
+
+  postingJob(){
+    this.confirmasi();
+    this.posting.candidate = this.user.candidate;
+    this.posting.active = "true";
+    this.posser.postJobPosting(this.posting);
+    this.posser.user.subscribe(res => {
+      let e = res;
+      console.log(res)
+      if(this.posser.data1 == "OK"){
+        // alert("ahhaha");
+        this.posser.postJobDes(e.id,this.jobDetail);
+        this.posser.postJobReq(e.id,this.jobReq);
+      }
+      else{
+        alert(e.error);
+      }
+    })
+  }
+
+  proNull(){
+    this.ps === 'Choose Province';
+    this.pros.getProvince();
+    this.pros.user.subscribe(res => this.province = res);
+  }
+  
+  getCity(){
+    this.pros.getCity(this.provinsi.province);
+    this.pros.user.subscribe(res => {this.city = res
+    this.ps = this.provinsi.province});
+  }
+  getClearCity(){
+    this.city == null;
+  }
+  
 
   confirmasi(){
     for(let i in this.columns){
-      this.itemList.push(this.item[i]);
+      this.jb = new JobDetailModel(null,null,null);
+      this.jb.description = this.item[i]
+      this.jobDetail.push(this.jb);
     }
-    for(let i in this.columns){
-      this.regItem.push(this.req[i]);
+    for(let i in this.columndescription){
+      this.js = new JobRecuitmentModel(null,null,null);
+      this.js.recruitment = this.req[i]
+      this.jobReq.push(this.js);
     }
-    console.log(this.itemList);
-    console.log(this.regItem);
+    console.log(this.jobDetail);
+    console.log(this.jobReq);
   }
 
   showSettings(){
@@ -114,25 +178,29 @@ export class JoblistComponent implements OnInit {
     this.addcategory = true;
   }
 
-  showUpdateCategory(){
-    this.updatecategory = true;
+  showUpdateCategory(id){
+    this.updatecategory =!this.updatecategory;
+    this.getJobKategoribyId(id);
   }
 
   showAddPosition(){
     this.addposition = true;
   }
 
-  showUpdatePosition(){
+  showUpdatePosition(id){
     this.updateposition = true;
+    this.getJobPositionbyId(id);
   }
   destroySession(){
     this.regis.store.delete('user').subscribe((res) => {this.route.navigateByUrl("/admin")});
   }
-  constructor(private pros:ProvinceService,private regis:RegisterService,private route:Router) { }
+  constructor(private posser:PostingjobService, private positionSer:JobPositionServiceService, private pros:ProvinceService,private regis:RegisterService,private route:Router,private kategori:JobKategoriService) { }
   columns: number[];
   columndescription : number[];
 
     ngOnInit() {
+        this.getAllJobKategori();
+        this.getAllJobPosition();
         this.columns = [];
         this.columndescription = [];
         this.upcolumns = [];
@@ -193,6 +261,98 @@ export class JoblistComponent implements OnInit {
         this.upcolumndescription.splice(-1, 1);
       }
 
-    
+      // JobKategori private
+      jobkateList:any;
+      jobKate:any = new JobKategoriModel(null,null,null);
+      jobKateedit:any = new JobKategoriModel(null,null,null);
+      
+      postJobKategori(){
+        this.kategori.postJobkategori(this.jobKate);
+        this.kategori.user.subscribe(res => {
+            if(this.kategori.data1 == "OK"){
+              location.href = "admin/joblist"
+            }
+        })
+      }
 
-}
+      putJobKategori(){
+        this.kategori.postJobkategori(this.jobKateedit);
+        this.kategori.user.subscribe(res => {
+            if(this.kategori.data1 == "OK"){
+              location.href = "admin/joblist"
+            }
+        })
+      }
+      getAllJobKategori(){
+        this.kategori.getJobKatergori();
+        this.kategori.user.subscribe(res => { this.jobkateList = res });
+        
+      }
+
+      getJobKategoribyId(id){
+        this.kategori.getJobKatergoribyId(id);
+        this.kategori.user.subscribe(res => this.jobKateedit = res);
+      }
+
+      
+      
+      deleteKategori(id){
+        this.kategori.deleteJobKatergoribyId(id);
+        if(this.kategori.data1 == "OK"){
+          this.updatecategory = false;
+          location.href = "admin/joblist"
+        }
+        else{
+          alert("Error");
+        }
+      }
+      // Job Position Service
+      jobPos:any = new JobPosition(null,null,null);
+      jobPosList:any;
+      jobPos1:any = new JobPosition(null,null,null);
+      posJobPosition(){
+        this.positionSer.postJobPosition(this.jobPos);
+        this.positionSer.user.subscribe(res =>{
+          if(this.positionSer.data1 == "OK"){
+            location.href = "admin/joblist"
+          }
+        })
+      }
+      
+      putJobPosition(){
+        this.positionSer.postJobPosition(this.jobPos1);
+        this.positionSer.user.subscribe(res =>{
+          if(this.positionSer.data1 == "OK"){
+            location.href = "admin/joblist"
+          }
+        })
+      }
+      deletePosition(id){
+        this.positionSer.deleteJobPosition(id);
+        if(this.positionSer.data1 == "OK"){
+          this.updatecategory = false;
+          location.href = "admin/joblist"
+        }
+        else{
+          alert("Error");
+        }
+      }
+      getAllJobPosition(){
+        this.positionSer.getJobPosition();
+        this.positionSer.user.subscribe(res => {
+          this.jobPosList = res;
+        })
+      }
+
+      getJobPositionbyId(id){
+        this.positionSer.getJobPositionbyId(id);
+        this.positionSer.user.subscribe(res => this.jobPos1 = res);
+      }
+      // JobPositionService
+
+
+      //Job Posting Service
+
+
+      //Job Posting Service
+    }

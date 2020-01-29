@@ -91,6 +91,7 @@ export class ProfilecandidateComponent implements OnInit {
   tst =  ['1','2','a'];
   cek:boolean =false;
   ta:any;
+  cols: any[];
 
   showCek(hah){
     this.cek = !this.cek;
@@ -153,6 +154,14 @@ getCdDocument(id,is){
   }
 
   ngOnInit() {
+    this.cols = [
+      { field: 'name', header: 'Company' },
+      { field: 'position', header: 'Position' },
+      { field: 'mulai', header: 'Start' },
+      { field: 'berakhir', header: 'End' },
+      { field: 'salary', header: 'Salary' }
+
+  ];
     
     this.user = this.login.store.get("user").subscribe( res => {
       this.user=res;
@@ -361,7 +370,7 @@ fileUploadProgress:any = null;
                   }
                    
                 });
-                this.route.navigateByUrl("candidate/dashboard");
+                location.href = "candidate/profile";
         },
         (events) => {
           {
