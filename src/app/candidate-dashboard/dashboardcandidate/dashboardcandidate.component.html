@@ -152,75 +152,30 @@
 
           <p-scrollPanel [style]="{width: '100%', height: '420px'}">
           <!-- Isi Job Poster -->
-           <table>
-             <td>
-              <div class="card border-light">
-                <div class="card-header"><h5>IT Bootcamp</h5></div>
+           
+            
+              <div class="card border-light" style="width: 100%;" *ngFor="let item of jobs">
+                <div class="card-header"><h5>{{item.title}} <p style="text-align-last:right;font:italic;"><small>{{item.salary | currency:'Rp. '}}/month</small></p></h5></div>
                 <div class="card-body">
                   <p class="card-title">
-                    Perkembangan teknologi yang kian pesat merupakan salah satu tantangan yang harus dihadapi oleh 
-                    semua perusahaan  di Indonesia, termasuk Lawencon. Menjawab tantangan ini, Lawencon terus
-                    mengedepankan inovasi agar dapat senantiasa menjadi bank yang dapat diandalkan oleh masyarakat.
-                    Inovasi yang dilakukan Lawencon selama ini membutuhkan dukungan dari semua pihak terutama
-                    bagian IT.</p>
+                    {{item.desc}}
                     <br>
                   <p class="card-text">
-                    Open Date : 01-01-2020 &nbsp; Close Date : 02-02-2020
+                    Open Date : {{item.start}} &nbsp; Close Date : {{item.end}}
                   </p><br>
+                  <p>Recruiter : {{item.candidate.name}}</p>
+                  <br>
+                  
                     <div>
-                      <button type="button" class="btn btn-outline-info" (click)="showDetail()">Detail</button> &nbsp;
+                      <button type="button" class="btn btn-outline-info" (click)="showDetail(item.id)">Detail</button> &nbsp;
                       <button type="button" class="btn btn-outline-success">Apply</button>
                     </div>
                 </div>
                 <div class="card-footer">  
                 </div>
               </div> <br>
-             </td>
-           </table>
-          <!--  -->
-            <div class="card border-light">
-              <div class="card-header"><h5>IT Bootcamp</h5></div>
-              <div class="card-body">
-                <p class="card-title">
-                  Perkembangan teknologi yang kian pesat merupakan salah satu tantangan yang harus dihadapi oleh 
-                  semua perusahaan  di Indonesia, termasuk Lawencon. Menjawab tantangan ini, Lawencon terus
-                  mengedepankan inovasi agar dapat senantiasa menjadi bank yang dapat diandalkan oleh masyarakat.
-                  Inovasi yang dilakukan Lawencon selama ini membutuhkan dukungan dari semua pihak terutama
-                  bagian IT.</p>
-                  <br>
-                <p class="card-text">
-                  Open Date : 01-01-2020 &nbsp; Close Date : 02-02-2020
-                </p><br>
-                <div>
-                  <button type="button" class="btn btn-outline-info"  (click)="showDetail()">Detail</button> &nbsp;
-                  <button type="button" class="btn btn-outline-success">Apply</button>
-                </div>
-              </div>
-              <div class="card-footer">  
-              </div>
-            </div> <br>
-          <!--  -->
-            <div class="card border-light">
-                <div class="card-header"><h5>IT Bootcamp</h5></div>
-                <div class="card-body">
-                  <p class="card-title">
-                    Perkembangan teknologi yang kian pesat merupakan salah satu tantangan yang harus dihadapi oleh 
-                    semua perusahaan  di Indonesia, termasuk Lawencon. Menjawab tantangan ini, Lawencon terus
-                    mengedepankan inovasi agar dapat senantiasa menjadi bank yang dapat diandalkan oleh masyarakat.
-                    Inovasi yang dilakukan Lawencon selama ini membutuhkan dukungan dari semua pihak terutama
-                    bagian IT.</p>
-                    <br>
-                  <p class="card-text">
-                    Open Date : 01-01-2020 &nbsp; Close Date : 02-02-2020
-                  </p><br>
-                  <div>
-                    <button type="button" class="btn btn-outline-info" (click)="showDetail()">Detail</button> &nbsp;
-                    <button type="button" class="btn btn-outline-success">Apply</button>
-                  </div>
-                </div>
-                <div class="card-footer">  
-                </div>
-            </div><br>
+         
+         
           
           </p-scrollPanel>
       </div>
@@ -238,59 +193,42 @@
 
     <div class="ui-g">
         <!--  -->
-          <div class="ui-g-12 ui-md-6 ui-lg-12">
-            <div class="card border-secondary">
-              <div class="card-header">Header</div>
-              <div class="card-body">
-                <h4 class="card-title">Secondary card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              </div>
-            </div>
-          </div>
+          
           <!--  -->
-          <div class="ui-g-4 ui-md-6 ui-lg-4">
-            <div class="card border-secondary">
-              <div class="card-header">Header</div>
-              <div class="card-body">
-                <h4 class="card-title">Secondary card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              </div>
-            </div>
-          </div>
           <!--  -->
-          <div class="ui-g-4 ui-md-6 ui-lg-4">
-            <div class="card border-secondary">
-              <div class="card-header">Header</div>
-              <div class="card-body">
-                <h4 class="card-title">Secondary card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              </div>
-            </div>
-          </div>
-          <!--  -->
-          <div class="ui-g-4 ui-md-6 ui-lg-4">
-            <div class="card border-secondary">
-              <div class="card-header">Header</div>
-              <div class="card-body">
-                <h4 class="card-title">Secondary card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              </div>
-            </div>
-          </div>
+          
           <!--  -->
           <div class="ui-g-12 ui-md-6 ui-lg-12">
             <div class="card border-secondary">
-              <div class="card-header">Header</div>
+              <div class="card-header">
+                <h4>{{jobs1.title}}</h4>
+                <div style="text-align-last:right ;">{{jobs1.salary | currency:'Rp. '}}/month</div>
+              </div>
               <div class="card-body">
-                <h4 class="card-title">Secondary card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text">{{jobs1.desc}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="ui-g-4 ui-md-6 ui-lg-6">
+            <div class="card border-secondary">
+              <div class="card-header">Recruitments</div>
+              <div class="card-body">
+                <li *ngFor="let item of req" class="card-text">{{item.recruitment}}</li>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+          <div class="ui-g-4 ui-md-6 ui-lg-6">
+            <div class="card border-secondary">
+              <div class="card-header">Job Task</div>
+              <div class="card-body">
+                <li *ngFor="let item of det" class="card-text">{{item.description}}</li>
               </div>
             </div>
           </div>
       </div>
-
     <p-footer>
-        <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
+        <button type="button" pButton icon="pi pi-check" (click)="postApply()" label="Yes"></button>
         <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
     </p-footer>
   </p-dialog>

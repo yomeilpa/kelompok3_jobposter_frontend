@@ -28,7 +28,7 @@ export class PostingjobService {
   }
   getJobPosting(){
     this.user = new Subject<any>();
-    this.httpclient.get(this.apiURL+"/jobposition").subscribe( res =>{
+    this.httpclient.get(this.apiURL+"/jobposting").subscribe( res =>{
       this.data = res;
       this.data1 ="OK";
       this.user.next(this.data);
@@ -41,7 +41,7 @@ export class PostingjobService {
   }
   getJobPostingbyId(id){
     this.user = new Subject<any>();
-    this.httpclient.get(this.apiURL+"/jobposition/"+id).subscribe( res =>{
+    this.httpclient.get(this.apiURL+"/jobposting/"+id).subscribe( res =>{
       this.data = res;
       this.data1 ="OK";
       this.user.next(this.data);
@@ -54,7 +54,7 @@ export class PostingjobService {
   }
   putJobPosting(id,jobs){
     this.user = new Subject<any>();
-    this.httpclient.put(this.apiURL+"/jobposition/"+id,jobs).subscribe( res =>{
+    this.httpclient.put(this.apiURL+"/jobposting/"+id,jobs).subscribe( res =>{
       this.data = res;
       this.data1 ="OK";
       this.user.next(this.data);
@@ -67,7 +67,7 @@ export class PostingjobService {
   }
   deleteJobPosting(id){
     this.user = new Subject<any>();
-    this.httpclient.delete(this.apiURL+"/jobposition/"+id).subscribe( res =>{
+    this.httpclient.delete(this.apiURL+"/jobposting/"+id).subscribe( res =>{
       this.data = res;
       this.data1 ="OK";
       this.user.next(this.data);
@@ -94,7 +94,7 @@ export class PostingjobService {
   }
   getJobDesc(){
     this.user = new Subject<any>();
-    this.httpclient.get(this.apiURL+"/jobposition").subscribe( res =>{
+    this.httpclient.get(this.apiURL+"/jobdetail").subscribe( res =>{
       this.data = res;
       this.data1 ="OK";
       this.user.next(this.data);
@@ -107,7 +107,7 @@ export class PostingjobService {
   }
   getJobDescbyId(id){
     this.user = new Subject<any>();
-    this.httpclient.get(this.apiURL+"/jobposition/"+id).subscribe( res =>{
+    this.httpclient.get(this.apiURL+"/jobdetail/"+id).subscribe( res =>{
       this.data = res;
       this.data1 ="OK";
       this.user.next(this.data);
@@ -118,9 +118,24 @@ export class PostingjobService {
         this.user.next(this.data);
       })
   }
+
+  getJobDescbyJob(id){
+    this.user = new Subject<any>();
+    this.httpclient.get(this.apiURL+"/jobdetail/get/"+id).subscribe( res =>{
+      this.data = res;
+      this.data1 ="OK";
+      this.user.next(this.data);
+    },
+      (err) => {
+        this.data=err;
+        this.data1 ="BAD";
+        this.user.next(this.data);
+      })
+  }
+
   putJobDesc(id,jobs){
     this.user = new Subject<any>();
-    this.httpclient.put(this.apiURL+"/jobposition/"+id,jobs).subscribe( res =>{
+    this.httpclient.put(this.apiURL+"/jobdetail/"+id,jobs).subscribe( res =>{
       this.data = res;
       this.data1 ="OK";
       this.user.next(this.data);
@@ -133,7 +148,7 @@ export class PostingjobService {
   }
   deleteJobDesc(id){
     this.user = new Subject<any>();
-    this.httpclient.delete(this.apiURL+"/jobposition/"+id).subscribe( res =>{
+    this.httpclient.delete(this.apiURL+"/jobdetail/"+id).subscribe( res =>{
       this.data = res;
       this.data1 ="OK";
       this.user.next(this.data);
@@ -160,7 +175,7 @@ export class PostingjobService {
   }
   getJobReq(){
     this.user = new Subject<any>();
-    this.httpclient.get(this.apiURL+"/jobposition").subscribe( res =>{
+    this.httpclient.get(this.apiURL+"/jobrecruitment").subscribe( res =>{
       this.data = res;
       this.data1 ="OK";
       this.user.next(this.data);
@@ -173,7 +188,7 @@ export class PostingjobService {
   }
   getJobReqbyId(id){
     this.user = new Subject<any>();
-    this.httpclient.get(this.apiURL+"/jobposition/"+id).subscribe( res =>{
+    this.httpclient.get(this.apiURL+"/jobrecruitment/"+id).subscribe( res =>{
       this.data = res;
       this.data1 ="OK";
       this.user.next(this.data);
@@ -184,9 +199,25 @@ export class PostingjobService {
         this.user.next(this.data);
       })
   }
+
+  getJobReqbyJob(id){
+    this.user = new Subject<any>();
+    this.httpclient.get(this.apiURL+"/jobrecruitment/get/"+id).subscribe( res =>{
+      this.data = res;
+      this.data1 ="OK";
+      this.user.next(this.data);
+    },
+      (err) => {
+        this.data=err;
+        this.data1 ="BAD";
+        this.user.next(this.data);
+      })
+  }
+ 
+
   putJobReq(id,jobs){
     this.user = new Subject<any>();
-    this.httpclient.put(this.apiURL+"/jobposition/"+id,jobs).subscribe( res =>{
+    this.httpclient.put(this.apiURL+"/jobrecruitment/"+id,jobs).subscribe( res =>{
       this.data = res;
       this.data1 ="OK";
       this.user.next(this.data);
@@ -199,7 +230,7 @@ export class PostingjobService {
   }
   deleteJoReq(id){
     this.user = new Subject<any>();
-    this.httpclient.delete(this.apiURL+"/jobposition/"+id).subscribe( res =>{
+    this.httpclient.delete(this.apiURL+"/jobrecruitment/"+id).subscribe( res =>{
       this.data = res;
       this.data1 ="OK";
       this.user.next(this.data);

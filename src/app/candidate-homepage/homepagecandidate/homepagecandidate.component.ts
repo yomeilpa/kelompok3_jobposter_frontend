@@ -93,13 +93,16 @@ showWarn1(warn:any) {
       }
     })
   }
+  spin:String;
   registerApplicant(){
+    this.spin = 'wait';
     this.regis.registerCandidate(this.register);
     this.regis.user.subscribe(res =>{
       this.data = res
       if(this.regis.data1 =="gagal"){
-        
         this.showWarn1(this.data.error);
+        this.spin = 'err';
+
       }
       if(this.regis.data1=="succes"){
         this.showSucces("Register Succes")

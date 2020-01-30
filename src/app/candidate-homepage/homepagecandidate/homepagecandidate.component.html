@@ -138,8 +138,16 @@
 </div>
 
 <!-- Modal Sign Up -->
+
 <p-dialog id="SignUp" header="Sign Up Lawencon Jobs Poster" [(visible)]="displaysignup" [modal]="true" [responsive]="true"  [style]="{width: 'auto', minWidth: '200px'}" [minY]="70" 
 [baseZIndex]="10000">
+
+<p-header>
+  <div [hidden]="spin != 'wait' " style="align-items: center;text-align: center;">
+  <p-progressSpinner></p-progressSpinner>
+  Please wait...
+</div>
+</p-header>
 <p-messages [(value)]="msgs"></p-messages>
 <br>
 <form>

@@ -354,7 +354,7 @@ fileUploadProgress:any = null;
       if(events.type === HttpEventType.UploadProgress) {
         this.fileUploadProgress = Math.round(events.loaded / events.total * 100);
       } else if(events.type === HttpEventType.Response) {
-        this.fileUploadProgress = '';        
+        this.fileUploadProgress = 0;        
         this.login.store.get("user").subscribe( res => {
           this.ok = res;
           this.ok.candidate = events.body;

@@ -88,7 +88,7 @@ export class JoblistComponent implements OnInit {
   candidate:any;
   jb:any = new JobDetailModel(null,null,null);
   js:any = new JobRecuitmentModel(null,null,null);
-  posting:any = new JobPostingModel(null,null,null,null,null,null,null,null,null);
+  posting:any = new JobPostingModel(null,null,null,null,null,null,null,null,null,null,null);
   provinsi:any;
   ps:any = "Choose Province";
   city:any[];
@@ -111,9 +111,7 @@ export class JoblistComponent implements OnInit {
     this.posser.postJobPosting(this.posting);
     this.posser.user.subscribe(res => {
       let e = res;
-      console.log(res)
       if(this.posser.data1 == "OK"){
-        // alert("ahhaha");
         this.posser.postJobDes(e.id,this.jobDetail);
         this.posser.postJobReq(e.id,this.jobReq);
       }

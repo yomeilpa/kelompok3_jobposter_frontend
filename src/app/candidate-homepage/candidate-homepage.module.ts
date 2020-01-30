@@ -14,6 +14,7 @@ import {ToastModule} from 'primeng/toast';
 import {PasswordModule} from 'primeng/password';
 import {InputMaskModule} from 'primeng/inputmask';
 
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 
 
@@ -30,7 +31,8 @@ import {InputMaskModule} from 'primeng/inputmask';
     CalendarModule,
     ToastModule,
     PasswordModule,
-    InputMaskModule
+    InputMaskModule,
+    ProgressSpinnerModule
   ]
 })
 export class CandidateHomepageModule { }
