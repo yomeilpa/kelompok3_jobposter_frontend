@@ -12,6 +12,8 @@ import {ProgressBarModule} from 'primeng/progressbar';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {PasswordModule} from 'primeng/password';
 import {InputMaskModule} from 'primeng/inputmask';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
 
 
 

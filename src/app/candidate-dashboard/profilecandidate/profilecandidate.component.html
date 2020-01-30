@@ -75,6 +75,7 @@
             </div>  
         </div>
         <br>
+        <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
 
         <!-- Profile -->
         <div class="card border-light">
@@ -113,6 +114,7 @@
           <br>
 
           <!-- Education -->
+          <p-messages [value]="msgs" (click)="backToProfile()"></p-messages>
           <div class="card border-light">
               <div class="ui-g card-header">
                 <div class="ui-g-12 ui-md-4 ">
@@ -134,7 +136,7 @@
                     <td>{{item?.berakhir | date:'yyyy-MMMM-dd'}}</td>
                     <td>
                       <a type="button" class="btn btn-outline-warning btn-sm" (click) ="getid(item.id)" >Update</a> &nbsp;
-                      <button type="button" class="btn btn-outline-danger btn-sm" (click) ="delete(item.id)">Delete</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click) ="confirmEducation(item.id)">Delete</button>
                     </td>
                   </tr>
               </table>
@@ -143,6 +145,10 @@
           <br>
 
           <!-- Work Experince -->
+          <p-messages [value]="msgsWork" (click)="backToProfile()"></p-messages>
+          <p-messages [value]="addWork" (click)="backToProfile()"></p-messages>
+          <p-messages [value]="putWork" (click)="backToProfile()"></p-messages>
+
           <div class="card border-light">
             <div class="ui-g card-header">
               <div class="ui-g-12 ui-md-5 ">
@@ -164,7 +170,7 @@
                 <td style="width:auto;" >{{item?.berakhir | date:'yyyy-MMMM-dd'}}</td>
                 <td style="width:auto;">
                   <button type="button" class="btn btn-outline-warning btn-sm"  (click)="getCdId(item.id)">Update</button> &nbsp;
-                  <button type="button" class="btn btn-outline-danger btn-sm" (click)="deletework(item.id)">Delete</button>
+                  <button type="button" class="btn btn-outline-danger btn-sm" (click)="confirmWork(item.id)">Delete</button>
                 </td>
               </div>
           </table>
@@ -200,6 +206,10 @@
           <br>
 
           <!-- SKill -->
+          <p-messages [value]="msgsSkill" (click)="backToProfile()"></p-messages>
+          <p-messages [value]="addSkills" (click)="backToProfile()"></p-messages>
+          <p-messages [value]="putSkills" (click)="backToProfile()"></p-messages>
+
           <div class="card border-light">
             <div class="ui-g card-header">
               <div class="ui-g-12 ui-md-4 ">
@@ -221,7 +231,7 @@
                   <td>{{item?.level?.level}}</td>
                   <td>
                     <button type="button" class="btn btn-outline-warning btn-sm"  (click)="getSkillbyid(item.id)">Update</button> &nbsp;
-                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteSkill(item.id)">Delete</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="confirmSkill(item.id)">Delete</button>
                   </td>
                 </tr>
             </table>

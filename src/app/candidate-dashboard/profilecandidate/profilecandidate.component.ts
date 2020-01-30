@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RegisterService } from 'src/app/service/register.service';
 import { Router } from '@angular/router';
 import { Candidate } from 'src/app/model/candidate';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { EducationService } from 'src/app/service/education.service';
 import { Appedu } from 'src/app/model/appedu';
 import { Education } from 'src/app/model/education';
@@ -21,12 +21,13 @@ import { Subject, Observable } from 'rxjs';
 import { ChangePassword } from 'src/app/model/change-password';
 import { DomSanitizer } from '@angular/platform-browser';
 import { base64StringToBlob } from 'blob-util';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-profilecandidate',
   templateUrl: './profilecandidate.component.html',
   styleUrls: ['./profilecandidate.component.css'],
-  providers: [MessageService]
+  providers: [MessageService,ConfirmationService]
 })
 export class ProfilecandidateComponent implements OnInit {
  
@@ -87,11 +88,53 @@ export class ProfilecandidateComponent implements OnInit {
   password:any = new ChangePassword(null,null,null);
   req1:any = new Doctype(null,null,null,null);
   cddoc:any = new CandidateDocument(null,null,null,null);
-  constructor(private sani:DomSanitizer, private http:HttpClient, private dts:DoctypeService, private pros:ProvinceService,private sk:SkillService, private ws:WorkexperienceService, private edss:EducationService, private login:RegisterService,private route:Router,private messageService: MessageService) { }
+  constructor(private confirmationService:ConfirmationService, private sani:DomSanitizer, private http:HttpClient, private dts:DoctypeService, private pros:ProvinceService,private sk:SkillService, private ws:WorkexperienceService, private edss:EducationService, private login:RegisterService,private route:Router,private messageService: MessageService) { }
   tst =  ['1','2','a'];
   cek:boolean =false;
   ta:any;
   cols: any[];
+  msgs:Message[] = [];
+  msgsWork:Message[] = [];
+  msgsSkill:Message[] = [];
+  addWork:Message[] = [];
+  putWork:Message[] = [];
+  addSkills:Message[] = [];
+  putSkills:Message[] = [];
+  addEduc:Message[] = [];
+  putEduc:Message[] = [];
+
+
+  confirmWork(id){
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to delete this work ?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.deletework(id);
+      }
+  });
+  }
+  confirmSkill(id){
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to delete this item ?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.deleteSkill(id);
+      }
+  });
+  }
+
+  confirmEducation (id){
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to delete this item ?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.delete(id);
+      }
+  });
+  }
 
   showCek(hah){
     this.cek = !this.cek;
@@ -248,6 +291,8 @@ getCdDocument(id,is){
   }
 
   
+
+  
   getEduCation(){
     this.edss.getEducation();
     this.edss.user.subscribe(res => {this.educations = res
@@ -371,43 +416,21 @@ fileUploadProgress:any = null;
                    
                 });
                 location.href = "candidate/profile";
-        },
-        (events) => {
-          {
-            alert("Gagal");
-          }
         })
-      }
          
-    }) 
-    // this.login.uploadPhoto(formData,this.user.candidate.id);
-    // this.login.user.subscribe(res =>{
-    //   this.user = res;  
-    //   if(this.login.data1 =="gagal"){
-    //     this.showWarn(this.user.error);
-    //   }
-    //   if(this.login.data1=="suc"){
-    //     console.log("succes");
-    //     this.user = this.login.store.get("user").subscribe( res => {
-    //       this.user=res;
-    //       this.cds = this.user.candidate;
-    //       if(this.user.candidate.pic == null){
-    //         this.imageData ="assets/img/team/1.jpg";
-    //       }
-    //       else{
-    //       this.imageData = 'data:'+this.candidate.type+';base64,'+this.candidate.pic;  
-          
-    //       }
-    //       this.route.navigateByUrl("#"); 
-    //     });
-    //   }
-    // })
-  }
-
+    }
+  },
+    (ress) => {
+      let data = ress;
+      alert(data.error);
+    } 
+    )}
+  
 
   
   public uploadDocument(){
     let formData = new FormData();
+    let a = this.cddoc;
     this.fileUploadProgress = 0;
     if(this.cddoc.pic != null){
       this.dts.delete(this.cds.id,this.req1.id);
@@ -423,20 +446,18 @@ fileUploadProgress:any = null;
       } else if(events.type === HttpEventType.Response) {
         this.fileUploadProgress = '';        
         this.login.store.get("user").subscribe( res => {
-          this.cddoc = res;
           this.updatedocument = false;
-        })
+         })
       }
          
     },
     (res) => {
       let dat = res
         alert(dat.error);
-        console.log(this.cddoc);
-        this.http.post(this.apiURL+"/add/del",this.cddoc).subscribe(res =>{ this.cddoc = res
-        this.fileUploadProgress =0
-        this.updatedocument = false})
-    })
+        a.id = null;
+        this.http.post(this.apiURL+"/add/del",this.cddoc).subscribe();
+        this.fileUploadProgress = 0;
+    })  
   }
   public update(){
     this.login.updateCandidate(this.cds,this.user.candidate.id);
@@ -498,8 +519,8 @@ fileUploadProgress:any = null;
         alert(this.edpost.error);
       }
       if(this.ws.data1=="succes"){
-        alert("Hahaha")
-        
+        this.work = false;
+        this.addWork = [{severity:'info', summary:'Confirmed', detail:'Your Work has Added'}];              
       }
     })
   }
@@ -509,12 +530,13 @@ fileUploadProgress:any = null;
     this.ws.user.subscribe(res =>{
       this.workcd = res
       if(this.ws.data1 =="gagal"){
-        
+        this.updatework = false;
         this.showErr(this.edpost.error);
       }
       if(this.ws.data1=="succes"){
-        this.showWarn("Update Succes")
-        
+        this.updatework = false;        
+        this.putWork = [{severity:'info', summary:'Confirmed', detail:'Your Work Experience has Updated'}];      
+
       }
     })
   }
@@ -527,7 +549,8 @@ fileUploadProgress:any = null;
         this.showErr(this.edpost.error);
       }
       if(this.ws.data1=="succes"){
-        this.showWarn("Update Succes")
+        this.updateskill = false;
+        this.putSkills = [{severity:'info', summary:'Confirmed', detail:'Your Skill has Updated'}];      
         
       }
     })
@@ -543,22 +566,32 @@ fileUploadProgress:any = null;
         alert(this.newSkill.error);
       }
       if(this.sk.data1=="succes"){
-        alert("Hahaha")
-      }
+        this.skill = false;
+        this.addSkills = [{severity:'info', summary:'Confirmed', detail:'Your Skill has Added'}];      
+
+            }
     })
   }
 
 
   delete(id){
     this.edss.delete(id);
+    this.msgs = [{severity:'info', summary:'Confirmed', detail:'Your Education History has Deleted'}];      
+
+  }
+  backToProfile(){
+    location.href = "candidate/profile"
   }
 
   deletework(id){
     this.ws.delete(id);
+    this.msgsWork = [{severity:'info', summary:'Confirmed', detail:'Your Work Experience has Deleted'}];      
   }
 
   deleteSkill(id){
     this.sk.delete(id);
+    this.msgsSkill = [{severity:'info', summary:'Confirmed', detail:'Your Skill has Deleted'}];      
+
   }
 
   destroySession(){

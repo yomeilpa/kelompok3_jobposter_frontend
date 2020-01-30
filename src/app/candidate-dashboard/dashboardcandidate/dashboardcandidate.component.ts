@@ -98,15 +98,17 @@ appJob:any = new JobApplyModel(null,null,null,null,null,null);
 postApply(){
   this.appJob.candidate = this.user.candidate;
   this.appJob.job = this.jobs1;
-  console.log(this.appJob.candidate.id)
   if(this.appJob != null){
     this.apply.postJobApply(this.appJob);
   } 
-  console.log(this.appJob)
   this.apply.user.subscribe(res => {
     let b = res;
     if(this.apply.data1 =="BAD"){
-      alert(b.error)
+      alert("You Have Apply For This Job")
+      this.detail=false;
+    }else{
+      this.detail= false;
+      location.href = "candidate/dashboard"
     };
   })
 }

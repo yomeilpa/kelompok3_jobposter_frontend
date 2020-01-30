@@ -12,7 +12,6 @@ import { JobDetailModel } from 'src/app/model/job-detail-model';
 import { JobPostingModel } from 'src/app/model/job-posting-model';
 import { PostingjobService } from 'src/app/service/postingjob.service';
 
-
 @Component({
   selector: 'app-joblist',
   templateUrl: './joblist.component.html',
@@ -49,6 +48,12 @@ import { PostingjobService } from 'src/app/service/postingjob.service';
         .nested-grid .p-col-1 {
             padding-bottom: 1em;
         }
+        
+        @media screen and (max-width: 40em) {
+          :host ::ng-deep .ui-dialog {
+              width: 75vw !important;
+          }
+      }
     `],
     animations: [
         trigger('animation', [
@@ -76,7 +81,7 @@ export class JoblistComponent implements OnInit {
   addjob: boolean;  detailjob: boolean;  updatejob: boolean;  detailcandidate: boolean;
   addcategory: boolean;  updatecategory: boolean;
   addposition: boolean;  updateposition: boolean;
-  settings: boolean;
+  settings: boolean; invited: boolean; rejected: boolean;
   req = [];
   ireq: any = 0;
   item =[];
@@ -95,7 +100,6 @@ export class JoblistComponent implements OnInit {
   province:any[];
   kate:any;
   getPosKa:any;
-
   getPos1(){
     this.positionSer.getJobPositionbyIdKate(this.kate.id);
     this.positionSer.user.subscribe(res => this.getPosKa = res);
@@ -111,7 +115,9 @@ export class JoblistComponent implements OnInit {
     this.posser.postJobPosting(this.posting);
     this.posser.user.subscribe(res => {
       let e = res;
+      console.log(res)
       if(this.posser.data1 == "OK"){
+        // alert("ahhaha");
         this.posser.postJobDes(e.id,this.jobDetail);
         this.posser.postJobReq(e.id,this.jobReq);
       }
@@ -150,6 +156,14 @@ export class JoblistComponent implements OnInit {
     }
     console.log(this.jobDetail);
     console.log(this.jobReq);
+  }
+
+  showInvited(){
+    this.invited = true;
+  }
+
+  showRejected(){
+    this.rejected = true;
   }
 
   showSettings(){
@@ -192,7 +206,12 @@ export class JoblistComponent implements OnInit {
   destroySession(){
     this.regis.store.delete('user').subscribe((res) => {this.route.navigateByUrl("/admin")});
   }
-  constructor(private posser:PostingjobService, private positionSer:JobPositionServiceService, private pros:ProvinceService,private regis:RegisterService,private route:Router,private kategori:JobKategoriService) { }
+  constructor(private posser:PostingjobService, 
+    private positionSer:JobPositionServiceService, 
+    private pros:ProvinceService,
+    private regis:RegisterService,
+    private route:Router,
+    private kategori:JobKategoriService) { }
   columns: number[];
   columndescription : number[];
 
