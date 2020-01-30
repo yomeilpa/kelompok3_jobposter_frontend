@@ -59,7 +59,7 @@
                   </div>
                       <label>Upload Photo</label>
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" [(ngModel)]="imgss" name="foto" (change) ="onfileSelected($event)" id="inputGroupFile02" aria-describedby="fileHelp">  
+                        <input type="file"   class="custom-file-input" [(ngModel)]="imgss" name="foto" (change) ="onfileSelected($event)" id="inputGroupFile02" aria-describedby="fileHelp">  
                         <label class="custom-file-label" for="inputGroupFile02">{{imgs}}</label>
                     </div>
                       <br><br>
@@ -115,6 +115,9 @@
 
           <!-- Education -->
           <p-messages [value]="msgs" (click)="backToProfile()"></p-messages>
+          <p-messages [value]="addEduc" (click)="backToProfile()"></p-messages>
+          <p-messages [value]="putEduc" (click)="backToProfile()"></p-messages>
+
           <div class="card border-light">
               <div class="ui-g card-header">
                 <div class="ui-g-12 ui-md-4 ">

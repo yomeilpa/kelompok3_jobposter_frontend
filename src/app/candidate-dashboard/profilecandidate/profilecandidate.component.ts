@@ -491,8 +491,8 @@ fileUploadProgress:any = null;
         alert(this.edpost.error);
       }
       if(this.edss.data1=="succes"){
-        alert("Hahaha")
-        
+        this.education = false;
+        this.addEduc = [{severity:'info', summary:'Confirmed', detail:'Your Education has Updated'}];              
       }
     })
   }
@@ -504,7 +504,8 @@ fileUploadProgress:any = null;
         alert(res.error);
       }
       if(this.edss.data1=="succes"){
-        alert("Hahaha")
+        this.updateeducation = false;
+        this.putEduc = [{severity:'info', summary:'Confirmed', detail:'Your Education has Added'}];              
         
       }
     })
