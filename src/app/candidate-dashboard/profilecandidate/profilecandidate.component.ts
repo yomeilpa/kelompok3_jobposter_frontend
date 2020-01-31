@@ -481,7 +481,12 @@ fileUploadProgress:any = null;
       }
     })
   }
-  
+  reset(){
+    this.wn = new Workexperience(null,null,null,null,null);
+    this.newSkill = new Skillcandidate(null,null,null);
+    this.ed = new Appedu(null,null,null,null,null,null);
+
+  }
   addEdu(){
     this.edss.postEducandiate(this.ed,this.cds.id);
     this.edss.user.subscribe(res =>{
