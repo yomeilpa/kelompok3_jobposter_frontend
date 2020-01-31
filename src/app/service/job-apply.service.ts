@@ -52,6 +52,19 @@ export class JobApplyService {
         this.user.next(this.data);
       })
   }
+  getJobApplybyCandidate(id){
+    this.user = new Subject<any>();
+    this.httpclient.get(this.apiURL+"/jobapply/get/"+id).subscribe( res =>{
+      this.data = res;
+      this.data1 ="OK";
+      this.user.next(this.data);
+    },
+      (err) => {
+        this.data=err;
+        this.data1 ="BAD";
+        this.user.next(this.data);
+      })
+  }
   putJobApply(id,jobs){
     this.user = new Subject<any>();
     this.httpclient.put(this.apiURL+"/jobapply/"+id,jobs).subscribe( res =>{

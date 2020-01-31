@@ -7,6 +7,7 @@ import { PostingjobService } from 'src/app/service/postingjob.service';
 import { JobPostingModel } from 'src/app/model/job-posting-model';
 import { JobApplyService } from 'src/app/service/job-apply.service';
 import { JobApplyModel } from 'src/app/model/job-apply-model';
+import { InterviewService } from 'src/app/service/interview.service';
 
 
 
@@ -36,7 +37,7 @@ export class DashboardcandidateComponent implements OnInit{
       this.settings = true;
   }
 
-  constructor(private apply:JobApplyService, private jobservice:PostingjobService, private login:RegisterService,private route:Router,private sanitizer:DomSanitizer,private messageService: MessageService) { }
+  constructor(private ints:InterviewService, private apply:JobApplyService, private jobservice:PostingjobService, private login:RegisterService,private route:Router,private sanitizer:DomSanitizer,private messageService: MessageService) { }
 
   showWarn(warn:any) {
     this.messageService.add({severity:'error', summary: 'Error', detail:warn});
@@ -70,6 +71,7 @@ export class DashboardcandidateComponent implements OnInit{
     this.jobservice.getJobPosting();
     this.jobservice.user.subscribe(res => {
       this.jobs = res;
+      this.getJobApplys();
     })
   }
   jobs1:any = new JobPostingModel(null,null,null,null,null,null,null,null,null,null,null);
@@ -98,18 +100,30 @@ appJob:any = new JobApplyModel(null,null,null,null,null,null);
 postApply(){
   this.appJob.candidate = this.user.candidate;
   this.appJob.job = this.jobs1;
+  console.log(this.appJob);
   if(this.appJob != null){
     this.apply.postJobApply(this.appJob);
   } 
   this.apply.user.subscribe(res => {
     let b = res;
     if(this.apply.data1 =="BAD"){
-      alert("You Have Apply For This Job")
+      alert(b.error)
       this.detail=false;
     }else{
       this.detail= false;
       location.href = "candidate/dashboard"
     };
   })
+}
+cdApp:any;
+getJobApplys(){
+  this.apply.getJobApplybyCandidate(this.user.candidate.id);
+  this.apply.user.subscribe(res => {this.cdApp = res
+    this.getIntAppCd();});
+}
+intApp:any;
+getIntAppCd(){
+  this.ints.getListIntCd(this.user.candidate.id);
+  this.ints.user.subscribe(res => this.intApp = res);
 }
 }

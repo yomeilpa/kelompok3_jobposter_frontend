@@ -153,24 +153,20 @@ export class ProfilecandidateComponent implements OnInit {
 
   openPdf(){
     // this.pdf = !this.pdf;
-//     window.open("data:application/octet-stream;charset=utf-16le;base64,"+this.cds.pic); 
-
-    let a = document.createElement("a");
+//     window.open("data:application/octet-stream;charset=utf-16le;base64,"+this.cds.pic);
+    // let a = document.createElement("a");
+    let pd = 'data:'+this.cddoc.type+';base64,'+this.cddoc.pic;    
     const blob = base64StringToBlob(this.cddoc.pic,this.cddoc.type);
     this.fileUrl = this.sani.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
-    console.log(this.cddoc)
-    a.href = this.fileUrl;
-    a.download = this.cddoc.filename;
-    a.click();
-
-
-
-// let x=window.open('about:whatever');  
-// let iframe=x.document.createElement('iframe')
-// iframe.width='100%'
-// iframe.height='100%'
-// iframe.src=this.fileUrl;
-// x.document.body.appendChild(iframe)
+    // a.href = this.fileUrl;
+    // a.download = this.cddoc.filename;
+    // a.click();
+    let x=window.open('about:whatever');  
+    let iframe=x.document.createElement('iframe')
+    iframe.width='100%'
+    iframe.height='100%'
+    iframe.src=pd;
+    x.document.body.appendChild(iframe)
   }
   
 getCdDocument(id,is){
@@ -179,8 +175,6 @@ getCdDocument(id,is){
     const blob = base64StringToBlob(this.cddoc.pic,this.cddoc.type);
     this.fileUrl = this.sani.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));})
 }
-
-
   getCdsf(){
     this.login.findByid(this.user.candidate.id);
     this.login.user.subscribe(res => {this.cds = res

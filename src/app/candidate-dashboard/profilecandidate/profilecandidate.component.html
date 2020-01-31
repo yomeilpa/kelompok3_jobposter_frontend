@@ -159,7 +159,7 @@
                   Work Experience
                 </h5>
               </div>
-              <div class="ui-g-12 ui-md-2 ui-md-offset-5">
+                <div class="ui-g-12 ui-md-2 ui-md-offset-5">
                 <button type="button" class="btn btn-outline-info btn-sm" (click)="showWork()">Add Work Experience</button>
               </div>
             </div>
@@ -541,7 +541,7 @@
 </div>
 <!-- <a [href]="fileUrl" [download]="cddoc.filename">Download</a> -->
 <p-footer>
-          <a type="button" [hidden] ="cddoc.pic==null" pButton icon="pi pi-download" [href]="fileUrl" [download]="cddoc.filename"  label="Download"></a>
+          <button (click)="openPdf()" type="button" [hidden] ="cddoc.pic==null" pButton icon="pi pi-download"   label="Download"></button>
           <button type="button" pButton icon="pi pi-close" (click)="uploadDocument()" label="Update" class="ui-button-warning"></button>
       </p-footer>
 </p-dialog>

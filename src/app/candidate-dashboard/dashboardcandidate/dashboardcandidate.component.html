@@ -74,10 +74,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>IT Bootcamp</td>
-                  <td>02-02-2020</td>
-                  <td>13.00</td>
+                <tr *ngFor="let item of intApp">
+                  <td>{{item?.job?.job?.title}}</td>
+                  <td>{{item?.date | date:'dd-MMMM-yyyy'}}</td>
+                  <td>{{item?.time}}</td>
                 </tr>
                 </tbody>
           </table>
@@ -95,33 +95,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr >
-                  <td>IT Bootcamp</td>
-                  <td>02-02-2020</td>
-                  <td>Reviewed</td>
+                <tr *ngFor="let item of cdApp">
+                  <td>{{item?.job?.title}}</td>
+                  <td>{{item?.appDate | date:'dd-MMMM-yyyy'}}</td>
+                  <td>{{item?.state?.state}}</td>
                 </tr>
               </tbody>
-              <tbody>
-                  <tr >
-                    <td>IT Bootcamp</td>
-                    <td>02-02-2020</td>
-                    <td>Invited</td>
-                  </tr>
-                </tbody>
-                <tbody>
-                  <tr >
-                    <td>IT Bootcamp</td>
-                    <td>02-02-2020</td>
-                    <td>Rejected</td>
-                  </tr>
-                </tbody>
-                <tbody>
-                  <tr >
-                    <td>IT Bootcamp</td>
-                    <td>02-02-2020</td>
-                    <td>Approved</td>
-                  </tr>
-                </tbody>
           </table>
       </div>
 
