@@ -101,9 +101,7 @@ export class RegisterService {
     this.user = new Subject<any>();
     this.http.put<any>(this.apiURL+"/uploadphoto/"+id,formdata,{reportProgress : true}).subscribe(res =>{
       this.data = res;
-      this.data1="suc";
-      alert("Succes");
-      
+      this.data1="suc";      
       this.store.get("user").subscribe( res => {
         this.ok = res;
         this.ok.candidate = this.data;
@@ -121,16 +119,12 @@ export class RegisterService {
     this.user = new Subject<any>();
     this.http.put<any>(this.apiURL+"/update/"+id,formdata).subscribe(res =>{
       this.data = res;
-      this.data1="suc";
-      alert("Succes");
-      
+      this.data1="suc";      
       this.store.get("user").subscribe( res => {
         this.ok = res;
         this.ok.candidate = this.data;
         this.store.set("user",this.ok).subscribe(() => {});        
-      })
-      
-      
+      })      
       },
       (ress) =>{
         this.data1 ="gagal";

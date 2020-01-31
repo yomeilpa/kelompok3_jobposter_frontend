@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RegisterService } from 'src/app/service/register.service';
 import { Router } from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';  
-import { MessageService } from 'primeng/api';
 import { PostingjobService } from 'src/app/service/postingjob.service';
 import { JobPostingModel } from 'src/app/model/job-posting-model';
 import { JobApplyService } from 'src/app/service/job-apply.service';
@@ -12,6 +11,9 @@ import { ProvinceService } from 'src/app/service/province.service';
 import { Province } from 'src/app/model/province';
 import { FilterJob } from 'src/app/model/filter-job';
 import { City } from 'src/app/model/city';
+import { Message } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
+
 
 
 
@@ -21,7 +23,7 @@ import { City } from 'src/app/model/city';
   selector: 'app-dashboardcandidate',
   templateUrl: './dashboardcandidate.component.html',
   styleUrls: ['./dashboardcandidate.component.css'],
-  providers: [MessageService]
+  providers: [MessageService,ConfirmationService]
 })
 export class DashboardcandidateComponent implements OnInit{
 
@@ -41,10 +43,10 @@ export class DashboardcandidateComponent implements OnInit{
       this.settings = true;
   }
 
-  constructor(private pros:ProvinceService, private ints:InterviewService, private apply:JobApplyService, private jobservice:PostingjobService, private login:RegisterService,private route:Router,private sanitizer:DomSanitizer,private messageService: MessageService) { }
+  constructor(private confirmationService:ConfirmationService,private pros:ProvinceService, private ints:InterviewService, private apply:JobApplyService, private jobservice:PostingjobService, private login:RegisterService,private route:Router,private sanitizer:DomSanitizer,private messageService: MessageService) { }
 
   showWarn(warn:any) {
-    this.messageService.add({severity:'error', summary: 'Error', detail:warn});
+    this.messageService.add({severity:'error', summary: 'Error', detail:warn,key:"tc"});
 }
   ngOnInit() {
     this.user = this.login.store.get("user").subscribe( res => {
@@ -83,10 +85,8 @@ export class DashboardcandidateComponent implements OnInit{
   det:any;
   getJobsbyId(id){
     this.jobservice.getJobPostingbyId(id);
-    this.jobservice.user.subscribe(res => { this.jobs1= res;
-      
+    this.jobservice.user.subscribe(res => { this.jobs1= res;      
       this.getRec(id);
-      console.log(this.jobs1)
     })
   }
   getRec(id){
@@ -99,7 +99,14 @@ export class DashboardcandidateComponent implements OnInit{
     this.jobservice.user.subscribe(res => {this.det = res
     });
   }
+  msgs:Message[] = [];
+  showWarn1(warn:any) {
+    this.messageService.add({key:'tc',severity:'warn', summary: 'Error', detail:warn});
+  }
 //Job Apply Service
+backDash(){
+  location.href = "/candidate/dashboard"
+}
 appJob:any = new JobApplyModel(null,null,null,null,null,null);
 postApply(){
   this.appJob.candidate = this.user.candidate;
@@ -111,11 +118,11 @@ postApply(){
   this.apply.user.subscribe(res => {
     let b = res;
     if(this.apply.data1 =="BAD"){
-      alert(b.error)
-      this.detail=false;
+      this.showWarn(b.error);
     }else{
       this.detail= false;
-      location.href = "candidate/dashboard"
+      this.msgs = [{severity:'info', summary:'Confirmed', detail:'Your Just Apllied '+this.jobs1.title+" at "+this.jobs1.city.city}];      
+      
     };
   })
 }

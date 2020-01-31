@@ -322,7 +322,7 @@ getCdDocument(id,is){
         alert(this.oks.error);
               }
       if(this.login.data1=="suc"){
-        this.route.navigateByUrl("candidate/dashboard");
+        location.href ="candidate/dashboard";
       }
     })
   }
@@ -368,7 +368,7 @@ getCdDocument(id,is){
 
 
   showWarn(warn:any) {
-    this.messageService.add({key:'tc',severity:'success', summary: 'Succes', detail:warn});
+    this.messageService.add({key:'tl',severity:'success', summary: 'Succes', detail:warn});
 }
 
 showErr(warn:any) {
@@ -455,26 +455,15 @@ fileUploadProgress:any = null;
   }
   public update(){
     this.login.updateCandidate(this.cds,this.user.candidate.id);
-    this.login.user.subscribe(res =>{
-      this.user = res;  
-      if(this.login.data1 =="gagal"){
-        this.showWarn(this.user.error);
-      }
-      if(this.login.data1=="suc"){
-        console.log("succes");
-        this.user = this.login.store.get("user").subscribe( res => {
-          this.user=res;
-          this.cds = this.user.candidate;
-          if(this.user.candidate.pic == null){
-            this.imageData ="assets/img/team/1.jpg";
-          }
-          else{
-          this.imageData = 'data:'+this.candidate.type+';base64,'+this.candidate.pic;    
-          }
-        });
-      }
-    })
+    if(this.login.data1 =="suc"){
+      this.showWarn("Scucces")
+    }
+    else{
+      this.showWarn(this.login.data.error)
+    }
+
   }
+
   reset(){
     this.wn = new Workexperience(null,null,null,null,null);
     this.newSkill = new Skillcandidate(null,null,null);
