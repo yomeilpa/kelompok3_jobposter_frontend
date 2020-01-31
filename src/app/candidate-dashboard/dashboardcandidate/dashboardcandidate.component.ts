@@ -142,6 +142,7 @@ cs:string;
 ps:string ="Choose Province";
 proNull(){
   this.cs = "Choose City";
+  this.citys = new City(null,null,null,null);
   this.pros.getProvince();
   this.pros.user.subscribe(res => this.province = res);
 }
