@@ -8,6 +8,10 @@ import { JobPostingModel } from 'src/app/model/job-posting-model';
 import { JobApplyService } from 'src/app/service/job-apply.service';
 import { JobApplyModel } from 'src/app/model/job-apply-model';
 import { InterviewService } from 'src/app/service/interview.service';
+import { ProvinceService } from 'src/app/service/province.service';
+import { Province } from 'src/app/model/province';
+import { FilterJob } from 'src/app/model/filter-job';
+import { City } from 'src/app/model/city';
 
 
 
@@ -37,7 +41,7 @@ export class DashboardcandidateComponent implements OnInit{
       this.settings = true;
   }
 
-  constructor(private ints:InterviewService, private apply:JobApplyService, private jobservice:PostingjobService, private login:RegisterService,private route:Router,private sanitizer:DomSanitizer,private messageService: MessageService) { }
+  constructor(private pros:ProvinceService, private ints:InterviewService, private apply:JobApplyService, private jobservice:PostingjobService, private login:RegisterService,private route:Router,private sanitizer:DomSanitizer,private messageService: MessageService) { }
 
   showWarn(warn:any) {
     this.messageService.add({severity:'error', summary: 'Error', detail:warn});
@@ -122,8 +126,43 @@ getJobApplys(){
     this.getIntAppCd();});
 }
 intApp:any;
+province:any;
 getIntAppCd(){
   this.ints.getListIntCd(this.user.candidate.id);
   this.ints.user.subscribe(res => this.intApp = res);
 }
+provinsi:any = new Province(null,null,null);
+city:any;
+getCity(){
+  this.ps = this.provinsi.province;
+  this.pros.getCity(this.provinsi.province);
+  this.pros.user.subscribe(res => this.city = res);
+}
+cs:string;
+ps:string ="Choose Province";
+proNull(){
+  this.cs = "Choose City";
+  this.pros.getProvince();
+  this.pros.user.subscribe(res => this.province = res);
+}
+citys:any = new City(null,null,null,null);
+filter:any = new FilterJob(null,null,null,null,null);
+findByfilter(){
+  if(this.provinsi.id != null){
+    this.filter.provinsi = this.provinsi.province;
+  }
+  if(this.citys.id != null){    
+    this.filter.kota = this.citys.city;
+  }
+  
+  this.jobservice.getJobPostingbyFileter(this.filter);
+  this.jobservice.user.subscribe(res => {
+    if(this.jobservice.data1 =="BAD"){
+      this.jobs = [];
+    }
+    else{
+      this.jobs = res;
+    }
+  })
+} 
 }

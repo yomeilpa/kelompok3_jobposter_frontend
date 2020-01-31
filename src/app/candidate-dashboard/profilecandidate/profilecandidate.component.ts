@@ -77,7 +77,7 @@ export class ProfilecandidateComponent implements OnInit {
   level:any;
   newSkill:any = new Skillcandidate(null,null,null);
   province:any[];
-  provinsi:any;
+  provinsi:any = new Province(null,null,null);
   citi:any;
   city:any[];
   pross:Province[];

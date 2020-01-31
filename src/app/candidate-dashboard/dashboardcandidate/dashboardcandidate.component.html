@@ -112,19 +112,30 @@
           <!-- Search Job Poster -->
           <ol class="breadcrumb" style="text-align:center;">
             <div class="ui-g">
-              <div class="ui-g-1">
+              <div class="ui-g-12 ui-md-6 ui-lg-4">
+                <input type="text" pInputText pKeyFilter="alpha" [(ngModel)]="filter.title" placeholder="Search Jobs Poster">
               </div>
-              <div class="ui-g-4">
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Search Jobs Poster">
+              <div class="ui-g-12 ui-md-6 ui-lg-4">
+                <input type="text" pInputText pKeyFilter="money" [(ngModel)]="filter.minSalary" placeholder="Salary Min">
               </div>
-              <div class="ui-g-2">
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Salary Min">
+              <div class="ui-g-12 ui-md-6 ui-lg-4">
+                <input type="text" pInputText pKeyFilter="money" [(ngModel)]="filter.maxSalary" placeholder="Salary Max">
               </div>
-              <div class="ui-g-2">
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Salary Max">
+              <div class="ui-g-12 ui-md-6 ui-lg-4">
+                <p-dropdown [options]="city" [(ngModel)]="citys" placeholder="Select a City" filter="true" optionLabel ="city" (click)="getCity()" [disabled]="provinsi.id == null"></p-dropdown>
+                  <!-- <p-dropdown [placeholder]="ps" [options]="province" name="provinsi" [(ngModel)]="provinsi" (click)="proNull()" (change)="getCity()" filter="true" optionLabel ="province"> 
+                  </p-dropdown> -->
+              </div>  
+              <div class="ui-g-12 ui-md-6 ui-lg-4">
+                <p-dropdown [options]="province" [(ngModel)]="provinsi" (click)="proNull()" [placeholder]="ps" filter="true" optionLabel ="province"></p-dropdown>
+                  <!-- <p-dropdown placeholder="Select a City" [options]="city" name="city" [(ngModel)]="posting.city"  filter="true" optionLabel ="city" (click)="getCity()">
+                  </p-dropdown> -->
               </div>
-              <div class="ui-g-2">
-                <button type="button" class="btn btn-outline-info">Search</button>
+              <div class="ui-g-12 ui-md-6 ui-lg-4" >
+                <button pButton type="button" label="Primary" style="
+                padding-right: 60px;
+                padding-left: 60px;
+            "(click)="findByfilter()" ></button>
               </div>
             </div>
           </ol>
@@ -147,7 +158,6 @@
                   
                     <div>
                       <button type="button" class="btn btn-outline-info" (click)="showDetail(item.id)">Detail</button> &nbsp;
-                      <button type="button" class="btn btn-outline-success" (click)="postApply()">Apply</button>
                     </div>
                 </div>
                 <div class="card-footer">  
@@ -171,11 +181,6 @@
   <p-dialog header="Change Password" [(visible)]="detail" [modal]="true" [responsive]="true" [style]="{width: '900px', minWidth: '200px'}" [minY]="70">
 
     <div class="ui-g">
-        <!--  -->
-          
-          <!--  -->
-          <!--  -->
-          
           <!--  -->
           <div class="ui-g-12 ui-md-6 ui-lg-12">
             <div class="card border-secondary">
@@ -206,4 +211,7 @@
             </div>
           </div>
       </div>
+      <p-footer>
+        <button type="button" (click)="postApply()" class="btn btn-outline-success">Apply</button>
+      </p-footer>
   </p-dialog>

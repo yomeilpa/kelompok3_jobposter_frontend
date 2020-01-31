@@ -34,6 +34,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { InputMaskModule } from 'primeng/inputmask';
 import { PasswordModule } from 'primeng/password';
+import { KeyFilterModule } from 'primeng/keyfilter';
 
 
 
@@ -74,6 +75,7 @@ import { PasswordModule } from 'primeng/password';
         DropdownModule,
         PasswordModule,
         InputMaskModule,
+        KeyFilterModule
 
     ]
 })

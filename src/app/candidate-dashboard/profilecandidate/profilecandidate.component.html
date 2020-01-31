@@ -33,15 +33,15 @@
 </div>
 <!-- Body -->
 <div class="ui-g" [hidden]="cds.id == null">
-  <div class="ui-g-2 ui-md-12 ui-lg-2">
+  <div class="ui-g-1">
   </div>
 
   <!--  -->
-  <div class="ui-g-8 ui-g-nopad">
+  <div class="ui-g-10 ui-g-nopad">
       <br>
 
       <!--  -->
-      <div class="ui-g-12 ui-md-12 ui-lg-4">
+      <div class="ui-g-12 ui-md-12 ui-lg-3">
 
         <!-- Photo -->
         <div class="card" >
@@ -108,7 +108,7 @@
       </div>
 
       <!-- Name User -->
-      <div class="ui-g-12 ui-md-12 ui-lg-8">
+      <div class="ui-g-12 ui-md-12 ui-lg-9">
           <br>
           <h1 class="display-3" style="text-align:center;">{{user?.candidate?.name}}</h1>
           <br>
@@ -253,7 +253,7 @@
   </div>
   <!--  -->
 
-  <div class="ui-g-2">
+  <div class="ui-g-1">
   </div>
 
 </div>
@@ -293,19 +293,19 @@
             <input type="text" class="form-control" name="name" [(ngModel)]="cds.name" placeholder="Full Name">
           </div>
           <div class="form-group">
-            <p-radioButton name="groupname" value="Laki-Laki" label=" Male " [(ngModel)]="cds.gender"></p-radioButton>
-            <p-radioButton name="groupname" value="Perempuan" label=" Female " [(ngModel)]="cds.gender"></p-radioButton>
+            <p-radioButton disabled name="groupname" value="Laki-Laki" label=" Male " [(ngModel)]="cds.gender"></p-radioButton>
+            <p-radioButton disabled name="groupname" value="Perempuan" label=" Female " [(ngModel)]="cds.gender"></p-radioButton>
           
           </div>
 
           <br>
           <span class="ui-float-label">
-            <p-dropdown [placeholder]="ps" [options]="province" name="provinsi" [filter]="true" [(ngModel)]="provinsi" (click)="proNull()" optionLabel ="province" [showClear]="true"> 
+            <p-dropdown [placeholder]="ps" [options]="province" name="provinsi" [filter]="true" [(ngModel)]="provinsi" (click)="proNull()" optionLabel ="province"> 
           </p-dropdown>  
           </span>
               <br>
           <span class="ui-float-label">
-            <p-dropdown [placeholder]="cs" [filter]="true" [options]="city" name="ashkah" [(ngModel)]="cds.city" (click)="getCity()" optionLabel ="city" [showClear]="true">
+            <p-dropdown [placeholder]="cs" [filter]="true" [options]="city" name="ashkah" [(ngModel)]="cds.city" (click)="getCity()" [disabled]="provinsi.id == null" optionLabel ="city">
           </p-dropdown>  
           </span>
 
