@@ -497,7 +497,7 @@ fileUploadProgress:any = null;
       }
       if(this.edss.data1=="succes"){
         this.education = false;
-        this.addEduc = [{severity:'info', summary:'Confirmed', detail:'Your Education has Updated'}];              
+        this.addEduc = [{severity:'info', summary:'Confirmed', detail:'Your Education has Added'}];              
       }
     })
   }
