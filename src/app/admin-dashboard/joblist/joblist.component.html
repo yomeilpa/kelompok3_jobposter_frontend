@@ -1,6 +1,9 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <img #img src="assets/logolarge.png"> &nbsp;
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
   <div class="collapse navbar-collapse" id="navbar"> &nbsp;
         <ul class="navbar-nav ml-auto my-lg-1">
           <li class="nav-item">
@@ -18,7 +21,7 @@
   <div class="list-group list-group-flush">
   <a href="/admin/dashboard" class="list-group-item list-group-item-action bg-light">Dashboard</a>
   <a href="/admin/joblist" class="list-group-item list-group-item-action bg-primary active">Job</a>
-  <a href="/admin/invited" class="list-group-item list-group-item-action bg-light">Invited Candidate</a>
+  <a href="/admin/invited" class="list-group-item list-group-item-action bg-light">Interview Candidate</a>
   <a href="/admin/approved" class="list-group-item list-group-item-action bg-light">Approved Candidate</a>
   </div>
 </div>
@@ -121,43 +124,75 @@
 <div>
 <!-- Add -->
 <p-dialog header="Add Application" [(visible)]="addjob" [modal]="true" [responsive]="true" 
-[style]="{width: '70vw'}" [draggable]="false" [resizable]="true">
+[style]="{width: '75vw'}" [draggable]="false" [resizable]="true">
 
 <div class="ui-g">
+
+  <!-- Tengah -->
+
+  <div class="ui-g-12 ui-md-12 ui-lg-3">
+    <h6 class="first">Job Application</h6>
+    <input id="input" type="text" size="20" pInputText  [(ngModel)]="posting.title" placeholder="Job Application"> 
+  </div>
+
+  <div class="ui-g-12 ui-md-6 ui-lg-3">
+    <h6 class="first">Date Begin</h6>
+    <p-calendar [(ngModel)]="posting.start"></p-calendar>
+  </div>
+
+  <div class="ui-g-12 ui-md-6 ui-lg-3">
+    <h6 class="first">Date End</h6>
+    <p-calendar [(ngModel)]="posting.end" ></p-calendar>
+  </div>
+
+  <div class="ui-g-12 ui-md-12 ui-lg-1">
+    <h6 class="first">Salary</h6>
+    <input type="text" pInputText size="10" pKeyFilter="money" [(ngModel)]="posting.salary" placeholder="Salary">
+  </div>
+
+  <div class="ui-g-12 ui-md-12 ui-lg-1">
+    <h6 class="first">Quota</h6>
+    <input type="text" pInputText size="5" pKeyFilter="int" [(ngModel)]="posting.saldo" placeholder="Quota">
+  </div>
+
+  <div class="ui-g-12 ui-md-6 ui-lg-3">
+    <h6 class="first">Application Category</h6>
+    <p-dropdown [options]="jobkateList" name="kate" size="40" (click)="posNull()" [(ngModel)]="kate" filter="true" optionLabel="kategori" placeholder="Choose Category" ></p-dropdown>
+  </div>
+
+  <div class="ui-g-12 ui-md-6 ui-lg-3">
+    <h6 class="first">Application Position</h6>
+    <p-dropdown [options]="getPosKa" name="hos"  size="40" [(ngModel)]="posting.jobposotion" (click)="getPos1()" filter="true" optionLabel="name" placeholder="Choose Position" ></p-dropdown>
+  </div>
+
+  <div class="ui-g-12 ui-md-6 ui-lg-3">
+    <h6 class="first">Province</h6>
+      <p-dropdown [placeholder]="ps" [options]="province" name="provinsi" [(ngModel)]="provinsi" (click)="proNull()" (change)="getCity()" filter="true" optionLabel ="province" [showClear]="true"> 
+      </p-dropdown>
+  </div>
+  
+  <div class="ui-g-12 ui-md-6 ui-lg-3">
+    <h6 class="first">City</h6>
+      <p-dropdown placeholder="Select a City" [options]="city" name="city" [(ngModel)]="posting.city"  filter="true" optionLabel ="city" (click)="getCity()">
+      </p-dropdown>
+  </div>
+
+  <div class="ui-g-12">
+    <div class="ui-g-12 ui-md-12 ui-lg-12">
+      <h6 class="first">Job Description</h6>
+      <textarea rows="4" cols="125" name="jobdesc" [(ngModel)]="posting.desc" pInputTextarea autoResize="autoResize"></textarea>
+      </div>
+  </div>
 
   <!-- Kiri -->
   <div class="ui-g-6">
 
-    <div class="ui-g-12 ui-md-12 ui-lg-4 ">
-      <h6 class="first">Job Application</h6>
-      <input id="input" type="text" size="20" pInputText  [(ngModel)]="posting.title" placeholder="Job Application"> 
-    </div>
-  
-    <div class="ui-g-12 ui-md-12 ui-lg-4 ">
-      <h6 class="first">Salary</h6>
-      <input id="input" type="number" size="20" pInputText [(ngModel)]="posting.salary" placeholder="Salary"> 
-    </div>
-
-    <div class="ui-g-12 ui-md-12 ui-lg-4 ">
-      <h6 class="first">Quota</h6>
-      <input id="input" type="number" size="20" pInputText [(ngModel)]="posting.saldo" placeholder="Quota"> 
-    </div>
-
-    <div class="ui-g-12 ui-md-6 ui-lg-6">
-      <h6 class="first">Application Category</h6>
-      <p-dropdown [options]="jobkateList" name="kate" size="40" (click)="posNull()" [(ngModel)]="kate" filter="true" optionLabel="kategori" placeholder="Choose Category" ></p-dropdown>
-    </div>
-  
-    <div class="ui-g-12 ui-md-6 ui-lg-6">
-      <h6 class="first">Application Position</h6>
-      <p-dropdown [options]="getPosKa" name="hos"  size="40" [(ngModel)]="posting.jobposotion" (click)="getPos1()" filter="true" optionLabel="name" placeholder="Choose Position" ></p-dropdown>
-    </div>
 
     <div class="ui-g-12 ui-md-12 ui-lg-12">
       <h6 class="first">Job Task</h6>
       <button pButton type="button" icon="pi pi-plus" title="Add Column" (click)="addColumn()" [disabled]="columns.length === 20" style="margin-right: .5em"></button>   
       <button pButton type="button" icon="pi pi-minus" title="Remove Column" (click)="removeColumn()"[disabled]="columns.length === 0"></button>
-      <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+      <p-scrollPanel [style]="{width: '100%', height: '100px'}">
         <div style="padding:1em;line-height:1.5">
           <div  style="margin-top: .5em">
             <div *ngFor="let col of columns; let i=index" [@animation]="'visible'">
@@ -178,33 +213,14 @@
 
   <!-- Kanan  -->
   <div class="ui-g-6">
-
-    <div class="ui-g-12 ui-md-6 ui-lg-6">
-      <h6 class="first">Date Begin</h6>
-      <p-calendar  [(ngModel)]="posting.start"></p-calendar>
-    </div>
-
-    <div class="ui-g-12 ui-md-6 ui-lg-6">
-      <h6 class="first">Date End</h6>
-      <p-calendar [(ngModel)]="posting.end"></p-calendar>
-    </div>
        
-    <div class="ui-g-12 ui-md-6 ui-lg-6">
-      <h6 class="first">Province</h6>
-        <p-dropdown [placeholder]="ps" [options]="province" name="provinsi" [(ngModel)]="provinsi" (click)="proNull()" (change)="getCity()" filter="true" optionLabel ="province" [showClear]="true"> 
-        </p-dropdown>
-    </div>
-    
-    <div class="ui-g-12 ui-md-6 ui-lg-4">
-      <h6 class="first">City</h6>
-        <p-dropdown placeholder="Select a City" [options]="city" name="city" [(ngModel)]="posting.city"  filter="true" optionLabel ="city" (click)="getCity()">
-        </p-dropdown>
-    </div>
+
 
     <div class="ui-g-12 ui-md-12 ui-lg-12">
       <h6 class="first">Job Requirment</h6>
       <button pButton type="button" icon="pi pi-plus" title="Add Column" (click)="addColumnDes()" [disabled]="columndescription.length === 20" style="margin-right: .5em"></button>          
-      <button pButton type="button" icon="pi pi-minus" title="Remove Column" (click)="removeColumnDes()" [disabled]="columndescription.length === 0"></button>        <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+      <button pButton type="button" icon="pi pi-minus" title="Remove Column" (click)="removeColumnDes()" [disabled]="columndescription.length === 0"></button>       
+       <p-scrollPanel [style]="{width: '100%', height: '100px'}">
         <div style="padding:1em;line-height:1.5">
           <div style="margin-top: .5em">
             <div  *ngFor="let col of columndescription; let i=index" [@animation]="'visible'">              
@@ -225,12 +241,7 @@
   </div>
 
   <!-- Tengah -->
-  <div class="ui-g-12">
-    <div class="ui-g-12 ui-md-12 ui-lg-12">
-      <h6 class="first">Job Description</h6>
-      <textarea rows="5" cols="125" name="jobdesc" [(ngModel)]="posting.desc" pInputTextarea autoResize="autoResize"></textarea>
-      </div>
-  </div>
+
 
 </div>
 
