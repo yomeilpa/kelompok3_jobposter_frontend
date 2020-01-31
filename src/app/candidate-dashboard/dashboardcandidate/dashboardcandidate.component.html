@@ -147,7 +147,7 @@
                   
                     <div>
                       <button type="button" class="btn btn-outline-info" (click)="showDetail(item.id)">Detail</button> &nbsp;
-                      <button type="button" class="btn btn-outline-success">Apply</button>
+                      <button type="button" class="btn btn-outline-success" (click)="postApply()">Apply</button>
                     </div>
                 </div>
                 <div class="card-footer">  
@@ -206,8 +206,4 @@
             </div>
           </div>
       </div>
-    <p-footer>
-        <button type="button" pButton icon="pi pi-check" (click)="postApply()" label="Yes"></button>
-        <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
-    </p-footer>
   </p-dialog>
