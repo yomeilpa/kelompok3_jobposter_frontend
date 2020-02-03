@@ -36,9 +36,17 @@ export class InvitedcandidateComponent implements OnInit {
     this.findIntbydId(id);
   }
   int1:any = new Listofinterview(null,null,null,null,null);
+  imgs:any;
   findIntbydId(id){
     this.ints.getListIntbyId(id);
-    this.ints.user.subscribe(res => this.int1 = res);  }
+    this.ints.user.subscribe(res => {this.int1 = res
+      if(this.int1.job.candidate.pic == null){
+        this.imgs ="assets/img/team/1.jpg";
+      }
+      else{
+        this.imgs ='data:'+this.int1.job.candidate.type+';base64,'+this.int1.job.candidate.pic;  
+
+      }});  }
 
   postRes(){
     this.ints.postListIntCdRes(this.int1);

@@ -105,7 +105,7 @@
 <div class="ui-g-4">
   <div class="card">
       <div class=" card-body" style="text-align:center;">
-        <img style="width: 170px; height: 225px;" [src]="imageData"  alt="Card image">
+        <img style="width: 170px; height: 225px;" [src]="imgs"  alt="Card image">
       </div>  
   </div>
 
@@ -137,7 +137,7 @@
 <div class="ui-g-8 ui-g-nopad">
   <!-- Nama Lengkap -->
   <div class="ui-g-12">
-    <h1 class="display-3" style="text-align:center;">{{user?.candidate?.name}}</h1>
+    <h1 class="display-3" style="text-align:center;">{{int1?.job?.candidate?.name}}</h1>
   </div>
 
   <!-- Keterangan -->
@@ -145,19 +145,19 @@
   <div class="form-group row">
     <label class="col-sm-4 col-form-label">Applied Application</label>    
     <div class="col-sm-6" >
-      <label class="col-sm-6 col-form-label">Angular Progammer</label>
+      <label class="col-sm-6 col-form-label">{{int1?.job?.job?.title}}</label>
     </div>
   </div>
   <div class="form-group row">
     <label class="col-sm-4 col-form-label">interview Date</label>    
     <div class="col-sm-6" >
-      <label class="col-sm-6 col-form-label">01-02-2020</label>
+      <label class="col-sm-6 col-form-label">{{int1?.date}}</label>
     </div>
   </div>
   <div class="form-group row">
     <label class="col-sm-4 col-form-label">Status</label>    
     <div class="col-sm-6" >
-      <label class="col-sm-6 col-form-label">Button</label>
+      <label class="col-sm-6 col-form-label">{{int1?.status?.name}}</label>
     </div>
   </div>
   <div class="form-group">
