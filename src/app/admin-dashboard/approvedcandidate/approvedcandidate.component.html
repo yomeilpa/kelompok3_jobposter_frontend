@@ -42,7 +42,7 @@
               <td>{{item?.candidate?.name}}</td>
               <td>{{item?.job?.candidate?.name}}</td>
               <td>
-                  <button type="button" class="btn btn-outline-primary btn-sm" (click)="showDetailCandidate()">Detail</button>
+                  <button type="button" class="btn btn-outline-primary btn-sm" (click)="showDetailCandidate(item.id)">Detail</button>
               </td>
             </tr>
             </tbody>
@@ -61,7 +61,7 @@
 <div class="ui-g-4">
   <div class="card">
       <div class=" card-body" style="text-align:center;">
-        <img style="width: 170px; height: 225px;" [src]="imageData"  alt="Card image">
+        <img style="width: 170px; height: 225px;" [src]="imgs"  alt="Card image">
       </div>  
   </div>
 
@@ -76,14 +76,14 @@
     </div>
 
       <div class="card-body">
-        <p class="card-text">Birth {{user?.candidate?.dob}}</p>
-        <p class="card-text">Gender {{user?.candidate?.gender}}</p>
-        <p class="card-text">{{user?.candidate?.addres}}, {{user?.candidate?.city?.city}}</p>
+        <p class="card-text">Birth {{datacd?.candidate?.dob}}</p>
+        <p class="card-text">Gender {{datacd?.candidate?.gender}}</p>
+        <p class="card-text">{{datacd?.candidate?.addres}}, {{user?.candidate?.city?.city}}</p>
       </div>
 
       <div class="card-footer">
-        <p class="card-text">{{user?.candidate?.phone}}</p>
-        <p class="card-text">{{user?.candidate?.email}}</p>
+        <p class="card-text">{{datacd?.candidate?.phone}}</p>
+        <p class="card-text">{{datacd?.candidate?.email}}</p>
       </div>
 
   </div>
@@ -93,7 +93,7 @@
 <div class="ui-g-8 ui-g-nopad">
   <!-- Nama Lengkap -->
   <div class="ui-g-12">
-    <h1 class="display-3" style="text-align:center;">{{user?.candidate?.name}} Nama</h1>
+    <h1 class="display-3" style="text-align:center;">{{datacd?.candidate?.name}}</h1>
   </div>
   <!-- Kiri -->
   <div class="ui-g-6">
@@ -171,7 +171,6 @@
     </div>
     <br>
   </div>
-    
 </div>
 </div>
 </p-dialog>

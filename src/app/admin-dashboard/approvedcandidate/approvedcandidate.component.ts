@@ -20,8 +20,23 @@ export class ApprovedcandidateComponent implements OnInit {
     this.settings = true;
   }
 
-  showDetailCandidate(){
-    this.detailcandidate = true;
+  showDetailCandidate(id){
+    this.jobAppbyId(id);
+  }
+  imgs:any;
+  datacd:any;
+  jobAppbyId(id){
+    this.josb.getJobApplybyid(id);
+    this.josb.user.subscribe(res => {
+      this.datacd = res;
+      this.detailcandidate = true;
+      if(this.datacd.candidate.pic == null){
+        this.imgs ="assets/img/team/1.jpg";
+      }
+      else{
+        this.imgs ='data:'+this.datacd.candidate.type+';base64,'+this.datacd.candidate.pic;  
+
+      }});  
   }
 
   constructor(private pros:ProvinceService,private regis:RegisterService,private route:Router,private josb:JobApplyService) { }
