@@ -58,75 +58,28 @@
           </div>
         </ol>
 
-      <p-scrollPanel [style]="{width: '100%', height: '270px'}">
-        <!-- Isi Job Poster -->
-          <div class="card border-light">
-            <div class="card-header"><h5>IT Bootcamp</h5></div>
-            <div class="card-body">
-              <p class="card-title">
-                Perkembangan teknologi yang kian pesat merupakan salah satu tantangan yang harus dihadapi oleh 
-                semua perusahaan  di Indonesia, termasuk Lawencon. Menjawab tantangan ini, Lawencon terus
-                mengedepankan inovasi agar dapat senantiasa menjadi bank yang dapat diandalkan oleh masyarakat.
-                Inovasi yang dilakukan Lawencon selama ini membutuhkan dukungan dari semua pihak terutama
-                bagian IT.</p>
-                <br>
-              <p class="card-text">
-                Open Date : 01-01-2020 &nbsp; Close Date : 02-02-2020
-              </p><br>
-                <div>
-                  <button type="button" class="btn btn-outline-info" >Detail</button> &nbsp;
-                  <button type="button" class="btn btn-outline-success">Apply</button>
-                </div>
-            </div>
-            <div class="card-footer">  
-            </div>
-          </div> <br>
-        <!--  -->
-          <div class="card border-light">
-            <div class="card-header"><h5>IT Bootcamp</h5></div>
-            <div class="card-body">
-              <p class="card-title">
-                Perkembangan teknologi yang kian pesat merupakan salah satu tantangan yang harus dihadapi oleh 
-                semua perusahaan  di Indonesia, termasuk Lawencon. Menjawab tantangan ini, Lawencon terus
-                mengedepankan inovasi agar dapat senantiasa menjadi bank yang dapat diandalkan oleh masyarakat.
-                Inovasi yang dilakukan Lawencon selama ini membutuhkan dukungan dari semua pihak terutama
-                bagian IT.</p>
-                <br>
-              <p class="card-text">
-                Open Date : 01-01-2020 &nbsp; Close Date : 02-02-2020
-              </p><br>
-              <div>
-                <button type="button" class="btn btn-outline-info">Detail</button> &nbsp;
-                <button type="button" class="btn btn-outline-success">Apply</button>
-              </div>
-            </div>
-            <div class="card-footer">  
-            </div>
-          </div> <br>
-        <!--  -->
-          <div class="card border-light">
-              <div class="card-header"><h5>IT Bootcamp</h5></div>
-              <div class="card-body">
-                <p class="card-title">
-                  Perkembangan teknologi yang kian pesat merupakan salah satu tantangan yang harus dihadapi oleh 
-                  semua perusahaan  di Indonesia, termasuk Lawencon. Menjawab tantangan ini, Lawencon terus
-                  mengedepankan inovasi agar dapat senantiasa menjadi bank yang dapat diandalkan oleh masyarakat.
-                  Inovasi yang dilakukan Lawencon selama ini membutuhkan dukungan dari semua pihak terutama
-                  bagian IT.</p>
+        <p-scrollPanel [style]="{width: '100%', height: '420px'}">
+          <!-- Isi Job Poster -->           
+              <div class="card border-light" style="width: 100%;" *ngFor="let item of jobs | paginate: { itemsPerPage: 3, currentPage: p }">
+                <div class="card-header"><h5>{{item.title}} <p style="text-align-last:right;font:italic;"><small>{{item.salary | currency:'Rp. '}}/month</small></p></h5></div>
+                <div class="card-body">
+                  <p class="card-title">
+                    {{item.desc}}
+                    <br>
+                  <p class="card-text">
+                    Open Date : {{item.start}} &nbsp; Close Date : {{item.end}}
+                  </p><br>
+                  <p>Recruiter : {{item.candidate.name}}</p>
                   <br>
-                <p class="card-text">
-                  Open Date : 01-01-2020 &nbsp; Close Date : 02-02-2020
-                </p><br>
-                <div>
-                  <button type="button" class="btn btn-outline-info" >Detail</button> &nbsp;
-                  <button type="button" class="btn btn-outline-success">Apply</button>
                 </div>
-              </div>
-              <div class="card-footer">  
-              </div>
-          </div><br>
-        
-      </p-scrollPanel>
+                <div class="card-footer">  
+                </div>
+              </div> <br>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+         
+          
+          </p-scrollPanel>
       </div>
 
     </div>
@@ -178,7 +131,7 @@
 <br>
 <span class="ui-float-label">
   <p>Gender</p>
-  <p-radioButton name="groupname" value="Laki-Laki" label=" Male " [(ngModel)]="register.gender"></p-radioButton>
+  <p-radioButton name="groupname" value="Laki-Laki" label=" Male " [(ngModel)]="register.gender"></p-radioButton> &nbsp;
   <p-radioButton name="groupname" value="Perempuan" label=" Female " [(ngModel)]="register.gender"></p-radioButton>
 </span>
 <br>

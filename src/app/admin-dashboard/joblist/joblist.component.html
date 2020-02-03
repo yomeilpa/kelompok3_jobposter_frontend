@@ -30,89 +30,92 @@
 <div id="page-content-wrapper">
   <div class="container-fluid" >
     <div class="ui-g">
-      <!-- List Application -->
       <div class="ui-g-12 ui-md-12 ui-lg-12">
-        <br><h2 style="text-align:center; margin-bottom:12px;">List Application</h2><br>
-        <button type="button" class="btn btn-outline-primary" style="margin-bottom: 8px;" (click)="showAddJob()">Add Application</button><br>
-        <table class="table table-hover" style="text-align:center">
-            <thead >
-              <tr>
-                <th scope="col">No</th>
-                <th scope="col">Application Name</th>
-                <th scope="col">Application Category</th>
-                <th scope="col">Date Begin</th>
-                <th scope="col">Date End</th>
-                <th scope="col">Total Applier</th>
-                <th scope="col">Action</th>
+        <p-tabView>
+          <!-- List Application -->
+          <p-tabPanel header="List Application" leftIcon="pi pi-calendar">
+            <br><h2 style="text-align:center; margin-bottom:12px;">List Application</h2><br>
+            <button type="button" class="btn btn-outline-primary" style="margin-bottom: 8px;" (click)="showAddJob()">Add Application</button><br>
+            <table class="table table-hover" style="text-align:center">
+                <thead >
+                  <tr>
+                    <th scope="col">Application Name</th>
+                    <th scope="col">Application Category</th>
+                    <th scope="col">Application Position</th>
+                    <th scope="col">Recruiter Name</th>
+                    <th scope="col">Date Begin</th>
+                    <th scope="col">Date End</th>
+                    <th scope="col">Action</th>
+    
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of jobs; index as i">
+                    <td>{{item?.title}}</td>
+                    <td>{{item?.jobposotion?.jobkategori?.kategori}}</td>
+                    <td>{{item?.jobposotion?.name}}</td>
+                    <td>{{item?.candidate?.name}}</td>
+                    <td>{{item?.start | date:'dd-MMMM-yyyy'}}</td>
+                    <td>{{item?.end | date:'dd-MMMM-yyyy'}}</td>
+                    <td>
+                        <button type="button" class="btn btn-outline-primary btn-sm"  (click)="showDetailJob(item.id)">Detail</button> &nbsp;
+                        <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdateJob()">Update</button>
+                    </td>
+                  </tr>
+                </tbody>
+            </table> 
+          </p-tabPanel>
+          <!-- Job Position -->
+          <p-tabPanel header="Job Position" leftIcon="pi pi-inbox">
+              <br><h2 style="text-align:center; margin-bottom:12px;">Job Position</h2><br>
+              <button type="button" class="btn btn-outline-primary" style="margin-bottom: 8px;" (click)="showAddPosition()">Add Position</button><br>
+              <table class="table table-hover" style="text-align:center">
+                <thead >
+                  <tr>
+                    <th scope="col">Position Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Action</th>
+      
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of jobPosList">
+                    <td>{{item?.name}}</td>
+                    <td>{{item?.jobkategori?.kategori}}</td>
+                    <td>
+                        <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdatePosition(item.id)">Update</button> &nbsp;
+                        <button type="button" class="btn btn-outline-danger btn-sm" (click)=" deletePosition(item.id)" >Delete</button> 
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+          </p-tabPanel>
+          <!-- Job Category -->
+          <p-tabPanel header="Job Category" leftIcon="pi pi-user">
+              <br><h2 style="text-align:center; margin-bottom:12px;">Job Category</h2><br>
+              <button type="button" class="btn btn-outline-primary" style="margin-bottom: 8px;" (click)="showAddCategory()">Add Category</button><br>
+              <table class="table table-hover" style="text-align:center">
+                <thead >
+                  <tr>
+                    <th scope="col">Category Name</th>
+                    <th scope="col">Category Code</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of jobkateList">
+                    <td>{{item?.kategori}}</td>
+                    <td>{{item.code}}</td>
+                    <td>
+                      <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdateCategory(item.id)">Update</button> &nbsp;
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)=" deleteKategori(item.id)" >Delete</button> 
+                  </td>
+                  </tr>
+                </tbody>
+              </table>
+          </p-tabPanel>
+      </p-tabView>
 
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>IT Bootcamp</td>
-                <td>IT Bootcamp</td>
-                <td>02-02-2020</td>
-                <td>02-02-2020</td>
-                <td>253</td>
-                <td>
-                    <button type="button" class="btn btn-outline-primary btn-sm"  (click)="showDetailJob()">Detail</button> &nbsp;
-                    <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdateJob()">Update</button>
-                </td>
-              </tr>
-            </tbody>
-        </table> 
-      </div>
-
-      <!-- Job Position -->
-      <div class="ui-g-12 ui-md-6 ui-lg-6">
-        <br><h2 style="text-align:center; margin-bottom:12px;">Job Position</h2><br>
-        <button type="button" class="btn btn-outline-primary" style="margin-bottom: 8px;" (click)="showAddPosition()">Add Position</button><br>
-        <table class="table table-hover" style="text-align:center">
-          <thead >
-            <tr>
-              <th scope="col">Position Name</th>
-              <th scope="col">Category</th>
-              <th scope="col">Action</th>
-
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of jobPosList">
-              <td>{{item?.name}}</td>
-              <td>{{item?.jobkategori?.kategori}}</td>
-              <td>
-                  <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdatePosition(item.id)">Update</button> &nbsp;
-                  <button type="button" class="btn btn-outline-danger btn-sm" (click)=" deletePosition(item.id)" >Delete</button> 
-                </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Job Category -->
-      <div class="ui-g-12 ui-md-6 ui-lg-6">
-        <br><h2 style="text-align:center; margin-bottom:12px;">Job Category</h2><br>
-        <button type="button" class="btn btn-outline-primary" style="margin-bottom: 8px;" (click)="showAddCategory()">Add Category</button><br>
-        <table class="table table-hover" style="text-align:center">
-          <thead >
-            <tr>
-              <th scope="col">Category Name</th>
-              <th scope="col">Category Code</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of jobkateList">
-              <td>{{item?.kategori}}</td>
-              <td>{{item.code}}</td>
-              <td>
-                <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdateCategory(item.id)">Update</button> &nbsp;
-                <button type="button" class="btn btn-outline-danger btn-sm" (click)=" deleteKategori(item.id)" >Delete</button> 
-            </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </div>
@@ -397,10 +400,10 @@
 [style]="{width: '80vw'}"  [draggable]="false" [resizable]="false">
 <div class="ui-g">
   <div class="ui-g-12">
+    <P>Total Applier : {{totalapp}}</P>
     <table class="table table-hover" style="text-align:center">
       <thead >
         <tr>
-          <th scope="col">No</th>
           <th scope="col">Name Applier</th>
           <th scope="col">Apply Date</th>
           <th scope="col">Action</th>
@@ -409,14 +412,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Bayunu</td>
-          <td>02-02-2020</td>
+        <tr *ngFor="let item of apps">
+          <td>{{item?.candidate?.name}}</td>
+          <td>{{item?.appDate | date:'dd-MMMM-yyyy' }}</td>
           <td>
-              <button type="button" class="btn btn-outline-primary btn-sm" (click)="showDetailCandidate()">Detail</button>
+              <button type="button" class="btn btn-outline-primary btn-sm" (click)="showDetailCandidate(item.id)">Detail</button>
           </td>
-          <td>Not Viewed</td>
+          <td>{{item?.state?.state}}</td>
         </tr>
       </tbody>
     </table>
@@ -425,8 +427,11 @@
 </p-dialog>
 
 <!-- Detail Candidate -->
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+
 <p-dialog header="Detail Candidate" [(visible)]="detailcandidate" [modal]="true" [responsive]="true" 
 [style]="{width: '90vw'}" [draggable]="false" [resizable]="false">
+<p-messages [value]="msgs"></p-messages>
 
 <!-- Body -->
 <div class="ui-g">
@@ -434,7 +439,7 @@
 <div class="ui-g-4">
   <div class="card">
       <div class=" card-body" style="text-align:center;">
-        <img style="width: 170px; height: 225px;" [src]="imageData"  alt="Card image">
+        <img style="width: 170px; height: 240px;" [src]="imgs"  alt="Card image">
       </div>  
   </div>
 
@@ -449,14 +454,14 @@
     </div>
 
       <div class="card-body">
-        <p class="card-text">Birth {{user?.candidate?.dob}}</p>
-        <p class="card-text">Gender {{user?.candidate?.gender}}</p>
-        <p class="card-text">{{user?.candidate?.addres}}, {{user?.candidate?.city?.city}}</p>
+        <p class="card-text">Birth {{cdjob1?.candidate?.dob}}</p>
+        <p class="card-text">Gender {{cdjob1?.candidate?.gender}}</p>
+        <p class="card-text">{{cdjob1?.candidate?.addres}}, {{user?.candidate?.city?.city}}</p>
       </div>
 
       <div class="card-footer">
-        <p class="card-text">{{user?.candidate?.phone}}</p>
-        <p class="card-text">{{user?.candidate?.email}}</p>
+        <p class="card-text">{{cdjob1?.candidate?.phone}}</p>
+        <p class="card-text">{{cdjob1?.candidate?.email}}</p>
       </div>
 
   </div>
@@ -466,7 +471,7 @@
 <div class="ui-g-8 ui-g-nopad">
   <!-- Nama Lengkap -->
   <div class="ui-g-12">
-    <h1 class="display-3" style="text-align:center;">{{user?.candidate?.name}} Nama</h1>
+    <h1 class="display-3" style="text-align:center;">{{cdjob1?.candidate?.name}}</h1>
   </div>
   <!-- Kiri -->
   <div class="ui-g-6">
@@ -549,40 +554,33 @@
 </div>
 
 <p-footer>
-  <button type="button" class="btn btn-outline-success" (click)="showInvited()" >Invite</button>
-  <button type="button" class="btn btn-outline-danger" (click)="showRejected()">Reject</button>
+  <button type="button" class="btn btn-outline-success"  [disabled]="st.state ==='ON INVITATION'|| st.state === 'Rejected'" (click)="showInvited()" >Invite</button>
+  <button type="button" class="btn btn-outline-danger" [disabled]="st.state ==='Rejected' || st.state ==='ON INVITATION'" (click)="confirmRejected()">Reject</button>
 </p-footer>
 </p-dialog>
 
 <!-- Invited Candidate -->
 <p-dialog header="Invited Candidate" [(visible)]="invited" [modal]="true" [style]="{width: '30vw'}"
+
     [draggable]="false" [resizable]="false">
+    <p-messages [value]="msgsInt"></p-messages>
     <div class="ui-g">
         <div class="ui-g-12 ui-md-6">
           <h6>Choose Date Invited</h6>
-          <p-calendar [(ngModel)]="tanggal"></p-calendar>
+          <p-calendar [(ngModel)]="intmod.date"></p-calendar>
         </div>
 
         <div class="ui-g-12 ui-md-6">
           <h6>Choose Time Invited</h6>
-          <p-calendar [(ngModel)]="jam" [timeOnly]="true"></p-calendar>
+          <p-calendar [(ngModel)]="waktu"  [timeOnly]="true"></p-calendar>
         </div>
     </div>
   <p-footer>
-    <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Invited"></button>
+    <button type="button" pButton icon="pi pi-check" (click)="postInt()" label="Invited"></button>
     <button type="button" pButton icon="pi pi-times" (click)="display=false" label="Cancel" class="ui-button-secondary"></button>
   </p-footer>
 </p-dialog>
 
-<!-- Rejected Candidate -->
-<p-dialog header="Invited Candidate" [(visible)]="rejected" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true" [baseZIndex]="10000"
-    [draggable]="false" [resizable]="false">
-
-        <p-footer>
-            <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
-            <button type="button" pButton icon="pi pi-times" (click)="display=false" label="No" class="ui-button-secondary"></button>
-        </p-footer>
-</p-dialog>
 
 </div>
 

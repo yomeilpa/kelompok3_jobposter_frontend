@@ -11,11 +11,23 @@ import { JobRecuitmentModel } from 'src/app/model/job-recuitment-model';
 import { JobDetailModel } from 'src/app/model/job-detail-model';
 import { JobPostingModel } from 'src/app/model/job-posting-model';
 import { PostingjobService } from 'src/app/service/postingjob.service';
+import { JobApplyService } from 'src/app/service/job-apply.service';
+import { Message } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { JobApplyModel } from 'src/app/model/job-apply-model';
+import { StateAppliedModel } from 'src/app/model/state-applied-model';
+import { InterviewStatusModel } from 'src/app/model/interview-status-model';
+import { Listofinterview } from 'src/app/model/listofinterview';
+import { InterviewService } from 'src/app/service/interview.service';
+import { Candidate } from 'src/app/model/candidate';
+
+
 
 @Component({
   selector: 'app-joblist',
   templateUrl: './joblist.component.html',
   styleUrls: ['./joblist.component.css'],
+  providers: [MessageService,ConfirmationService],
   styles:[`
         .box,
         .sample-layout > div {
@@ -90,7 +102,7 @@ export class JoblistComponent implements OnInit {
   i:any = 0;
   user:any;
   imageData:any;
-  candidate:any;
+  candidate:any = new Candidate(null,null,null,null,null,null,null,null);
   jb:any = new JobDetailModel(null,null,null);
   js:any = new JobRecuitmentModel(null,null,null);
   posting:any = new JobPostingModel(null,null,null,null,null,null,null,null,null,null,null);
@@ -100,6 +112,39 @@ export class JoblistComponent implements OnInit {
   province:any[];
   kate:any;
   getPosKa:any;
+  idjob:any;
+  cdjob1:any = new JobApplyModel(null,null,null,null,null,null);
+  st:any = new StateAppliedModel(null,null,null);
+  intmod:any = new Listofinterview(null,null,null,null,null);
+  msgs:Message[] = [];
+  msgsInt:Message[] = [];
+  confirmRejected(id){
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to Reject this Candidate ?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.rejectCd();
+        this.msgs = [{severity:'info', summary:'Confirmed', detail:'Your Candidate has Rejected'}];      
+
+      }
+  });
+  }
+  waktu:any;
+  postInt(){
+    this.intmod.job = this.cdjob1;
+        let b:Date = this.waktu;
+        let c:any =""+b.getHours()+':'+b.getMinutes()+':'+b.getSeconds();
+        this.intmod.time = c;
+        // console.log("ini waktu "+this.intmod.time)
+        this.intser.postListIntCd(this.intmod);
+          this.intser.user.subscribe(res =>{
+            if(this.intser.data1 =='succes'){
+              this.msgsInt = [{severity:'info', summary:'Confirmed', detail:'Your Candidate has Invited'}];      
+              this.jbapp.invJobApplybyJob(this.cdjob1.id);
+            }
+          })  
+  }
   getPos1(){
     this.positionSer.getJobPositionbyIdKate(this.kate.id);
     this.positionSer.user.subscribe(res => this.getPosKa = res);
@@ -125,6 +170,26 @@ export class JoblistComponent implements OnInit {
         alert(e.error);
       }
     })
+  }
+  imgs:any;
+  jobAppbyId(id){
+    this.jbapp.getJobApplybyid(id);
+    this.jbapp.user.subscribe(res => {
+      this.cdjob1 = res;
+      this.st = this.cdjob1.state;
+      this.uptReview();
+      if(this.cdjob1.candidate.pic == null){
+        console.log(this.imgs);
+        this.imgs ="assets/img/team/1.jpg";
+
+
+      }
+      else{
+        this.imgs ='data:'+this.cdjob1.candidate.type+';base64,'+this.cdjob1.candidate.pic;  
+
+      }
+    })
+
   }
 
   proNull(){
@@ -170,16 +235,19 @@ export class JoblistComponent implements OnInit {
     this.settings = true;
   }
   
-  showDetailCandidate(){
+  showDetailCandidate(id){
     this.detailcandidate = true;
+    this.jobAppbyId(id);
   }
 
   showAddJob() {
     this.addjob = true;
   }
 
-  showDetailJob() {
+  showDetailJob(id) {
     this.detailjob = true;
+    this.getApps(id);
+    
   }
 
   showUpdateJob() {
@@ -199,6 +267,13 @@ export class JoblistComponent implements OnInit {
     this.addposition = true;
   }
 
+  uptReview(){
+      this.jbapp.rvwJobApplybyJob(this.cdjob1.id);
+  }
+  rejectCd(){
+    this.jbapp.rejectJobApplybyJob(this.cdjob1.id);
+  }
+
   showUpdatePosition(id){
     this.updateposition = true;
     this.getJobPositionbyId(id);
@@ -206,7 +281,7 @@ export class JoblistComponent implements OnInit {
   destroySession(){
     this.regis.store.delete('user').subscribe((res) => {this.route.navigateByUrl("/admin")});
   }
-  constructor(private posser:PostingjobService, 
+  constructor(private intser:InterviewService,private confirmationService:ConfirmationService,private jbapp:JobApplyService,private app:PostingjobService,private posser:PostingjobService, 
     private positionSer:JobPositionServiceService, 
     private pros:ProvinceService,
     private regis:RegisterService,
@@ -214,8 +289,29 @@ export class JoblistComponent implements OnInit {
     private kategori:JobKategoriService) { }
   columns: number[];
   columndescription : number[];
+  jobs:any;
+  apps:any;
+  totalapp:any;
+  getJobApply(){
+    this.app.getJobPostingbyPoster(this.candidate.id);
+    this.app.user.subscribe(res => {this.jobs = res;
+    })
+  }
+  getTotalApp(id){
+    this.jbapp.countJobApplybyCandidate(id);
+    this.jbapp.user.subscribe(res => this.totalapp = res)
+  }
+ 
+  getApps(id){
+    this.jbapp.getJobApplybyJob(id);
+    this.jbapp.user.subscribe(res => {
+      this.apps = res
+      this.getTotalApp(id);
+    })
+  }
 
     ngOnInit() {
+        
         this.getAllJobKategori();
         this.getAllJobPosition();
         this.columns = [];
@@ -233,6 +329,7 @@ export class JoblistComponent implements OnInit {
               this.destroySession();
             }
             this.candidate = this.user.candidate;
+            this.getJobApply();
             if(this.user.candidate.pic == null){
               this.imageData ="assets/img/team/1.jpg";
             }

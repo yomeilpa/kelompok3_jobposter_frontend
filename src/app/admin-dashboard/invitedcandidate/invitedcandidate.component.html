@@ -23,43 +23,81 @@
       </div>
     </div>
     <!-- Page Content -->
-    <div id="page-content-wrapper">
-      <div class="container-fluid" >
-        <br><h2 style="text-align:center; margin-bottom:12px;">Invited Candidate</h2><br>
-        <table class="table table-hover" style="text-align:center">
-            <thead >
-              <tr>
-                <th scope="col">No</th>
-                <th scope="col">Application Name</th>
-                <th scope="col">Candidate Name</th>
-                <th scope="col">Date Applied</th>
-                <th scope="col">Invited Date</th>
-                <th scope="col">Status</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>IT Bootcamp</td>
-                <td>Bayunu</td>
-                <td>02-02-2020</td>
-                <td>02-02-2020</td>
-                <td>Invited</td>
-                <td>
-                    <button type="button" class="btn btn-outline-warning btn-sm" (click)="showDetailCandidate()">Update</button>
-                </td>
-              </tr>
-              </tbody>
-        </table>
-          </div>
+
+  <div id="page-content-wrapper">
+    <div class="container-fluid" >
+      <div class="ui-g">
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+      <p-tabView>
+        <p-tabPanel header="Invited Candidate" leftIcon="pi pi-calendar">
+          <br><h2 style="text-align:center; margin-bottom:12px;">Invited Candidate</h2><br>
+          <table class="table table-hover" style="text-align:center">
+              <thead >
+                <tr>
+                  <th scope="col">Application Name</th>
+                  <th scope="col">Candidate Name</th>
+                  <th scope="col">Date Applied</th>
+                  <th scope="col">Invited Date</th>
+                  <th scope="col">Invited time</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of dataint">
+                  <td>{{item?.job?.job?.title}}</td>
+                  <td>{{item?.job?.candidate?.name}}</td>
+                  <td>{{item?.job?.appDate | date:'dd-MMMM-yyyy'}}</td>
+                  <td>{{item?.date | date:'dd-MMMM-yyyy'}}</td>
+                  <td>{{item?.time}}</td>
+                  <td>{{item?.status?.name}}</td>
+                  <td>
+                      <button type="button" class="btn btn-outline-warning btn-sm" (click)="showInvited()">Reinvite</button>
+                  </td>
+                </tr>
+                </tbody>
+          </table>
+        </p-tabPanel>
+        <p-tabPanel header="Candidate Will Attend" leftIcon="pi pi-inbox">
+          <br><h2 style="text-align:center; margin-bottom:12px;">Candidate Will Attend</h2><br>
+          <table class="table table-hover" style="text-align:center">
+              <thead >
+                <tr>
+                  <th scope="col">Application Name</th>
+                  <th scope="col">Candidate Name</th>
+                  <th scope="col">Invited Date</th>
+                  <th scope="col">Invited time</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of dataintat">
+                  <td>{{item?.job?.job?.title}}</td>
+                  <td>{{item?.job?.candidate?.name}}</td>
+                  <td>{{item?.date | date:'dd-MMMM-yyyy'}}</td>
+                  <td>{{item?.time}}</td>
+                  <td>{{item?.status?.name}}</td>
+                  <td>
+                    <button type="button" class="btn btn-outline-info btn-sm" (click)="showDetailCandidate(item.id)">Update</button> &nbsp;
+                      <button type="button" class="btn btn-outline-success btn-sm" (click)="confirmHire(item.id)">Hire</button>
+                  </td>
+                </tr>
+                </tbody>
+          </table>
+        </p-tabPanel>
+    </p-tabView>
+
+</div>
+</div>
     </div>
+  </div>
 
 </div>
 
 <!-- Detail Candidate -->
 <p-dialog header="Detail Candidate" [(visible)]="detailcandidate" [modal]="true" [responsive]="true" 
-[style]="{width: '90vw'}" [draggable]="false" [resizable]="false">
+[style]="{width: '60vw'}" [draggable]="false" [resizable]="false">
 
 <!-- Body -->
 <div class="ui-g">
@@ -71,7 +109,7 @@
       </div>  
   </div>
 
-  <!-- Profile -->
+  <!-- Profile
   <div class="card border-light">
     <div class="ui-g card-header">
       <div class="ui-g-6 ui-md-6 ">
@@ -92,97 +130,72 @@
         <p class="card-text">{{user?.candidate?.email}}</p>
       </div>
 
-  </div>
+  </div> -->
 </div>
 
 <!-- Isi -->
 <div class="ui-g-8 ui-g-nopad">
   <!-- Nama Lengkap -->
   <div class="ui-g-12">
-    <h1 class="display-3" style="text-align:center;">{{user?.candidate?.name}} Nama</h1>
+    <h1 class="display-3" style="text-align:center;">{{user?.candidate?.name}}</h1>
   </div>
-  <!-- Kiri -->
-  <div class="ui-g-6">
-    <!-- Education -->
-    <div class="card border-light">
-      <div class="ui-g card-header">
-        <div class="ui-g-12 ui-md-4 ">
-          <h5 class="pi pi-user">
-            Education
-          </h5>
-        </div>
-      </div>
 
-      <div class="card-body">
-        <h4 class="card-title">Update Your Education</h4>
-      </div>
-  </div>
-  <br>
-
-  <!-- Work Experince -->
-  <div class="card border-light">
-    <div class="ui-g card-header">
-      <div class="ui-g-12 ui-md-6 ">
-        <h5 class="pi pi-user">
-          Work Experience
-        </h5>
-      </div>
-    </div>
-
-    <div class="card-body">
-      <h4 class="card-title">Update Your Work Experience</h4>
+  <!-- Keterangan -->
+<div class="ui-g-12">
+  <div class="form-group row">
+    <label class="col-sm-4 col-form-label">Applied Application</label>    
+    <div class="col-sm-6" >
+      <label class="col-sm-6 col-form-label">Angular Progammer</label>
     </div>
   </div>
-  <br>
-  </div>
-
-  <!-- Kanan -->
-  <div class="ui-g-6">
-    <!-- Document -->
-    <div class="card border-light">
-      <div class="ui-g card-header">
-        <div class="ui-g-12 ui-md-4 ">
-          <h5 class="pi pi-user">
-            Document
-          </h5>
-        </div>
-      </div>
-
-      <div class="card-body">
-        <h4 class="card-title">Update Your Document</h4>
-      </div>
+  <div class="form-group row">
+    <label class="col-sm-4 col-form-label">interview Date</label>    
+    <div class="col-sm-6" >
+      <label class="col-sm-6 col-form-label">01-02-2020</label>
     </div>
-    <br>
-
-    <!-- SKill -->
-    <div class="card border-light">
-      <div class="ui-g card-header">
-        <div class="ui-g-12 ui-md-4 ">
-          <h5 class="pi pi-user">
-          Skill
-          </h5>
-        </div>
-      </div>
-
-      <div class="card-body">
-        <table class="table table-hover">
-          <tbody>
-            <tr>
-              <td>Angular</td>
-              <td>Expert</td>
-            </tr>
-            </tbody>
-            </table>
-      </div>
-    </div>
-    <br>
   </div>
+  <div class="form-group row">
+    <label class="col-sm-4 col-form-label">Status</label>    
+    <div class="col-sm-6" >
+      <label class="col-sm-6 col-form-label">Button</label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="exampleTextarea">Result Interview</label>
+    <textarea class="form-control" [(ngModel)]="int1.resultInt" id="exampleTextarea" rows="3"></textarea>
+  </div>
+</div>
     
 </div>
 </div>
 
 <p-footer>
-  <button type="button" class="btn btn-outline-success">Approved</button>
+  <button type="button" class="btn btn-outline-success" (click)="postRes()">Approved</button>
   <button type="button" class="btn btn-outline-danger">Reject</button>
 </p-footer>
 </p-dialog>
+
+<!-- Invited Candidate -->
+<p-dialog header="Reinvited Candidate" [(visible)]="invited" [modal]="true" [style]="{width: '30vw'}"
+
+    [draggable]="false" [resizable]="false">
+    <p-messages [value]="msgsInt"></p-messages>
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-6">
+          <h6>Choose Date Reinvite</h6>
+          <p-calendar></p-calendar>
+        </div>
+
+        <div class="ui-g-12 ui-md-6">
+          <h6>Choose Time Reinvite</h6>
+          <p-calendar [timeOnly]="true"></p-calendar>
+        </div>
+    </div>
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="postInt()" label="Invited"></button>
+    <button type="button" pButton icon="pi pi-times" (click)="display=false" label="Cancel" class="ui-button-secondary"></button>
+  </p-footer>
+</p-dialog>
+
+<!-- Confirm Dialog -->
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

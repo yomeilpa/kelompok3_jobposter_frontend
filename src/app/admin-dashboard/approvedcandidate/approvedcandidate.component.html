@@ -28,19 +28,19 @@
       <table class="table table-hover" style="text-align:center">
           <thead >
             <tr>
-              <th scope="col">No</th>
               <th scope="col">Application Name</th>
               <th scope="col">Application Category</th>
               <th scope="col">Candidate Name</th>
+              <th scope="col">Recruiter Name</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>IT Bootcamp</td>
-              <td>IT Bootcamp</td>
-              <td>Bayunu</td>
+            <tr *ngFor="let item of jobs">
+              <td>{{item?.job?.title}}</td>
+              <td>{{item?.job?.jobposotion?.jobkategori?.kategori}}</td>
+              <td>{{item?.candidate?.name}}</td>
+              <td>{{item?.job?.candidate?.name}}</td>
               <td>
                   <button type="button" class="btn btn-outline-primary btn-sm" (click)="showDetailCandidate()">Detail</button>
               </td>

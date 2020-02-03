@@ -39,6 +39,19 @@ export class PostingjobService {
         this.user.next(this.data);
       })
   }
+  getJobPostingbyPoster(id){
+    this.user = new Subject<any>();
+    this.httpclient.get(this.apiURL+"/jobposting/poster/"+id).subscribe( res =>{
+      this.data = res;
+      this.data1 ="OK";
+      this.user.next(this.data);
+    },
+      (err) => {
+        this.data=err;
+        this.data1 ="BAD";
+        this.user.next(this.data);
+      })
+  }
 
   getJobPostingbyFileter(jb){
     this.user = new Subject<any>();

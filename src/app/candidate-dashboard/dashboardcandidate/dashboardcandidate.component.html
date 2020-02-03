@@ -1,5 +1,5 @@
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <img #img src="assets/logolarge.png"> &nbsp;
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -41,9 +41,11 @@
   </p-dialog>
 
   <!-- Body -->
+  
   <div>
 
     <!-- Profile -->
+    <br>
     <div class="ui-g-12 ui-md-6 ui-lg-2"><br>
       <div class="card" style="margin-top:40pt;">
           <div class="card-body" style="text-align:center;">
@@ -60,32 +62,49 @@
     </div>
 
     <!--  -->
-    <div class="ui-g-12 ui-md-12 ui-lg-8 ui-g-nopad">
+    <br>
+    <div class="ui-g-12 ui-md-12 ui-lg-10 ui-g-nopad">
 
-      <!-- Interview Date --> <br>
-      <div class="ui-g-12 ui-md-12 ui-lg-6">
-          <h5 style="text-align:center;">Interview Date</h5><br>
-          <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Application Name</th>
-                  <th scope="col">Interview Date</th>
-                  <th scope="col">Hour</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of intApp">
-                  <td>{{item?.job?.job?.title}}</td>
-                  <td>{{item?.date | date:'dd-MMMM-yyyy'}}</td>
-                  <td>{{item?.time}}</td>
-                </tr>
-                </tbody>
-          </table>
-      </div>
 
-      <!-- Check Application Status -->
-      <div class="ui-g-12 ui-md-12 ui-lg-6">
-          <h5 style="text-align:center;">Check Status Application</h5><br>
+       <br>
+      <div class="ui-g-12 ui-md-12 ui-lg-12">
+        <!-- Interview Date -->
+        <p-tabView>
+          <p-tabPanel header="Interview Date" leftIcon="pi pi-inbox">
+            <h5 style="text-align:center;">Interview Date</h5><br>
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Application Name</th>
+                    <th scope="col">Interview Date</th>
+                    <th scope="col">Hour</th>
+                    <th>Status</th>
+                    <th scope="col" colspan="3" style="align-items: center; text-align: center;">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of intApp | paginate: { itemsPerPage: 3, currentPage: n , id: 'int'}">
+                    <td>{{item?.job?.job?.title}}</td>
+                    <td>{{item?.date | date:'dd-MMMM-yyyy'}}</td>
+                    <td>{{item?.time}}</td>                 
+                    <td>{{item?.status?.name}}</td>
+                    <td>
+                      <button [disabled]="item.status != null" pButton type="button" (click)="accInt(item.id)" label="Attend" class="ui-button-rounded ui-button-success"></button>
+                    </td>
+                    <td>
+                      <button [disabled]="item.status != null" pButton type="button" (click)=" requestInt(item.id)" label="Request Day" class="ui-button-rounded ui-button-warning"></button>
+                    </td>
+                    <td>
+                      <button [disabled]="item.status != null" pButton type="button" (click)="rejectInt(item.id)" label="Reject" class="ui-button-rounded ui-button-danger"></button>
+                    </td>
+                  </tr>
+                  </tbody>
+            </table>
+            <pagination-controls (pageChange)="n = $event" id = "int"></pagination-controls>
+          </p-tabPanel>
+          <!-- Check Status Application -->
+          <p-tabPanel header="Check Status Application" leftIcon="pi pi-user">
+            <h5 style="text-align:center;">Check Status Application</h5><br>
           <table class="table table-hover">
               <thead>
                 <tr>
@@ -95,13 +114,19 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of cdApp">
+                <tr *ngFor="let item of cdApp | paginate: { itemsPerPage: 3, currentPage: p }">
                   <td>{{item?.job?.title}}</td>
                   <td>{{item?.appDate | date:'dd-MMMM-yyyy'}}</td>
                   <td>{{item?.state?.state}}</td>
                 </tr>
               </tbody>
           </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+          </p-tabPanel>
+      </p-tabView>
+
       </div>
 
       <!-- Job Poster -->
@@ -145,8 +170,8 @@
           <!-- Isi Job Poster -->
            
             
-              <div class="card border-light" style="width: 100%;" *ngFor="let item of jobs">
-                <div class="card-header"><h5>{{item.title}} <p style="text-align-last:right;font:italic;"><small>{{item.salary | currency:'Rp. '}}/month</small></p></h5></div>
+          <div class="card border-light" style="width: 100%;" *ngFor="let item of jobs | paginate: { itemsPerPage: 3, currentPage: t ,id:'xs' }">
+            <div class="card-header"><h5>{{item.title}} <p style="text-align-last:right;font:italic;"><small>{{item.salary | currency:'Rp. '}}/month</small></p></h5></div>
                 <div class="card-body">
                   <p class="card-title">
                     {{item.desc}}
@@ -164,10 +189,9 @@
                 <div class="card-footer">  
                 </div>
               </div> <br>
-         
-         
-          
+              <pagination-controls (pageChange)="t = $event" id="xs"></pagination-controls>
           </p-scrollPanel>
+
       </div>
 
     </div>

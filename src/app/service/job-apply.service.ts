@@ -52,9 +52,124 @@ export class JobApplyService {
         this.user.next(this.data);
       })
   }
+
+
+  
+  countJobApplybyCandidate(id){
+    this.user = new Subject<any>();
+    this.httpclient.get(this.apiURL+"/count/app/"+id).subscribe( res =>{
+      this.data = res;
+      this.data1 ="OK";
+      this.user.next(this.data);
+    },
+      (err) => {
+        this.data=err;
+        this.data1 ="BAD";
+        this.user.next(this.data);
+      })
+  }
+
+  getJobApplybyJob(id){
+    this.user = new Subject<any>();
+    this.httpclient.get(this.apiURL+"/job/app/"+id).subscribe( res =>{
+      this.data = res;
+      this.data1 ="OK";
+      this.user.next(this.data);
+    },
+      (err) => {
+        this.data=err;
+        this.data1 ="BAD";
+        this.user.next(this.data);
+      })
+  }
+
+  rvwJobApplybyJob(id){
+    this.user = new Subject<any>();
+    this.httpclient.get(this.apiURL+"/jobapply/review/"+id).subscribe( res =>{
+      this.data = res;
+      this.data1 ="OK";
+      this.user.next(this.data);
+    },
+      (err) => {
+        this.data=err;
+        this.data1 ="BAD";
+        this.user.next(this.data);
+      })
+  }
+
+  rejectJobApplybyJob(id){
+    this.user = new Subject<any>();
+    this.httpclient.get(this.apiURL+"/jobapply/rejected/"+id).subscribe( res =>{
+      this.data = res;
+      this.data1 ="OK";
+      this.user.next(this.data);
+    },
+      (err) => {
+        this.data=err;
+        this.data1 ="BAD";
+        this.user.next(this.data);
+      })
+  }
+
+  accJobApplybyJob(id){
+    this.user = new Subject<any>();
+    this.httpclient.get(this.apiURL+"/jobapply/accepted/"+id).subscribe( res =>{
+      this.data = res;
+      this.data1 ="OK";
+      this.user.next(this.data);
+    },
+      (err) => {
+        this.data=err;
+        this.data1 ="BAD";
+        this.user.next(this.data);
+      })
+  }
+
+  getobApplybyJobAcc(){
+    this.user = new Subject<any>();
+    this.httpclient.get(this.apiURL+"/jobapply/get/acc").subscribe( res =>{
+      this.data = res;
+      this.data1 ="OK";
+      this.user.next(this.data);
+    },
+      (err) => {
+        this.data=err;
+        this.data1 ="BAD";
+        this.user.next(this.data);
+      })
+  }
+
+  invJobApplybyJob(id){
+    this.user = new Subject<any>();
+    this.httpclient.get(this.apiURL+"/jobapply/invitation/"+id).subscribe( res =>{
+      this.data = res;
+      this.data1 ="OK";
+      this.user.next(this.data);
+    },
+      (err) => {
+        this.data=err;
+        this.data1 ="BAD";
+        this.user.next(this.data);
+      })
+  }
+
   getJobApplybyCandidate(id){
     this.user = new Subject<any>();
     this.httpclient.get(this.apiURL+"/jobapply/get/"+id).subscribe( res =>{
+      this.data = res;
+      this.data1 ="OK";
+      this.user.next(this.data);
+    },
+      (err) => {
+        this.data=err;
+        this.data1 ="BAD";
+        this.user.next(this.data);
+      })
+  }
+  
+  getJobApplybyid(id){
+    this.user = new Subject<any>();
+    this.httpclient.get(this.apiURL+"/jobapply/"+id).subscribe( res =>{
       this.data = res;
       this.data1 ="OK";
       this.user.next(this.data);

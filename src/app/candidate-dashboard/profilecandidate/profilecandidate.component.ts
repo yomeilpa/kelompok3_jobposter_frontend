@@ -68,7 +68,7 @@ export class ProfilecandidateComponent implements OnInit {
   eduid:Appedu = new Appedu(null,null,null,null,null,null);
   imgss:any = null;
   pxd:any = null;
-  cds:any = new Candidate("","",null,"",new City("","","",new Province("","","")),"","");
+  cds:any = new Candidate("","",null,"",new City("","","",new Province("","","")),"","",null);
   workcd:any = new Workexperience(null,null,null,null,null);
   wn:any = new Workexperience(null,null,null,null,null);
   works:any;

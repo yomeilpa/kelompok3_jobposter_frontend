@@ -44,7 +44,20 @@ export class DashboardcandidateComponent implements OnInit{
   }
 
   constructor(private confirmationService:ConfirmationService,private pros:ProvinceService, private ints:InterviewService, private apply:JobApplyService, private jobservice:PostingjobService, private login:RegisterService,private route:Router,private sanitizer:DomSanitizer,private messageService: MessageService) { }
+  p:number = 1;
+  n:number  = 1;
+  t:number = 1;
 
+  rejectInt(id){
+    this.ints.RejectListIntCd(id);
+  }
+
+  accInt(id){
+    this.ints.willAttendListIntCd(id);
+  }
+  requestInt(id){
+    this.ints.RequestListIntCd(id);
+  }
   showWarn(warn:any) {
     this.messageService.add({severity:'error', summary: 'Error', detail:warn,key:"tc"});
 }

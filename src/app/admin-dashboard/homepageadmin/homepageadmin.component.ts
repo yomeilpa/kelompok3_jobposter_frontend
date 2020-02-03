@@ -46,7 +46,7 @@ citi:any;
 city:any[];
 pross:Province[];  
 test:string;
-register:Candidate = new Candidate("","",null,"",null,"","");
+register:Candidate = new Candidate("","",null,"",null,"","",null);
 constructor(private pros:ProvinceService,private regis:RegisterService,private route:Router,private messageService: MessageService) { }
 showWarn(warn:any) {
   this.messageService.add({key:'tl',severity:'error', summary: 'Error', detail:warn});

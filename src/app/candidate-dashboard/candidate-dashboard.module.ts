@@ -14,6 +14,7 @@ import {PasswordModule} from 'primeng/password';
 import {InputMaskModule} from 'primeng/inputmask';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 
 
 
@@ -32,7 +33,8 @@ import {ConfirmationService} from 'primeng/api';
     ProgressBarModule,
     PdfViewerModule,
     PasswordModule,
-    InputMaskModule
+    InputMaskModule,
+    NgxPaginationModule
 
   ]
 })

@@ -13,8 +13,9 @@ import {CalendarModule} from 'primeng/calendar';
 import {ToastModule} from 'primeng/toast';
 import {PasswordModule} from 'primeng/password';
 import {InputMaskModule} from 'primeng/inputmask';
-
+import {PaginatorModule} from 'primeng/paginator';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 
 
 
@@ -32,7 +33,9 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     ToastModule,
     PasswordModule,
     InputMaskModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    PaginatorModule,
+    NgxPaginationModule
   ]
 })
 export class CandidateHomepageModule { }

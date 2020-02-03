@@ -6,6 +6,7 @@ import { Candidate } from 'src/app/model/candidate';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/model/login';
 import { MessageService } from 'primeng/api';
+import { PostingjobService } from 'src/app/service/postingjob.service';
 
 @Component({
   selector: 'app-homepagecandidate',
@@ -38,21 +39,21 @@ showSuccess() {
   this.msgs = [];
   this.msgs.push({severity:'success', summary:'Success', detail:'Please Check your Email'});
 }
-
+  p:number = 1;
   province:any[];
   provinsi:any;
   citi:any;
   city:any[];
   pross:Province[];  
   test:string;
-  register:Candidate = new Candidate("","",null,"",null,"","");
-  constructor(private pros:ProvinceService,private regis:RegisterService,private route:Router,private messageService: MessageService) { }
+  register:Candidate = new Candidate("","",null,"",null,"","",null);
+  constructor(private os:PostingjobService,private pros:ProvinceService,private regis:RegisterService,private route:Router,private messageService: MessageService) { }
   
   showWarn(warn:any) {
     this.messageService.add({key:'tl',severity:'error', summary: 'Error', detail:warn});
 }
 
-showSucces(warn:any) {
+showSucces(warn:any)  {
   this.messageService.add({key: 'tl', sticky: true, severity:'success', summary:warn, detail:'Please Check Your Email for your Password to Login '});
 }
 showWarn1(warn:any) {
@@ -60,6 +61,7 @@ showWarn1(warn:any) {
 }
 
   ngOnInit() {
+    this.findJobPosting();
     this.regis.store.get("user").subscribe( res => {
       if(res != null){
         this.route.navigateByUrl("candidate/dashboard");
@@ -110,6 +112,13 @@ showWarn1(warn:any) {
       }
     })
   }
+
+  jobs:any;
+  findJobPosting(){
+    this.os.getJobPosting();
+    this.os.user.subscribe(res => this.jobs = res);
+  }
+
   }
 
   // filterBrands(event) {
