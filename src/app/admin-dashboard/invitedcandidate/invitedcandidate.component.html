@@ -80,7 +80,8 @@
                   <td>{{item?.status?.name}}</td>
                   <td>
                     <button type="button" class="btn btn-outline-info btn-sm" (click)="showDetailCandidate(item.id)">Update</button> &nbsp;
-                      <button type="button" class="btn btn-outline-success btn-sm" (click)="confirmHire(item.id)">Hire</button>
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="confirmHire(item.id)">Hire</button> &nbsp;
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="confirmHire(item.id)">Reject</button>
                   </td>
                 </tr>
                 </tbody>
