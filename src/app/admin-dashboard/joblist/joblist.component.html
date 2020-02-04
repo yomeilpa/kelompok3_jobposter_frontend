@@ -45,20 +45,22 @@
                     <th scope="col">Recruiter Name</th>
                     <th scope="col">Date Begin</th>
                     <th scope="col">Date End</th>
+                    <th scope="col">Total Applied</th>
                     <th scope="col">Action</th>
     
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of jobs; index as i">
-                    <td>{{item?.title}}</td>
-                    <td>{{item?.jobposotion?.jobkategori?.kategori}}</td>
-                    <td>{{item?.jobposotion?.name}}</td>
-                    <td>{{item?.candidate?.name}}</td>
-                    <td>{{item?.start | date:'dd-MMMM-yyyy'}}</td>
-                    <td>{{item?.end | date:'dd-MMMM-yyyy'}}</td>
+                  <tr *ngFor="let item of jq; index as i">
+                    <td>{{item[1]?.title}}</td>
+                    <td>{{item[1]?.jobposotion?.jobkategori?.kategori}}</td>
+                    <td>{{item[1]?.jobposotion?.name}}</td>
+                    <td>{{item[1]?.candidate?.name}}</td>
+                    <td>{{item[1]?.start | date:'dd-MMMM-yyyy'}}</td>
+                    <td>{{item[1]?.end | date:'dd-MMMM-yyyy'}}</td>
+                    <td>{{item[0]}}</td>
                     <td>
-                        <button type="button" class="btn btn-outline-primary btn-sm"  (click)="showDetailJob(item.id)">Detail</button> &nbsp;
+                        <button type="button" class="btn btn-outline-primary btn-sm"  (click)="showDetailJob(item[1].id)">Detail</button> &nbsp;
                         <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdateJob()">Update</button>
                     </td>
                   </tr>

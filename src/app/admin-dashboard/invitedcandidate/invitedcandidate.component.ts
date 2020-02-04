@@ -91,7 +91,10 @@ export class InvitedcandidateComponent implements OnInit {
   }
   hiredata:any;
   postHire(){
-    this.josb.accJobApplybyJob(this.hiredata.job.id);
+    this.josb.negoJobApplybyJob(this.hiredata.job.id);
+  }
+  rejectHire(){
+    this.josb.rejectJobApplybyJob(this.hiredata.job.id);
   }
 
   confirmHire(id){
@@ -104,6 +107,19 @@ export class InvitedcandidateComponent implements OnInit {
       accept: () => {
         this.postHire();     
 
+      }
+  });
+  }
+
+  confirmReject(id){
+    this.ints.getListIntbyId(id);
+        this.ints.user.subscribe(res => this.hiredata = res);
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to Reject this Candidate ?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.rejectHire();
       }
   });
   }

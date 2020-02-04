@@ -297,6 +297,12 @@ export class JoblistComponent implements OnInit {
     this.app.user.subscribe(res => {this.jobs = res;
     })
   }
+  jq:any;
+  getJobandQuota(){
+    this.app.getJobPostingbyPosterQuota(this.candidate.id);
+    this.app.user.subscribe(res => {this.jq = res
+    console.log(this.jq)})
+  }
   getTotalApp(id){
     this.jbapp.countJobApplybyCandidate(id);
     this.jbapp.user.subscribe(res => this.totalapp = res)
@@ -329,7 +335,7 @@ export class JoblistComponent implements OnInit {
               this.destroySession();
             }
             this.candidate = this.user.candidate;
-            this.getJobApply();
+            this.getJobandQuota();
             if(this.user.candidate.pic == null){
               this.imageData ="assets/img/team/1.jpg";
             }

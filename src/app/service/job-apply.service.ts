@@ -125,6 +125,20 @@ export class JobApplyService {
       })
   }
 
+  negoJobApplybyJob(id){
+    this.user = new Subject<any>();
+    this.httpclient.get(this.apiURL+"/jobapply/nego/"+id).subscribe( res =>{
+      this.data = res;
+      this.data1 ="OK";
+      this.user.next(this.data);
+    },
+      (err) => {
+        this.data=err;
+        this.data1 ="BAD";
+        this.user.next(this.data);
+      })
+  }
+
   getobApplybyJobAcc(){
     this.user = new Subject<any>();
     this.httpclient.get(this.apiURL+"/jobapply/get/acc").subscribe( res =>{
