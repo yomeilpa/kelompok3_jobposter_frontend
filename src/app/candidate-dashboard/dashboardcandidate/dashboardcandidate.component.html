@@ -19,7 +19,8 @@
               </li>
           </ul>
       </div>
-  </nav>
+      <p-messages [value]="msgs" (click)="backDash()"></p-messages>
+    </nav>
 
   <p-dialog header="Change Password" [(visible)]="settings" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
     <div class="form-group">
@@ -130,7 +131,6 @@
       </div>
 
       <!-- Job Poster -->
-      <p-messages [value]="msgs" (click)="backDash()"></p-messages>
       <br><br><br><br><br>
       <div class="ui-g-12 ui-md-12 ui-lg-12">
           <h3 style="text-align:center;">Lawencon Jobs Poster</h3><br>
