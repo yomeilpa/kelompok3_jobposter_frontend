@@ -39,6 +39,20 @@ export class PostingjobService {
         this.user.next(this.data);
       })
   }
+
+  uptJobPosting(){
+    this.user = new Subject<any>();
+    this.httpclient.get(this.apiURL+"/jobposting/upt").subscribe( res =>{
+      this.data = res;
+      this.data1 ="OK";
+      this.user.next(this.data);
+    },
+      (err) => {
+        this.data=err;
+        this.data1 ="BAD";
+        this.user.next(this.data);
+      })
+  }
   getJobPostingbyPoster(id){
     this.user = new Subject<any>();
     this.httpclient.get(this.apiURL+"/jobposting/poster/"+id).subscribe( res =>{

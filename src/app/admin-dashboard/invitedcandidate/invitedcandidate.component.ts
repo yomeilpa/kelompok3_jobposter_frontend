@@ -7,6 +7,7 @@ import { Candidate } from 'src/app/model/candidate';
 import { Listofinterview } from 'src/app/model/listofinterview';
 import { MessageService, ConfirmationService, Message } from 'primeng/api';
 import { JobApplyService } from 'src/app/service/job-apply.service';
+import { Contract } from 'src/app/model/contract';
 
 
 @Component({
@@ -23,9 +24,17 @@ export class InvitedcandidateComponent implements OnInit {
   detailcandidate: boolean;
   settings: boolean; invited: boolean;
   msgs:Message[] = [];
+  planner:boolean = false;
+  contract:any = new Contract(null,null);
+  waktu:any;
 
-  showInvited(){
+  showInvited(id){
     this.invited = true;
+    this.ints.getListIntbyId(id);
+    this.ints.user.subscribe(res =>{
+      this.intmod = res;
+      console.log(this.intmod)
+    })
   }
 
   showSettings(){
@@ -51,7 +60,18 @@ export class InvitedcandidateComponent implements OnInit {
   postRes(){
     this.ints.postListIntCdRes(this.int1);
   }
-
+  waktus:any;
+  d:any;
+  intmod:any = new Listofinterview(null,null,null,null,null);
+  postInt(){
+    let b:Date = this.waktus;
+    this.intmod.date = this.d;
+    this.intmod.status = null;
+    let c:any =""+b.getHours()+':'+b.getMinutes()+':'+b.getSeconds();
+    this.intmod.time = c;
+    // console.log("ini waktu "+this.intmod.time)
+      this.ints.postListIntCd(this.intmod);
+  }
   constructor(private ints:InterviewService,
     private pros:ProvinceService,private regis:RegisterService,
     private route:Router,
@@ -91,10 +111,14 @@ export class InvitedcandidateComponent implements OnInit {
   }
   hiredata:any;
   postHire(){
-    this.josb.negoJobApplybyJob(this.hiredata.job.id);
+    let b:Date = this.waktu;
+    let c:any =""+b.getHours()+':'+b.getMinutes()+':'+b.getSeconds();
+    this.contract.time = c;
+    this.josb.negoJobApplybyJob(this.hiredata.job.id,this.contract);
   }
   rejectHire(){
     this.josb.rejectJobApplybyJob(this.hiredata.job.id);
+    this.ints.RejectListIntCd(this.hiredata.id);
   }
 
   confirmHire(id){
@@ -105,7 +129,7 @@ export class InvitedcandidateComponent implements OnInit {
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.postHire();     
+        this.planner = true;     
 
       }
   });

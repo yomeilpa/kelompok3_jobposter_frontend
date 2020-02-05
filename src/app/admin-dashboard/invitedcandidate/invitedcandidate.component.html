@@ -4,7 +4,7 @@
       <div class="collapse navbar-collapse" id="navbar"> &nbsp;
           <ul class="navbar-nav ml-auto my-lg-1">
             <li class="nav-item">
-              <a class="nav-link" href="/admin" >Sign Out</a>
+              <a class="nav-link" (click)="destroySession()" >Sign Out</a>
             </li>
           </ul>
       </div>
@@ -52,7 +52,7 @@
                   <td>{{item?.time}}</td>
                   <td>{{item?.status?.name}}</td>
                   <td>
-                      <button type="button" class="btn btn-outline-warning btn-sm" (click)="showInvited()">Reinvite</button>
+                      <button type="button" class="btn btn-outline-warning btn-sm" (click)="showInvited(item?.id)">Reinvite</button>
                   </td>
                 </tr>
                 </tbody>
@@ -184,17 +184,38 @@
     <div class="ui-g">
         <div class="ui-g-12 ui-md-6">
           <h6>Choose Date Reinvite</h6>
-          <p-calendar></p-calendar>
+          <p-calendar [(ngModel)]="d"></p-calendar>
         </div>
 
         <div class="ui-g-12 ui-md-6">
           <h6>Choose Time Reinvite</h6>
-          <p-calendar [timeOnly]="true"></p-calendar>
+          <p-calendar name="asas" [(ngModel)]="waktus" [timeOnly]="true"></p-calendar>
         </div>
     </div>
   <p-footer>
     <button type="button" pButton icon="pi pi-check" (click)="postInt()" label="Invited"></button>
     <button type="button" pButton icon="pi pi-times" (click)="display=false" label="Cancel" class="ui-button-secondary"></button>
+  </p-footer>
+</p-dialog>
+
+<p-dialog header="Contract Candidate" [(visible)]="planner" [modal]="true" [style]="{width: '30vw'}"
+
+    [draggable]="false" [resizable]="false">
+    <p-messages [value]="msgsInt"></p-messages>
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-6">
+          <h6>Choose Date </h6>
+          <p-calendar name="okss" [(ngModel)]="contract.date"></p-calendar>
+        </div>
+
+        <div class="ui-g-12 ui-md-6">
+          <h6>Choose Time </h6>
+          <p-calendar [(ngModel)]="waktu" [timeOnly]="true"></p-calendar>
+        </div>
+    </div>
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="postHire()" label="Invited"></button>
+    <button type="button" pButton icon="pi pi-times" (click)="planner=false" label="Cancel" class="ui-button-secondary"></button>
   </p-footer>
 </p-dialog>
 

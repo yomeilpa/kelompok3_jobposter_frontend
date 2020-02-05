@@ -43,7 +43,7 @@
               <td>{{item?.job?.candidate?.name}}</td>
               <td>
                 <button type="button" class="btn btn-outline-primary btn-sm" (click)="showDetailCandidate(item.id)">Detail</button> &nbsp;
-                <button type="button" class="btn btn-outline-success btn-sm" (click)="showDetailCandidate(item.id)">Sign Contract</button>
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="confirmCt(item.id)">Sign Contract</button>
               </td>
             </tr>
             </tbody>
@@ -51,6 +51,7 @@
         </div>
   </div>  
 </div>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
 
 <!-- Detail Candidate -->
 <p-dialog header="Detail Candidate" [(visible)]="detailcandidate" [modal]="true" [responsive]="true" 

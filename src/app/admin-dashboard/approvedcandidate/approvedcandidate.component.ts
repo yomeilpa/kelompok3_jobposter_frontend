@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ProvinceService } from 'src/app/service/province.service';
 import { RegisterService } from 'src/app/service/register.service';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService, Message } from 'primeng/api';
+
 import { JobApplyService } from 'src/app/service/job-apply.service';
 
 @Component({
   selector: 'app-approvedcandidate',
   templateUrl: './approvedcandidate.component.html',
   styleUrls: ['./approvedcandidate.component.css'],
+  providers: [MessageService,ConfirmationService]
+
 })
 export class ApprovedcandidateComponent implements OnInit {
   user:any;
@@ -38,8 +41,23 @@ export class ApprovedcandidateComponent implements OnInit {
 
       }});  
   }
+  confirmCt(id){
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to Hire this Candidate ?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.josb.getJobApplybyid(id);
+        this.josb.user.subscribe(res =>{
+          let b = res;
+          this.josb.accJobApplybyJob(b.id)
+        })     
 
-  constructor(private pros:ProvinceService,private regis:RegisterService,private route:Router,private josb:JobApplyService) { }
+      }
+  });
+  }
+
+  constructor(private confirmationService:ConfirmationService,private pros:ProvinceService,private regis:RegisterService,private route:Router,private josb:JobApplyService) { }
 
   destroySession(){
     this.regis.store.delete('user').subscribe((res) => {this.route.navigateByUrl("/admin")});

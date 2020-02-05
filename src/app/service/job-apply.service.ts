@@ -125,9 +125,9 @@ export class JobApplyService {
       })
   }
 
-  negoJobApplybyJob(id){
+  negoJobApplybyJob(id,any){
     this.user = new Subject<any>();
-    this.httpclient.get(this.apiURL+"/jobapply/nego/"+id).subscribe( res =>{
+    this.httpclient.post(this.apiURL+"/jobapply/nego/"+id,any).subscribe( res =>{
       this.data = res;
       this.data1 ="OK";
       this.user.next(this.data);
