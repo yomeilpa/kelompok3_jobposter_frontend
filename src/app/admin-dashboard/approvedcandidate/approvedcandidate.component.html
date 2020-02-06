@@ -32,6 +32,7 @@
               <th scope="col">Application Category</th>
               <th scope="col">Candidate Name</th>
               <th scope="col">Recruiter Name</th>
+              <th scope="col">Status </th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -41,6 +42,7 @@
               <td>{{item?.job?.jobposotion?.jobkategori?.kategori}}</td>
               <td>{{item?.candidate?.name}}</td>
               <td>{{item?.job?.candidate?.name}}</td>
+              <td>{{item?.state?.state}}</td>
               <td>
                 <button type="button" class="btn btn-outline-primary btn-sm" (click)="showDetailCandidate(item.id)">Detail</button> &nbsp;
                 <button type="button" class="btn btn-outline-success btn-sm" (click)="confirmCt(item.id)">Sign Contract</button>

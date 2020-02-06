@@ -33,7 +33,6 @@ export class InvitedcandidateComponent implements OnInit {
     this.ints.getListIntbyId(id);
     this.ints.user.subscribe(res =>{
       this.intmod = res;
-      console.log(this.intmod)
     })
   }
 
@@ -65,12 +64,11 @@ export class InvitedcandidateComponent implements OnInit {
   intmod:any = new Listofinterview(null,null,null,null,null);
   postInt(){
     let b:Date = this.waktus;
-    this.intmod.date = this.d;
     this.intmod.status = null;
     let c:any =""+b.getHours()+':'+b.getMinutes()+':'+b.getSeconds();
     this.intmod.time = c;
-    // console.log("ini waktu "+this.intmod.time)
       this.ints.postListIntCd(this.intmod);
+      this.invited = false;
   }
   constructor(private ints:InterviewService,
     private pros:ProvinceService,private regis:RegisterService,

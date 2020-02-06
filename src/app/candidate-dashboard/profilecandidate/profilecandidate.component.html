@@ -27,13 +27,14 @@
         </ul>
     </div>
 </nav>
-<div style="align-items: center;text-align: center;" [hidden] ="cds.id!=null">
-  <p-progressSpinner ></p-progressSpinner>   
-  <p>Please Wait...</p>   
-</div>
+
 <!-- Body -->
-<br><br>
+<br><br><br>
 <div class="ui-g" [hidden]="cds.id == null">
+  <div style="align-items: center;text-align: center;" [hidden] ="cds.id!=null">
+    <p-progressSpinner ></p-progressSpinner>   
+    <p>Please Wait...</p>   
+  </div>
   <div class="ui-g-1">
   </div>
 

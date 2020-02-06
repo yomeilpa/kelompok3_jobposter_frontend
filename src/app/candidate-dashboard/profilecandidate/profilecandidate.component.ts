@@ -473,10 +473,10 @@ fileUploadProgress:any = null;
   addEdu(){
     this.edss.postEducandiate(this.ed,this.cds.id);
     this.edss.user.subscribe(res =>{
-      this.edpost = res
+      let b = res
       if(this.edss.data1 =="gagal"){
         
-        alert(this.edpost.error);
+        alert(b.error);
       }
       if(this.edss.data1=="succes"){
         this.education = false;
@@ -502,10 +502,10 @@ fileUploadProgress:any = null;
   addwork(){
     this.ws.postWorkCand(this.wn,this.cds.id);
     this.ws.user.subscribe(res =>{
-      this.wn = res
+      let b= res
       if(this.ws.data1 =="gagal"){
         
-        alert(this.edpost.error);
+        alert(b.error);
       }
       if(this.ws.data1=="succes"){
         this.work = false;
@@ -520,7 +520,7 @@ fileUploadProgress:any = null;
       this.workcd = res
       if(this.ws.data1 =="gagal"){
         this.updatework = false;
-        this.showErr(this.edpost.error);
+        this.showErr(this.workcd.error);
       }
       if(this.ws.data1=="succes"){
         this.updatework = false;        
@@ -535,7 +535,7 @@ fileUploadProgress:any = null;
     this.sk.user.subscribe(res =>{
       this.cdSkill = res
       if(this.ws.data1 =="gagal"){
-        this.showErr(this.edpost.error);
+        this.showErr(this.cdSkill.error);
       }
       if(this.ws.data1=="succes"){
         this.updateskill = false;

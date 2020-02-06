@@ -33,6 +33,7 @@ export class DashboardcandidateComponent implements OnInit{
   user:any;
   imageData:string;
   candidate:any;
+  mgsReject:Message[] = [];
 
   showDetail(id){
     this.detail = true;
@@ -43,6 +44,43 @@ export class DashboardcandidateComponent implements OnInit{
       this.settings = true;
   }
 
+  b:any = null;
+  confirmReject(id){
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to reject this invitation ?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.b = 'A';
+        this.rejectInt(id);
+      }
+  });
+  }
+
+  confirmRequest(id){
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to Request for new day for this invitation ?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.b = 'A';
+        this.requestInt(id);
+      }
+  });
+  }
+
+  confirmAcc(id){
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to Accept the invitation ?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.b = 'A';
+        this.accInt(id);
+      }
+  });
+  }
+
   constructor(private confirmationService:ConfirmationService,private pros:ProvinceService, private ints:InterviewService, private apply:JobApplyService, private jobservice:PostingjobService, private login:RegisterService,private route:Router,private sanitizer:DomSanitizer,private messageService: MessageService) { }
   p:number = 1;
   n:number  = 1;
@@ -50,13 +88,19 @@ export class DashboardcandidateComponent implements OnInit{
 
   rejectInt(id){
     this.ints.RejectListIntCd(id);
+    this.mgsReject= [{severity:'info', summary:'Confirmed', detail:'Your Action has submitted'}];              
+
   }
 
   accInt(id){
     this.ints.willAttendListIntCd(id);
+    this.mgsReject= [{severity:'info', summary:'Confirmed', detail:'Your Action has submitted'}];              
+
   }
   requestInt(id){
     this.ints.RequestListIntCd(id);
+    this.mgsReject= [{severity:'info', summary:'Confirmed', detail:'Your Action has submitted'}];              
+
   }
   showWarn(warn:any) {
     this.messageService.add({severity:'error', summary: 'Error', detail:warn,key:"tc"});
@@ -93,7 +137,7 @@ export class DashboardcandidateComponent implements OnInit{
       this.getJobApplys();
     })
   }
-  jobs1:any = new JobPostingModel(null,null,null,null,null,null,null,null,null,null,null);
+  jobs1:any = new JobPostingModel(null,null,null,null,null,null,null,null,null,null,null,null);
   req:any;
   det:any;
   getJobsbyId(id){
@@ -124,7 +168,6 @@ appJob:any = new JobApplyModel(null,null,null,null,null,null);
 postApply(){
   this.appJob.candidate = this.user.candidate;
   this.appJob.job = this.jobs1;
-  console.log(this.appJob);
   if(this.appJob != null){
     this.apply.postJobApply(this.appJob);
   } 

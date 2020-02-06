@@ -116,8 +116,6 @@ showWarn1(warn:any) {
   jobs:any;
   findJobPosting(){
     this.os.uptJobPosting();
-      console.log("Holla")
-      this.os.getJobPosting();
       this.os.user.subscribe(res => this.jobs = res); 
   }
 

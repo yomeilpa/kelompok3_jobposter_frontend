@@ -20,6 +20,11 @@ import { InterviewStatusModel } from 'src/app/model/interview-status-model';
 import { Listofinterview } from 'src/app/model/listofinterview';
 import { InterviewService } from 'src/app/service/interview.service';
 import { Candidate } from 'src/app/model/candidate';
+import { EducationService } from 'src/app/service/education.service';
+import { WorkexperienceService } from 'src/app/service/workexperience.service';
+import { SkillService } from 'src/app/service/skill.service';
+import { DoctypeService } from 'src/app/service/doctype.service';
+import { CandidateDocument } from 'src/app/model/candidate-document';
 
 
 
@@ -105,7 +110,7 @@ export class JoblistComponent implements OnInit {
   candidate:any = new Candidate(null,null,null,null,null,null,null,null);
   jb:any = new JobDetailModel(null,null,null);
   js:any = new JobRecuitmentModel(null,null,null);
-  posting:any = new JobPostingModel(null,null,null,null,null,null,null,null,null,null,null);
+  posting:any = new JobPostingModel(null,null,null,null,null,null,null,null,null,null,null,null);
   provinsi:any;
   ps:any = "Choose Province";
   city:any[];
@@ -132,6 +137,10 @@ export class JoblistComponent implements OnInit {
   }
   waktu:any;
   postInt(){
+    if(this.waktu ==null){
+      alert('Time Must Be Filled')
+    }
+    else{
     this.intmod.job = this.cdjob1;
         let b:Date = this.waktu;
         let c:any =""+b.getHours()+':'+b.getMinutes()+':'+b.getSeconds();
@@ -143,7 +152,11 @@ export class JoblistComponent implements OnInit {
               this.msgsInt = [{severity:'info', summary:'Confirmed', detail:'Your Candidate has Invited'}];      
               this.jbapp.invJobApplybyJob(this.cdjob1.id);
             }
+            else{
+              alert(res.error)
+            }
           })  
+    }
   }
   getPos1(){
     this.positionSer.getJobPositionbyIdKate(this.kate.id);
@@ -172,11 +185,41 @@ export class JoblistComponent implements OnInit {
     })
   }
   imgs:any;
+  edu:any;
+  skill:any;
+  wexp:any;
+  doc:any;
+
+  cddoc:any = new CandidateDocument(null,null,null,null);
+  dowloadDoc(id){
+    this.doctype.getCd(this.cdjob1.candidate.id,id);
+    this.doctype.user.subscribe(res => {this.cddoc = res
+    if(this.cddoc.type != null){
+      let pd = 'data:'+this.cddoc.type+';base64,'+this.cddoc.pic;    
+      let x=window.open('about:whatever');  
+      let iframe=x.document.createElement('iframe')
+      iframe.width='100%'
+      iframe.height='100%'
+      iframe.src=pd;
+      x.document.body.appendChild(iframe)
+    }else{
+      alert("document doesnote exists")
+    }})
+  }
+ 
   jobAppbyId(id){
     this.jbapp.getJobApplybyid(id);
     this.jbapp.user.subscribe(res => {
       this.cdjob1 = res;
       this.st = this.cdjob1.state;
+      this.eduser.getEducationCandidate(this.cdjob1.candidate.id);
+      this.eduser.user.subscribe(res => {this.edu = res});
+      this.workservice.getWordCan(this.cdjob1.candidate.id);
+      this.workservice.user.subscribe(res => this.wexp = res)
+      this.skillser.getSkillCandidate(this.cdjob1.candidate.id);
+      this.skillser.user.subscribe(res => this.skill = res)
+      this.doctype.getDocTypeTrue();
+      this.doctype.user.subscribe(res => this.doc = res);
       this.uptReview();
       if(this.cdjob1.candidate.pic == null){
         console.log(this.imgs);
@@ -281,7 +324,7 @@ export class JoblistComponent implements OnInit {
   destroySession(){
     this.regis.store.delete('user').subscribe((res) => {this.route.navigateByUrl("/admin")});
   }
-  constructor(private intser:InterviewService,private confirmationService:ConfirmationService,private jbapp:JobApplyService,private app:PostingjobService,private posser:PostingjobService, 
+  constructor(private doctype:DoctypeService,private eduser:EducationService,private workservice:WorkexperienceService,private skillser:SkillService,private intser:InterviewService,private confirmationService:ConfirmationService,private jbapp:JobApplyService,private app:PostingjobService,private posser:PostingjobService, 
     private positionSer:JobPositionServiceService, 
     private pros:ProvinceService,
     private regis:RegisterService,
@@ -392,6 +435,9 @@ export class JoblistComponent implements OnInit {
             if(this.kategori.data1 == "OK"){
               location.href = "admin/joblist"
             }
+            else{
+              alert(res.error);
+            }
         })
       }
 
@@ -400,6 +446,8 @@ export class JoblistComponent implements OnInit {
         this.kategori.user.subscribe(res => {
             if(this.kategori.data1 == "OK"){
               location.href = "admin/joblist"
+            }else{
+              alert(res.error);
             }
         })
       }
@@ -436,6 +484,9 @@ export class JoblistComponent implements OnInit {
           if(this.positionSer.data1 == "OK"){
             location.href = "admin/joblist"
           }
+          else{
+            alert(res.error)
+          }
         })
       }
       
@@ -444,6 +495,9 @@ export class JoblistComponent implements OnInit {
         this.positionSer.user.subscribe(res =>{
           if(this.positionSer.data1 == "OK"){
             location.href = "admin/joblist"
+          }
+          else{
+            alert(res.error)
           }
         })
       }
