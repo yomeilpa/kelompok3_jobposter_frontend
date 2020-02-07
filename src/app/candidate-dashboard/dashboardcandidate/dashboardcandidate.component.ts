@@ -106,6 +106,9 @@ export class DashboardcandidateComponent implements OnInit{
     this.messageService.add({severity:'error', summary: 'Error', detail:warn,key:"tc"});
 }
   ngOnInit() {
+    this.login.store.get("key").subscribe(res =>{
+      console.log("key = "+res)
+    })
     this.user = this.login.store.get("user").subscribe( res => {
     this.user=res;
     if(res == null){

@@ -258,6 +258,36 @@ export class PostingjobService {
       })
   }
 
+  deleteDetail(id){
+    this.user = new Subject<any>();
+    this.httpclient.get(this.apiURL+"/dt/del/"+id).subscribe( res =>{
+      this.data = res;
+      this.data1 ="OK";
+      console.log(res);
+      this.user.next(this.data);
+    },
+      (err) => {
+        this.data=err;
+        this.data1 ="BAD";
+        console.log(err);
+        this.user.next(this.data);
+      })
+    }
+  deleteRec(id){
+    this.user = new Subject<any>();
+    this.httpclient.get(this.apiURL+"/rec/del/"+id).subscribe( res =>{
+      this.data = res;
+      this.data1 ="OK";
+      console.log(res);
+      this.user.next(this.data);
+    },
+      (err) => {
+        this.data=err;
+        this.data1 ="BAD";
+        console.log(err);
+        this.user.next(this.data);
+      })  }
+
   getJobReqbyJob(id){
     this.user = new Subject<any>();
     this.httpclient.get(this.apiURL+"/jobrecruitment/get/"+id).subscribe( res =>{

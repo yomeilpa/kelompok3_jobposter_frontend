@@ -60,9 +60,9 @@ export class InterviewService {
     }
     )
   }
-  getListIntAttd(){
+  getListIntAttd(id){
     this.user = new Subject<any>();
-    this.httpclient.get(this.apiURL+"/interview/attd").subscribe(res =>{
+    this.httpclient.get(this.apiURL+"/interview/attd/"+id).subscribe(res =>{
       this.data1 ="succes";
       this.data = res;
       this.user.next(this.data);

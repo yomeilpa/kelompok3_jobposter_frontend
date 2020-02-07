@@ -35,7 +35,7 @@
           <!-- List Application -->
           <p-tabPanel header="List Application" leftIcon="pi pi-calendar">
             <br><h2 style="text-align:center; margin-bottom:12px;">List Application</h2><br>
-            <button type="button" class="btn btn-outline-primary" style="margin-bottom: 8px;" (click)="showAddJob()">Add Application</button><br>
+            <button type="button" class="btn btn-outline-primary" style="margin-bottom: 8px;" (click)="showAddJob()">Add Application</button>
             <table class="table table-hover" style="text-align:center">
                 <thead >
                   <tr>
@@ -46,7 +46,7 @@
                     <th scope="col">Date Begin</th>
                     <th scope="col">Date End</th>
                     <th scope="col">Total Applied</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" style="text-align: center; align-items: center;" colspan="2">Action</th>
     
                   </tr>
                 </thead>
@@ -60,8 +60,10 @@
                     <td>{{item[1]?.end | date:'dd-MMMM-yyyy'}}</td>
                     <td>{{item[0]}}</td>
                     <td>
-                        <button type="button" class="btn btn-outline-primary btn-sm"  (click)="showDetailJob(item[1].id)">Detail</button> &nbsp;
-                        <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdateJob()">Update</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm"  (click)="showDetailJob(item[1].id)">Detail</button>
+                     </td>
+                     <td>
+                        <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdateJob(item[1].id)">Update</button>
                     </td>
                   </tr>
                 </tbody>
@@ -262,7 +264,7 @@
 
 <!-- Update -->
 <p-dialog header="Update Application" [(visible)]="updatejob" [modal]="true" [responsive]="true" 
-[style]="{width: '75vw'}" [draggable]="true" [resizable]="false">
+[style]="{width: '75vw', height: '100'}" [draggable]="true" [resizable]="false">
 
 <div class="ui-g">
 
@@ -270,27 +272,27 @@
 
   <div class="ui-g-12 ui-md-12 ui-lg-3">
     <h6 class="first">Job Application</h6>
-    <input id="input" type="text" size="20" pInputText  [(ngModel)]="posting.title" placeholder="Job Application"> 
+    <input id="input" type="text" size="20" pInputText  [(ngModel)]="jd.title" placeholder="Job Application"> 
   </div>
 
   <div class="ui-g-12 ui-md-6 ui-lg-3">
     <h6 class="first">Date Begin</h6>
-    <p-calendar [(ngModel)]="posting.start"></p-calendar>
+    <input type="date" [(ngModel)]="jd.start">
   </div>
 
   <div class="ui-g-12 ui-md-6 ui-lg-3">
     <h6 class="first">Date End</h6>
-    <p-calendar [(ngModel)]="posting.end" ></p-calendar>
+    <input type="date" [(ngModel)]="jd.end" >
   </div>
 
   <div class="ui-g-12 ui-md-12 ui-lg-1">
     <h6 class="first">Salary</h6>
-    <input type="text" pInputText size="10" pKeyFilter="money" [(ngModel)]="posting.salary" placeholder="Salary">
+    <input type="text" pInputText size="10" pKeyFilter="money" [(ngModel)]="jd.salary" placeholder="Salary">
   </div>
 
   <div class="ui-g-12 ui-md-12 ui-lg-1">
     <h6 class="first">Quota</h6>
-    <input type="text" pInputText size="5" pKeyFilter="int" [(ngModel)]="posting.saldo" placeholder="Quota">
+    <input type="text" pInputText size="5" pKeyFilter="int" [(ngModel)]="jd.saldo" placeholder="Quota">
   </div>
 
   <div class="ui-g-12 ui-md-6 ui-lg-3">
@@ -300,7 +302,7 @@
 
   <div class="ui-g-12 ui-md-6 ui-lg-3">
     <h6 class="first">Application Position</h6>
-    <p-dropdown [options]="getPosKa" name="hos"  size="40" [(ngModel)]="posting.jobposotion" (click)="getPos1()" filter="true" optionLabel="name" placeholder="Choose Position" ></p-dropdown>
+    <p-dropdown [options]="getPosKa" name="hos"  size="40" [(ngModel)]="jd.jobposotion" (click)="getPos1()" filter="true" optionLabel="name" placeholder="Choose Position" ></p-dropdown>
   </div>
 
   <div class="ui-g-12 ui-md-6 ui-lg-3">
@@ -311,18 +313,18 @@
   
   <div class="ui-g-12 ui-md-6 ui-lg-3">
     <h6 class="first">City</h6>
-      <p-dropdown placeholder="Select a City" [options]="city" name="city" [(ngModel)]="posting.city"  filter="true" optionLabel ="city" (click)="getCity()">
+      <p-dropdown placeholder="Select a City" [options]="city" name="city" [(ngModel)]="jd.city"  filter="true" optionLabel ="city" (click)="getCity()">
       </p-dropdown>
   </div>
 
   <div class="ui-g-12">
     <div class="ui-g-12 ui-md-6 ui-lg-6">
       <h6 class="first">Address</h6>
-      <textarea rows="4" cols="60" name="addres" [(ngModel)]="posting.addres" pInputTextarea autoResize="autoResize"></textarea>
+      <textarea rows="4" cols="60" name="addres" [(ngModel)]="jd.addres" pInputTextarea autoResize="autoResize"></textarea>
     </div>
     <div class="ui-g-12 ui-md-6 ui-lg-6">
       <h6 class="first">Job Description</h6>
-      <textarea rows="4" cols="60" name="jobdesc" [(ngModel)]="posting.desc" pInputTextarea autoResize="autoResize"></textarea>
+      <textarea rows="4" cols="60" name="jobdesc" [(ngModel)]="jd.desc" pInputTextarea autoResize="autoResize"></textarea>
     </div>
   </div>  
 
@@ -334,6 +336,7 @@
       <h6 class="first">Job Task</h6>
       <button pButton type="button" icon="pi pi-plus" title="Add Column" (click)="addColumn()" [disabled]="columns.length === 20" style="margin-right: .5em"></button>   
       <button pButton type="button" icon="pi pi-minus" title="Remove Column" (click)="removeColumn()"[disabled]="columns.length === 0"></button>
+      <!-- Isi Update Job Task -->
       <p-scrollPanel [style]="{width: '100%', height: '100px'}">
         <div style="padding:1em;line-height:1.5">
           <div  style="margin-top: .5em">
@@ -362,7 +365,8 @@
       <h6 class="first">Job Requirment</h6>
       <button pButton type="button" icon="pi pi-plus" title="Add Column" (click)="addColumnDes()" [disabled]="columndescription.length === 20" style="margin-right: .5em"></button>          
       <button pButton type="button" icon="pi pi-minus" title="Remove Column" (click)="removeColumnDes()" [disabled]="columndescription.length === 0"></button>       
-       <p-scrollPanel [style]="{width: '100%', height: '100px'}">
+      <!-- Isi Update Job Requirment -->
+      <p-scrollPanel [style]="{width: '100%', height: '100px'}">
         <div style="padding:1em;line-height:1.5">
           <div style="margin-top: .5em">
             <div  *ngFor="let col of columndescription; let i=index" [@animation]="'visible'">              
@@ -382,23 +386,31 @@
 
   </div>
 
-  <!-- Tengah -->
-
 
 </div>
 
 <p-footer>
-    <button type="button" pButton icon="pi pi-check" (click)="postingJob()" label="Submit"></button>
-    <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
+    <button type="button" pButton icon="pi pi-check" (click)="postingJobEdit()" label="Submit"></button>
+    <button type="button" pButton icon="pi pi-close" label="Close Application" (click)="closed()" class="ui-button-danger"></button>
 </p-footer>
 </p-dialog>
 
 <!-- Detail -->
 <p-dialog header="Detail Application" [(visible)]="detailjob" [modal]="true" [responsive]="true" 
-[style]="{width: '80vw'}"  [draggable]="false" [resizable]="false">
+[style]="{width: '80vw', height: '40vw'}" [draggable]="false" [resizable]="false">
 <div class="ui-g">
   <div class="ui-g-12">
-    <P>Total Applier : {{totalapp}}</P>
+    <div class="ui-g-12 ui-md-4">
+      Total Applier : {{totalapp}}
+    </div>
+    <div class="ui-g-12 ui-md-4 ui-md-offset-4" >
+      <ul class="ml-auto">
+        <form class="form-inline my-2 my-lg-0 ml-auto" style="justify-content: right;">
+          <input class="form-control form-control-sm" type="text" placeholder="Search"> &nbsp;
+          <button class="btn btn-outline-secondary btn-sm my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </ul>
+    </div>
     <table class="table table-hover" style="text-align:center">
       <thead >
         <tr>

@@ -504,8 +504,7 @@ fileUploadProgress:any = null;
     this.ws.user.subscribe(res =>{
       let b= res
       if(this.ws.data1 =="gagal"){
-        
-        alert(b.error);
+        alert(b.error)
       }
       if(this.ws.data1=="succes"){
         this.work = false;
@@ -517,10 +516,9 @@ fileUploadProgress:any = null;
   putwork(id){
     this.ws.putWorkCand(this.workcd,id);
     this.ws.user.subscribe(res =>{
-      this.workcd = res
+      let b = res
       if(this.ws.data1 =="gagal"){
-        this.updatework = false;
-        this.showErr(this.workcd.error);
+        alert(b.error);
       }
       if(this.ws.data1=="succes"){
         this.updatework = false;        
@@ -533,11 +531,11 @@ fileUploadProgress:any = null;
   putSkill(id){
     this.sk.putSkill(this.cdSkill,id);
     this.sk.user.subscribe(res =>{
-      this.cdSkill = res
-      if(this.ws.data1 =="gagal"){
-        this.showErr(this.cdSkill.error);
+      let b = res
+      if(this.sk.data1 =="gagal"){
+        alert(b.error);
       }
-      if(this.ws.data1=="succes"){
+      if(this.sk.data1=="succes"){
         this.updateskill = false;
         this.putSkills = [{severity:'info', summary:'Confirmed', detail:'Your Skill has Updated'}];      
         
@@ -550,9 +548,9 @@ fileUploadProgress:any = null;
   addSkill(){
     this.sk.posSkillCandi(this.newSkill,this.cds.id);
     this.sk.user.subscribe(res =>{
-      this.newSkill = res
+      let b = res
       if(this.sk.data1 =="gagal"){
-        alert(this.newSkill.error);
+        alert(b.error);
       }
       if(this.sk.data1=="succes"){
         this.skill = false;

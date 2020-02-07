@@ -59,11 +59,12 @@ export class RegisterService {
 
   public LoginUser(data:any){
     this.user = new Subject<any>();
-    this.http.post<any>(this.apiURL+"/login",data).subscribe(res =>{
+    this.http.post<any>(this.apiURL+"/jwt/login",data).subscribe(res =>{
     this.data = res;
     this.data1="suc";
     this.user.next(this.data);
-    this.store.set("user",res).subscribe(() => {});
+    this.store.set("user",res[0]).subscribe(() => {});
+    this.store.set("key",res[1]).subscribe(() =>{});
     
     },
     (ress) =>{

@@ -31,6 +31,14 @@
       <p-tabView>
         <p-tabPanel header="Invited Candidate" leftIcon="pi pi-calendar">
           <br><h2 style="text-align:center; margin-bottom:12px;">Invited Candidate</h2><br>
+            <div class="ui-g-12 ui-md-6 ui-md-offset-9" >
+              <ul class="ml-auto">
+                <form class="form-inline my-2 my-lg-0 ml-auto" style="justify-content: right;">
+                  <input class="form-control form-control-sm" type="text" placeholder="Search"> &nbsp;
+                  <button class="btn btn-outline-secondary btn-sm my-2 my-sm-0" type="submit">Search</button>
+                </form>
+              </ul>
+            </div>
           <table class="table table-hover" style="text-align:center">
               <thead >
                 <tr>
@@ -52,7 +60,8 @@
                   <td>{{item?.time}}</td>
                   <td>{{item?.status?.name}}</td>
                   <td>
-                      <button type="button" class="btn btn-outline-warning btn-sm" (click)="showInvited(item?.id)">Reinvite</button>
+                    <button type="button" class="btn btn-outline-warning btn-sm" (click)="showInvited(item?.id)">Reinvite</button> &nbsp;
+                    <button type="button" class="btn btn-outline-info btn-sm" (click)="showDetailCandidate()">Detail</button>
                   </td>
                 </tr>
                 </tbody>
@@ -60,6 +69,14 @@
         </p-tabPanel>
         <p-tabPanel header="Candidate Will Attend" leftIcon="pi pi-inbox">
           <br><h2 style="text-align:center; margin-bottom:12px;">Candidate Will Attend</h2><br>
+          <div class="ui-g-12 ui-md-12 ui-md-offset-9" >
+            <ul class="ml-auto">
+              <form class="form-inline my-2 my-lg-0 ml-auto" style="justify-content: right;">
+                <input class="form-control form-control-sm" type="text" placeholder="Search"> &nbsp;
+                <button class="btn btn-outline-secondary btn-sm my-2 my-sm-0" type="submit">Search</button>
+              </form>
+            </ul>
+          </div>
           <table class="table table-hover" style="text-align:center">
               <thead >
                 <tr>
@@ -218,8 +235,6 @@
     <button type="button" pButton icon="pi pi-times" (click)="planner=false" label="Cancel" class="ui-button-secondary"></button>
   </p-footer>
 </p-dialog>
-
-
 
 <!-- Confirm Dialog -->
 <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

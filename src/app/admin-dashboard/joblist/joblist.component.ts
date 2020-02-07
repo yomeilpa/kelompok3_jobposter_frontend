@@ -25,6 +25,7 @@ import { WorkexperienceService } from 'src/app/service/workexperience.service';
 import { SkillService } from 'src/app/service/skill.service';
 import { DoctypeService } from 'src/app/service/doctype.service';
 import { CandidateDocument } from 'src/app/model/candidate-document';
+import { City } from 'src/app/model/city';
 
 
 
@@ -184,6 +185,29 @@ export class JoblistComponent implements OnInit {
       }
     })
   }
+  closed(){
+    this.jd.active=false;
+    this.posser.postJobPosting(this.jd);
+  }
+  postingJobEdit(){
+    this.confirmasi();
+    this.jd.candidate = this.user.candidate;
+    this.jd.active = "true";
+    this.posser.postJobPosting(this.jd);
+    this.posser.user.subscribe(res => {
+      let e = res;
+      
+      if(this.posser.data1 == "OK"){
+        this.posser.deleteRec(e.id);
+        this.posser.deleteDetail(e.id);
+        this.posser.postJobDes(e.id,this.jobDetail);
+        this.posser.postJobReq(e.id,this.jobReq);
+      }
+      else{
+        alert(e.error);
+      }
+    })
+  }
   imgs:any;
   edu:any;
   skill:any;
@@ -206,7 +230,37 @@ export class JoblistComponent implements OnInit {
       alert("document doesnote exists")
     }})
   }
- 
+  provs:any;
+  jd:any = new JobPostingModel(null,new JobPosition(null,null,null),null,null,null,new City(null,null,null,null),null,null,null,null,null,null);
+  jr:any = [];
+  jdt:any;
+  findJob(id){
+    this.columns = [];
+    this.columndescription = [];
+    this.app.getJobPostingbyId(id);
+    this.app.user.subscribe(res => {this.jd = res
+    this.kate = this.jd.jobposotion.jobkategori
+    this.provinsi = this.jd.city.province;
+    this.app.getJobReqbyJob(this.jd.id);
+    this.app.user.subscribe(res => {this.jr = res
+      for(let a in this.jr){
+      this.columndescription.push(this.columndescription.length);
+      this.req[a] =this.jr[a].recruitment;
+      console.log(this.req[a]);
+    }
+    this.app.getJobDescbyJob(this.jd.id);
+    this.app.user.subscribe(res => {
+      this.jdt = res;
+      for(let a in this.jdt){
+        this.columns.push(this.columns.length);
+      this.item[a] =this.jdt[a].description;
+      console.log(this.item[a]);
+      }
+    })
+  console.log(this.provinsi)});
+  })
+  }
+
   jobAppbyId(id){
     this.jbapp.getJobApplybyid(id);
     this.jbapp.user.subscribe(res => {
@@ -262,8 +316,6 @@ export class JoblistComponent implements OnInit {
       this.js.recruitment = this.req[i]
       this.jobReq.push(this.js);
     }
-    console.log(this.jobDetail);
-    console.log(this.jobReq);
   }
 
   showInvited(){
@@ -293,8 +345,9 @@ export class JoblistComponent implements OnInit {
     
   }
 
-  showUpdateJob() {
+  showUpdateJob(id) {
     this.updatejob = true;
+    this.findJob(id);
   }
 
   showAddCategory(){
