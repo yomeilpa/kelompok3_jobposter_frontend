@@ -133,7 +133,7 @@ export class DashboardcandidateComponent implements OnInit{
   destroySession(){
     this.login.store.delete('user').subscribe((res) => {
       this.login.store.delete("key").subscribe(res => {})
-      this.route.navigateByUrl("/admin")});
+      this.route.navigateByUrl("#")});
   }
   
   jobs:any;
