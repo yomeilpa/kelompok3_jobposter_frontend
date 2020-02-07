@@ -124,6 +124,12 @@ export class JoblistComponent implements OnInit {
   intmod:any = new Listofinterview(null,null,null,null,null);
   msgs:Message[] = [];
   msgsInt:Message[] = [];
+  mgsPostJob:Message[] =[];
+  m
+  messageService: any;
+  back(){
+    location.href = "admin/joblist"
+  }
   confirmRejected(id){
     this.confirmationService.confirm({
       message: 'Are you sure that you want to Reject this Candidate ?',
@@ -136,6 +142,30 @@ export class JoblistComponent implements OnInit {
       }
   });
   }
+  confirmDeletePosition(id){
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to Delete this Position ?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.deletePosition(id);
+
+      }
+  });
+  }
+
+  confirmDeleteKategori(id){
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to Delete this Position ?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.deleteKategori(id);
+
+      }
+  });
+  }
+
   waktu:any;
   postInt(){
     if(this.waktu ==null){
@@ -176,18 +206,21 @@ export class JoblistComponent implements OnInit {
       let e = res;
       console.log(res)
       if(this.posser.data1 == "OK"){
-        // alert("ahhaha");
         this.posser.postJobDes(e.id,this.jobDetail);
         this.posser.postJobReq(e.id,this.jobReq);
+        this.mgsPostJob= [{severity:'info', summary:'Confirmed', detail:'Your Job has been posted'}];      
       }
       else{
-        alert(e.error);
+        this.showErr("postingJob",res.error);
       }
     })
   }
   closed(){
     this.jd.active=false;
     this.posser.postJobPosting(this.jd);
+    this.mgsPostJob= [{severity:'info', summary:'Confirmed', detail:'Your Job has been Closed'}];      
+
+  
   }
   postingJobEdit(){
     this.confirmasi();
@@ -204,7 +237,9 @@ export class JoblistComponent implements OnInit {
         this.posser.postJobReq(e.id,this.jobReq);
       }
       else{
-        alert(e.error);
+        alert("hahahah")
+        this.showErr("postingJobEdit",e.error);
+
       }
     })
   }
@@ -374,15 +409,20 @@ export class JoblistComponent implements OnInit {
     this.updateposition = true;
     this.getJobPositionbyId(id);
   }
+
   destroySession(){
-    this.regis.store.delete('user').subscribe((res) => {this.route.navigateByUrl("/admin")});
+    this.regis.store.delete('user').subscribe((res) => {
+      this.regis.store.delete("key").subscribe(res => {})
+      this.route.navigateByUrl("/admin")});
   }
+  
   constructor(private doctype:DoctypeService,private eduser:EducationService,private workservice:WorkexperienceService,private skillser:SkillService,private intser:InterviewService,private confirmationService:ConfirmationService,private jbapp:JobApplyService,private app:PostingjobService,private posser:PostingjobService, 
     private positionSer:JobPositionServiceService, 
     private pros:ProvinceService,
     private regis:RegisterService,
     private route:Router,
-    private kategori:JobKategoriService) { }
+    private kategori:JobKategoriService,
+    private message:MessageService) { }
   columns: number[];
   columndescription : number[];
   jobs:any;
@@ -489,7 +529,7 @@ export class JoblistComponent implements OnInit {
               location.href = "admin/joblist"
             }
             else{
-              alert(res.error);
+              this.showErr("postJobKategori",res.error);
             }
         })
       }
@@ -500,7 +540,7 @@ export class JoblistComponent implements OnInit {
             if(this.kategori.data1 == "OK"){
               location.href = "admin/joblist"
             }else{
-              alert(res.error);
+              this.showErr("putJobKategori",res.error);
             }
         })
       }
@@ -519,13 +559,17 @@ export class JoblistComponent implements OnInit {
       
       deleteKategori(id){
         this.kategori.deleteJobKatergoribyId(id);
-        if(this.kategori.data1 == "OK"){
-          this.updatecategory = false;
-          location.href = "admin/joblist"
-        }
-        else{
-          alert("Error");
-        }
+        this.kategori.user.subscribe(res => {
+          if(res.error != "DELETE GAGAL"){
+            this.updatecategory = false;
+          }
+          else{
+            this.showErr("deleteKategori",res.error);
+
+            this.updatecategory = false;
+          }
+        })
+       
       }
       // Job Position Service
       jobPos:any = new JobPosition(null,null,null);
@@ -538,7 +582,7 @@ export class JoblistComponent implements OnInit {
             location.href = "admin/joblist"
           }
           else{
-            alert(res.error)
+            this.showErr("posJobPosition",res.error);
           }
         })
       }
@@ -550,19 +594,24 @@ export class JoblistComponent implements OnInit {
             location.href = "admin/joblist"
           }
           else{
-            alert(res.error)
+            this.showErr("putJobPosition",res.error);
           }
         })
       }
+      mgsDeletePos:Message[] = [];
       deletePosition(id){
         this.positionSer.deleteJobPosition(id);
-        if(this.positionSer.data1 == "OK"){
+        this.positionSer.user.subscribe(res => {
+        if(res.error != "DELETE GAGAL"){
           this.updatecategory = false;
-          location.href = "admin/joblist"
+          location.href ="admin/joblist"
         }
         else{
-          alert("Error");
+          // alert(res.error);
+          this.showErr("deletePosition",res.error);
+
         }
+        })
       }
       getAllJobPosition(){
         this.positionSer.getJobPosition();
@@ -575,11 +624,10 @@ export class JoblistComponent implements OnInit {
         this.positionSer.getJobPositionbyId(id);
         this.positionSer.user.subscribe(res => this.jobPos1 = res);
       }
-      // JobPositionService
 
-
-      //Job Posting Service
-
-
-      //Job Posting Service
+    
+    showErr(id:any,warn:any) {
+      this.message.add({key:id,severity:'error', summary: 'Failed', detail:warn});
+    }
+    
     }

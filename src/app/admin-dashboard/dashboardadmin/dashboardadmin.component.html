@@ -2,7 +2,7 @@
 <p-dialog header="Change Password" [(visible)]="settings" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
   <div class="form-group">
     <label>Old Password </label>
-    <input type="password" name="old" [(ngModel)]="password.old" class="form-control"  placeholder="Old Password">
+    <input type="password" name="old" pPassword [(ngModel)]="password.old" class="form-control"  placeholder="Old Password">
   </div>
   <div class="form-group">
     <label>New Password </label>
@@ -50,7 +50,22 @@
   <div id="page-content-wrapper">
     <div class="container-fluid" >
       <br><h2 style="text-align:center; margin-bottom:12px;">Dashboard</h2><br>
-      <p-chart type="bar" [data]="data"></p-chart>
+      <div class="ui-g">
+        <div class="ui-g-4" style="text-align: center;">
+          <h5>Download Report</h5>
+            <input type="text" pInputText pKeyFilter="num" [(ngModel)]="year" size="10" placeholder="Year" /> &nbsp;
+            <button type="button" (click)="getReport()" pButton label="Download"></button>
+        </div>
+        <div class="ui-g-4" style="text-align: center;">
+          <h5>Download All my Report</h5>
+            <button type="button"  (click)="getReportID()" pButton label="Download"></button>
+        </div>
+        <div class="ui-g-6 ui-g-nopad">
+            <div class="ui-g-6"></div>
+            <div class="ui-g-6"></div>
+            <div class="ui-g-12"></div>
+        </div> 
+    </div>
     </div>
   </div>
 </div>

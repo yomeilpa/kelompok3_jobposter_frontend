@@ -92,18 +92,17 @@
             </div>
           </div>
 
-            <div class="card-body" style="text-align: center;">
-              <h6>Birth</h6>
-              <p>{{user?.candidate?.dob | date:'dd-MMMM-yyyy'}}</p>
-              <h6>Gender</h6>
-              <p class="text-uppercase">{{user?.candidate?.gender}} </p>
-              <h6>Address</h6>
-              <p class="text-uppercase">{{user?.candidate?.addres}}</p>
-              <p class="text-uppercase">{{user?.candidate?.city?.city}}</p>
-              <p class="text-uppercase">{{user?.candidate?.city?.province?.province}}</p>
-              <h6>Contact</h6>
-              <p>{{user?.candidate?.phone}}</p>
-              <p>{{user?.candidate?.email}}</p>
+            <div class="card-body">
+              <p>Birth {{user?.candidate?.dob | date:'yyyy-MMMM-dd'}}</p>
+              <p>Gender {{user?.candidate?.gender}}</p>
+              <p>{{user?.candidate?.addres}}</p>
+              <p>{{user?.candidate?.city?.city}}</p>
+              <p>{{user?.candidate?.city?.province?.province}}</p>
+            </div>
+
+            <div class="card-footer">
+              <p class="card-text">{{user?.candidate?.phone}}</p>
+              <p class="card-text">{{user?.candidate?.email}}</p>
             </div>
 
         </div>
@@ -138,10 +137,10 @@
                     <td>{{item?.name}}</td>
                     <td>{{item?.education?.education}}</td>
                     <td>{{item?.gpa}}</td>
-                    <td>{{item?.mulai | date:'dd-MMMM-yyyy'}}</td>
-                    <td>{{item?.berakhir | date:'dd-MMMM-yyyy'}}</td>
+                    <td>{{item?.mulai | date:'yyyy-MMMM-dd'}}</td>
+                    <td>{{item?.berakhir | date:'yyyy-MMMM-dd'}}</td>
                     <td>
-                      <button type="button" class="btn btn-outline-warning btn-sm" (click) ="getid(item.id)" >Update</button> &nbsp;
+                      <a type="button" class="btn btn-outline-warning btn-sm" (click) ="getid(item.id)" >Update</a> &nbsp;
                       <button type="button" class="btn btn-outline-danger btn-sm" (click) ="confirmEducation(item.id)">Delete</button>
                     </td>
                   </tr>
@@ -168,54 +167,50 @@
             </div>
             <div class="table-responsive">
             <table class="table table-hover">
-              <tr *ngFor="let item of works">
-                <td>{{item?.name}}</td>
-                <td>{{item?.position}}</td>
-                <td>{{item?.salary | currency:'Rp. '}}</td>
-                <td>{{item?.mulai | date:'dd-MMMM-yyyy'}}</td>
-                <td>{{item?.berakhir | date:'dd-MMMM-yyyy'}}</td>
-                <td>
+              <div *ngFor="let item of works">
+                <th style="width:auto;" scope="row">{{item?.name}}</th>
+                <td style="width:auto;">{{item?.position}}</td>
+                <td style="width:auto;">{{item?.salary | currency:'Rp. '}}</td>
+                <td style="width:auto;">{{item?.mulai | date:'yyyy-MMMM-dd'}}</td>
+                <td style="width:auto;" >{{item?.berakhir | date:'yyyy-MMMM-dd'}}</td>
+                <td style="width:auto;">
                   <button type="button" class="btn btn-outline-warning btn-sm"  (click)="getCdId(item.id)">Update</button> &nbsp;
                   <button type="button" class="btn btn-outline-danger btn-sm" (click)="confirmWork(item.id)">Delete</button>
                 </td>
-              </tr>
+              </div>
           </table>
           </div>
           </div>
           <br>
 
           <!-- Document -->
-          <div class="ui-g-12 ui-md-12 ui-lg-6">
-            <div class="card border-light">
-              <div class="ui-g card-header">
-                <div class="ui-g-12 ui-md-6 ">
-                  <h5 class="pi pi-user">
-                    Document
-                  </h5>
-                </div>
-              </div>
-              <div class="ui-g card-body">
-                <p style="color: red;">Required Document</p>
-                <div class="table-responsive">
-                <table class="table table-hover">
-                  <tr *ngFor="let item of req">
-                    <td>{{item?.typename}}</td>
-                    <td>
-                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="showUpdateDocument(item.id)">Check</button> &nbsp;
-                    </td>
-                  </tr>
-              </table>
-              </div>
-              </div>
-              <div class="ui-g card-body">
+          <div class="card border-light">
+            <div class="ui-g card-header">
+              <div class="ui-g-12 ui-md-4 ">
+                <h5 class="pi pi-user">
+                  Document
+                </h5>
               </div>
             </div>
+            <div class="ui-g card-body">
+              <p style="color: red;">Required Document</p>
+              <div class="table-responsive">
+              <table class="table table-hover">
+                <tr *ngFor="let item of req">
+                  <td>{{item?.typename}}</td>
+                  <td>
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="showUpdateDocument(item.id)">Cek</button> &nbsp;
+                  </td>
+                </tr>
+            </table>
+            </div>
+            </div>
+            <div class="ui-g card-body">
+            </div>
           </div>
+          <br>
 
-
-         <!-- SKill -->
-          <div class="ui-g-12 ui-md-12 ui-lg-6">
-
+          <!-- SKill -->
           <p-messages [value]="msgsSkill" (click)="backToProfile()"></p-messages>
           <p-messages [value]="addSkills" (click)="backToProfile()"></p-messages>
           <p-messages [value]="putSkills" (click)="backToProfile()"></p-messages>
@@ -227,12 +222,13 @@
                 Skill
                 </h5>
               </div>
-            <div class="ui-g-12 ui-md-3 ui-md-offset-4">
+            <div class="ui-g-12 ui-md-2 ui-md-offset-6">
               <button type="button" class="btn btn-outline-info btn-sm" (click)="showSkill()">Add Skill</button>
             </div>
             </div>
 
             <div class="card-body">
+              <div class="card-body">
                 <div class="table-responsive">
               <table class="table table-hover">
                 <tr *ngFor="let item of skillcd">
@@ -246,12 +242,15 @@
             </table>
             </div>
             </div>
+            </div>
           </div>
-          </div>
+          <br>
 
       </div>
 
-
+      <!--  -->
+      <div class="ui-g-12">
+      </div>
 
   </div>
   <!--  -->
@@ -262,12 +261,11 @@
 </div>
 
 <!-- Show Dialog -->
-
 <!-- Password -->
 <p-dialog header="Change Password" [(visible)]="settings" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
   <div class="form-group">
     <label>Old Password </label>
-    <input type="password" pPassword name="old" [(ngModel)]="password.old" class="form-control"  placeholder="Old Password">
+    <input type="password" name="old" [(ngModel)]="password.old" class="form-control"  placeholder="Old Password">
   </div>
   <div class="form-group">
     <label>New Password </label>
@@ -279,7 +277,7 @@
   </div>
       <p-footer>
           <button type="button" pButton icon="pi pi-check" (click)="resetPassword()" label="Yes"></button>
-          <button type="button" pButton icon="pi pi-times" (click)="settings=false" label="No" class="ui-button-secondary"></button>
+          <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
       </p-footer>
 </p-dialog>
 
@@ -287,18 +285,18 @@
 <p-dialog header="Profile" [(visible)]="profile" [modal]="true" [responsive]="true" [style]="{width: '900px', minWidth: '200px'}" [minY]="70">
   <div class="ui-g">
     <p-toast position="top-center" key="tl" (click)="backToProfile()" [modal]="true" [baseZIndex]="5000"></p-toast>
-    <p-toast [style]="{marginTop: '80px'}"  key="update"></p-toast>
+    <p-toast [style]="{marginTop: '80px'}"  key="tc"></p-toast>
     <div class="ui-g-6">
       <div class="form-group">
         <label>Salary Expected </label>
-        <input type="number" class="form-control" name="name" [(ngModel)]="cds.salary" placeholder="Salary Expected">
+        <input type="text" class="form-control" name="name" [(ngModel)]="cds.salary" placeholder="Salary Expected">
       </div>
         <div class="form-group">
             <label>Full Name</label>
             <input type="text" class="form-control" name="name" [(ngModel)]="cds.name" placeholder="Full Name">
           </div>
           <div class="form-group">
-            <p-radioButton disabled name="groupname" value="Laki-Laki" label=" Male " [(ngModel)]="cds.gender"></p-radioButton> &nbsp;
+            <p-radioButton disabled name="groupname" value="Laki-Laki" label=" Male " [(ngModel)]="cds.gender"></p-radioButton>
             <p-radioButton disabled name="groupname" value="Perempuan" label=" Female " [(ngModel)]="cds.gender"></p-radioButton>
           
           </div>
@@ -341,72 +339,65 @@
 </div>
 
     <p-footer>
-        <button type="button" pButton icon="pi pi-check" (click)="update()"  label="Yes"></button>
-        <button type="button" pButton icon="pi pi-times" (click)="profile=false" label="No" class="ui-button-secondary"></button>
+        <button type="button" pButton icon="pi pi-check" (click)="update()"  label="Submit"></button>
+        <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
     </p-footer>
 </p-dialog>
 
 <!-- Education -->
 <p-dialog header="Education" [(visible)]="education" [modal]="true" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70">
-  <p-toast [style]="{marginTop: '80px'}"  key="addEdu"></p-toast>
-
   <div class="ui-g-12">
   
     <div class="form-group">
       <label>Education</label>
-      <input type="text" pInputText  class="form-control" name="ed.education" [(ngModel)]="ed.name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name of University">
+      <input type="email" class="form-control" name="ed.education" [(ngModel)]="ed.name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name of University">
     </div>
 
     <div class="form-group">
-      <label>Education</label><br>
       <p-dropdown [options]="educations" optionLabel="education" name="edlevel" [(ngModel)]="ed.education" placeholder ="Education Level"></p-dropdown>
     </div>
   
     <div class="form-group">
       <label for="exampleInputEmail1">GPA</label>
-      <input type="text" pInputText pKeyFilter="num" class="form-control" name="edgpas" [(ngModel)]="ed.gpa" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="GPA">
-      <small class="form-text text-muted">Scale of 4.00</small>
+      <input type="email" class="form-control" name="edgpas" [(ngModel)]="ed.gpa" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="GPA">
+      <small id="emailHelp" class="form-text text-muted">Scale of 4.00</small>
     </div>
   
     <div class="ui-g-6">
       <div class="form-group">
         <label>Begin Education</label>
-        <p-calendar [(ngModel)]="ed.mulai" name="edstart" placeholder="Begin Education"></p-calendar>
-        <!-- <input type="date" name="edstart" [(ngModel)]="ed.mulai" class="form-control"> -->
+        <input type="date" name="edstart" [(ngModel)]="ed.mulai" class="form-control">
       </div>
     </div>
     <div class="ui-g-6">
       <div class="form-group">
         <label>End Education</label>
-        <p-calendar [(ngModel)]="ed.berakhir" name="edend" placeholder="End Education"></p-calendar>
-        <!-- <input type="date" name="edend" [(ngModel)]="ed.berakhir" class="form-control"> -->
+        <input type="date" name="edend" [(ngModel)]="ed.berakhir" class="form-control">
       </div>
     </div>
   </div >
       <p-footer>
-          <button type="button" pButton icon="pi pi-check" (click)="addEdu()" label="Yes"></button>
-          <button type="button" pButton icon="pi pi-times" (click)="education=false" label="No" class="ui-button-secondary"></button>
+          <button type="button" pButton icon="pi pi-check" (click)="addEdu()" label="Submit"></button>
+          <button type="reset" pButton icon="pi pi-close" (click)="reset()" label="Reset" class="ui-button-secondary"></button>
       </p-footer>
 </p-dialog>
 
 <!-- Update Education -->
-<p-dialog header="Update Education" [(visible)]="updateeducation" [modal]="true" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70">  
-    <p-toast [style]="{marginTop: '80px'}"  key="addwork"></p-toast>
+<p-dialog header="Update Education" [(visible)]="updateeducation" [modal]="true" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70">
   <div class="ui-g-12">
   
     <div class="form-group">
       <label>Education</label>
-      <input type="email" name="eds" pInputText  [(ngModel)]="eduid.name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name of University">
+      <input type="email" name="eds" [(ngModel)]="eduid.name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name of University">
     </div>
 
     <div class="form-group">
-      <label>Education Level</label><br>
+      <p>Education Level</p>
       <p-dropdown [options]="educations" name="level" [(ngModel)]="eduid.education" optionLabel="education" placeholder ="Education Level"></p-dropdown>
     </div>
     <div class="form-group">
       <label for="exampleInputEmail1">GPA</label>
-      <input type="text" pInputText pKeyFilter="num" name="gpa" [(ngModel)]="eduid.gpa"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="GPA">
-      <small class="form-text text-muted">Scale of 4.00</small>
+      <input type="text" name="gpa" [(ngModel)]="eduid.gpa"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="GPA">
     </div>
   
     <div class="ui-g-6">
@@ -423,16 +414,14 @@
     </div>
   </div >
       <p-footer>
-          <button type="button" pButton icon="pi pi-check" (click)="editedu(eduid.id)" label="Yes"></button>
-          <button type="button" pButton icon="pi pi-times" (click)="updateeducation=false" label="No" class="ui-button-secondary"></button>
+          <button type="button" pButton icon="pi pi-check" (click)="editedu(eduid.id)" label="Submit"></button>
+          <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
       </p-footer>
 </p-dialog>
   
 <!-- Work Experience -->
 <p-dialog header="Work Experience" [(visible)]="work" [modal]="true" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70">
-  <p-toast [style]="{marginTop: '80px'}"  key="addwork"></p-toast>
-
-  <div class="ui-g-12">
+<div class="ui-g-12">
 
   <div class="form-group">
     <label for="exampleInputEmail1">Work Experiance</label>
@@ -446,7 +435,7 @@
 
   <div class="form-group">
     <label for="exampleInputEmail1">Salary</label>
-    <input type="number" name="salarys" [(ngModel)]="wn.salary" class="form-control"  placeholder="Salary">
+    <input type="text" name="salarys" [(ngModel)]="wn.salary" class="form-control"  placeholder="Salary">
   </div>
 
   <div class="ui-g-6">
@@ -463,14 +452,14 @@
   </div>
 </div >
     <p-footer>
-        <button type="button" pButton icon="pi pi-check" (click)="addwork()" label="Yes"></button>
-        <button type="button" pButton icon="pi pi-times" (click)="work=false" label="No" class="ui-button-secondary"></button>
+        <button type="button" pButton icon="pi pi-check" (click)="addwork()" label="Submit"></button>
+        <button type="reset" pButton icon="pi pi-close" (click)="reset()" label="Reset" class="ui-button-secondary"></button>
     </p-footer>
 </p-dialog>
 
 <!-- Update Work Experience -->
 <p-dialog header=" Update Work Experience" [(visible)]="updatework" [modal]="true" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70">
-  <p-toast [style]="{marginTop: '80px'}"  key="putwork"></p-toast>
+  <p-toast [style]="{marginTop: '80px'}"  key="tc"></p-toast>
   <div class="ui-g-12">
     <div class="form-group">
       <label for="exampleInputEmail1">Work Experiance</label>
@@ -484,7 +473,7 @@
 
     <div class="form-group">
       <label for="exampleInputEmail1">Salary</label>
-      <input type="number" name="salary" [(ngModel)]="workcd.salary" class="form-control"  placeholder="Salary">
+      <input type="email" name="salary" [(ngModel)]="workcd.salary" class="form-control"  placeholder="Salary">
     </div>
   
     <div class="ui-g-6">
@@ -501,10 +490,10 @@
     </div>
   </div >
       <p-footer>
-          <button type="button" pButton icon="pi pi-check" (click)="putwork(workcd.id)" label="Yes"></button>
-          <button type="button" pButton icon="pi pi-times" (click)="updatework=false" label="No" class="ui-button-secondary"></button>
+          <button type="button" pButton icon="pi pi-check" (click)="putwork(workcd.id)" label="Submit"></button>
+          <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
       </p-footer>
-</p-dialog>
+  </p-dialog>
 
 <!-- Document -->
 <p-dialog header="Document" [(visible)]="document" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
@@ -532,6 +521,7 @@
 </p-dialog>
 
 <!-- Update Document -->
+
 <p-dialog header="Update Document" [(visible)]="updatedocument" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
   <div style="align-items: center;text-align: center;" [hidden] ="cddoc.pic!=null || cddoc.id != null">
     <p-progressSpinner ></p-progressSpinner>   
@@ -561,36 +551,33 @@
 
 <!-- Skill -->
 <p-dialog header="Skill" [(visible)]="skill" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
-  <p-toast [style]="{marginTop: '80px'}" position="top-center" key="addSkill"></p-toast>
   <div class="form-group">
     <label>Skill Name</label>
-    <input type="text" class="form-control" pInputText  name="sks" [(ngModel)]="newSkill.skillname"  placeholder="Skill Name">
+    <input type="text" class="form-control" name="sks" [(ngModel)]="newSkill.skillname"  placeholder="Skill Name">
   </div>
  
   <div class="form-group">
-    <label>Skill Level</label><br>
     <p-dropdown [options]="level" optionLabel="level" name="lvzsd" [(ngModel)]="newSkill.level"  placeholder ="Skill Level"></p-dropdown>
   </div>
 
       <p-footer>
           <button type="button" pButton icon="pi pi-check" (click)="addSkill()" label="Yes"></button>
-          <button type="button" pButton icon="pi pi-times" (click)="skill=false" label="No" class="ui-button-secondary"></button>
+          <button type="button" pButton icon="pi pi-close" (click)="reset()" label="No" class="ui-button-secondary"></button>
       </p-footer>
 </p-dialog>
 
 <!-- Update Skill -->
-<p-dialog header="Update Skill" [(visible)]="updateskill" [modal]="true" [responsive]="true" [baseZIndex]="10000" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
-  <p-toast [style]="{marginTop: '80px'}"  key="putSkill"></p-toast>
+<p-dialog header="Update Skill" [(visible)]="updateskill" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70">
+  <p-toast [style]="{marginTop: '80px'}"  key="tc"></p-toast>
   <div class="form-group">
     <label>Skill Name</label>
-    <input type="text" class="form-control" pInputText  [(ngModel)]="cdSkill.skillname" placeholder="Skill Name">
+    <input type="text" class="form-control" [(ngModel)]="cdSkill.skillname" placeholder="Skill Name">
   </div>
  <div class="form-group">
-    <label>Skill Level</label><br>
     <p-dropdown [options]="level" optionLabel="level" [(ngModel)]="cdSkill.level"  placeholder ="Skill Level"></p-dropdown>
   </div>
       <p-footer>
           <button type="button" pButton icon="pi pi-check" (click)="putSkill(cdSkill.id)" label="Yes"></button>
-          <button type="button" pButton icon="pi pi-times" (click)="updateskill=false" label="No" class="ui-button-secondary"></button>
+          <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
       </p-footer>
 </p-dialog>

@@ -129,9 +129,13 @@ export class DashboardcandidateComponent implements OnInit{
       }
     }); 
   }
+
   destroySession(){
-    this.login.store.delete('user').subscribe((res) => {this.route.navigateByUrl("#")});
+    this.login.store.delete('user').subscribe((res) => {
+      this.login.store.delete("key").subscribe(res => {})
+      this.route.navigateByUrl("/admin")});
   }
+  
   jobs:any;
   getAllJob(){
     this.jobservice.getJobPosting();

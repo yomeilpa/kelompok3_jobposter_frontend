@@ -25,14 +25,6 @@
   <div id="page-content-wrapper">
     <div class="container-fluid" >
       <br><h2 style="text-align:center; margin-bottom:12px;">Approved Candidate</h2><br>
-      <div class="ui-g-12 ui-md-6 ui-md-offset-9" >
-        <ul class="ml-auto">
-          <form class="form-inline my-2 my-lg-0 ml-auto" style="justify-content: right;">
-            <input class="form-control form-control-sm" type="text" placeholder="Search"> &nbsp;
-            <button class="btn btn-outline-secondary btn-sm my-2 my-sm-0" type="submit">Search</button>
-          </form>
-        </ul>
-      </div>
       <table class="table table-hover" style="text-align:center">
           <thead >
             <tr>
@@ -65,7 +57,7 @@
 
 <!-- Detail Candidate -->
 <p-dialog header="Detail Candidate" [(visible)]="detailcandidate" [modal]="true" [responsive]="true" 
-[style]="{width: '90vw'}" [draggable]="false" [resizable]="false">
+[style]="{width: '90vw', height: '80vw'}" [draggable]="true" [resizable]="true">
 
 <!-- Body -->
 <div class="ui-g">
@@ -118,9 +110,8 @@
           </h5>
         </div>
       </div>
-
-      <div class="card-body">
-        <h4 class="card-title">Update Your Education</h4>
+      <div  class="card-body">
+        <li *ngFor="let item of edu">{{item.name}}, {{item?.gpa}}, {{item?.education.education}}</li>
       </div>
   </div>
   <br>
@@ -136,7 +127,7 @@
     </div>
 
     <div class="card-body">
-      <h4 class="card-title">Update Your Work Experience</h4>
+      <li *ngFor="let item of wexp">{{item?.name}}, {{item?.position}}, {{item?.salary}}</li>
     </div>
   </div>
   <br>
@@ -154,8 +145,15 @@
         </div>
       </div>
 
-      <div class="card-body">
-        <h4 class="card-title">Update Your Document</h4>
+      <div>
+        <div *ngFor="let item of doc" class="ui-g-12">
+        <div class="ui-g-6">{{item?.typename}}</div>
+        <div class="ui-g-6">
+          <button type="button" (click)=" dowloadDoc(item.id)" class="btn btn-outline-primary btn-sm">Cek</button> &nbsp;
+
+        </div>
+          
+      </div> 
       </div>
     </div>
     <br>
@@ -171,18 +169,12 @@
       </div>
 
       <div class="card-body">
-        <table class="table table-hover">
-          <tbody>
-            <tr>
-              <td>Angular</td>
-              <td>Expert</td>
-            </tr>
-            </tbody>
-            </table>
+      <li *ngFor="let item of skill">{{item?.skillname}}, {{item?.level?.level}}</li>
       </div>
     </div>
     <br>
   </div>
+    
 </div>
 </div>
 </p-dialog>

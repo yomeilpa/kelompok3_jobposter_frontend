@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChangePassword } from 'src/app/model/change-password';
 import { RegisterService } from 'src/app/service/register.service';
 import { Router } from '@angular/router';
+import { ReportService } from 'src/app/service/report.service';
 
 
 @Component({
@@ -19,6 +20,15 @@ export class DashboardadminComponent implements OnInit {
     showSettings(){
         this.settings = true;
     }
+    year:any;
+    getReport(){
+      this.report.getreportbyyear(this.year)
+    }
+
+    getReportID(){
+      this.report.getmyreport(this.user.candidate.id);
+    }
+
     oks:any;
     resetPassword(){
       this.login.resetPassword(this.user.id,this.password);
@@ -36,30 +46,8 @@ export class DashboardadminComponent implements OnInit {
 
     data: any;
 
-    constructor( private login:RegisterService,private route:Router) {
-        this.data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label: 'Candidate Register',
-                    backgroundColor: '#42A5F5',
-                    borderColor: '#1E88E5',
-                    data: [65, 59, 80, 81, 56, 55, 40]
-                },
-                {
-                    label: 'Candidate Invited',
-                    backgroundColor: '#9CCC65',
-                    borderColor: '#7CB342',
-                    data: [28, 48, 40, 19, 86, 27, 90]
-                },
-                {
-                    label: 'Candidate Approved',
-                    backgroundColor: '#CCCCCC',
-                    borderColor: '#7CB342',
-                    data: [18, 28, 20, 9, 46, 17, 60]
-                }
-            ]
-        }
+    constructor( private login:RegisterService,private route:Router, private report:ReportService) {
+
     }
 
     ngOnInit() {
@@ -85,8 +73,12 @@ export class DashboardadminComponent implements OnInit {
     }
 
     
+
   destroySession(){
-    this.login.store.delete('user').subscribe((res) => {this.route.navigateByUrl("/admin")});
+    this.login.store.delete('user').subscribe((res) => {
+      this.login.store.delete("key").subscribe(res => {})
+      this.route.navigateByUrl("/admin")});
   }
+  
 
 }

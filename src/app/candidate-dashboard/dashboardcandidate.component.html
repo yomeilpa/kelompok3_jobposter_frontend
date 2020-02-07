@@ -42,7 +42,9 @@
   </p-dialog>
 
   <!-- Body -->
+  
   <div>
+
     <!-- Profile -->
     <br>
     <div class="ui-g-12 ui-md-6 ui-lg-2"><br>
@@ -50,21 +52,23 @@
           <div class="card-body" style="text-align:center;">
             <img [src]='imageData' width="170px" height="240px" alt="Card image">
             <h4 class="card-title">{{candidate?.name}}</h4>
+            <div class="card">
             <small><h6 class="card-subtitle text-muted">Expected Salary</h6></small>
             <br>
             <h5 class="card-subtitle text-muted" style="font-style: italic; text-align: center;">{{candidate?.salary | currency:'Rp. '}}</h5>  
+          </div>
             <br>
           </div>  
       </div>
     </div>
 
-    <!-- Tengah -->
+    <!--  -->
     <br>
     <div class="ui-g-12 ui-md-12 ui-lg-10 ui-g-nopad">
 
-       <br>
 
-      <div class="ui-g-12 ui-md-12 ui-lg-10">
+       <br>
+      <div class="ui-g-12 ui-md-12 ui-lg-12">
         <!-- Interview Date -->
         <p-tabView>
           <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
@@ -78,7 +82,7 @@
                     <th scope="col">Interview Date</th>
                     <th scope="col">Hour</th>
                     <th>Status</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" colspan="3" style="align-items: center; text-align: center;">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -88,17 +92,14 @@
                     <td>{{item?.time}}</td>                 
                     <td>{{item?.status?.name}}</td>
                     <td>
-                      <button [disabled]="item.status != null || b!=null " pButton type="button" (click)="confirmAcc(item.id)" label="Attend" class="ui-button-rounded ui-button-success"></button> &nbsp;
-                      <button [disabled]="item.status != null || b!= null" pButton type="button" (click)="confirmRequest(item.id)" label="Reschedule" class="ui-button-rounded ui-button-warning"></button> &nbsp;
-                      <button [disabled]="item.status != null || b!= null" pButton type="button" (click)="confirmReject(item.id)" label="Reject" class="ui-button-rounded ui-button-danger"></button>
-
+                      <button [disabled]="item.status != null || b!=null " pButton type="button" (click)="confirmAcc(item.id)" label="Attend" class="ui-button-rounded ui-button-success"></button>
                     </td>
-                    <!-- <td>
-                      <button [disabled]="item.status != null || b!= null" pButton type="button" (click)="confirmRequest(item.id)" label="Reschedule" class="ui-button-rounded ui-button-warning"></button>
+                    <td>
+                      <button [disabled]="item.status != null || b!= null" pButton type="button" (click)="confirmRequest(item.id)" label="Request Day" class="ui-button-rounded ui-button-warning"></button>
                     </td>
                     <td>
                       <button [disabled]="item.status != null || b!= null" pButton type="button" (click)="confirmReject(item.id)" label="Reject" class="ui-button-rounded ui-button-danger"></button>
-                    </td> -->
+                    </td>
                   </tr>
                   </tbody>
             </table>
@@ -122,69 +123,87 @@
               </tbody>
           </table>
           <pagination-controls (pageChange)="p = $event" id="pq"></pagination-controls>
+
+
           </p-tabPanel>
-    
-          <!-- Search Job Poster -->
+          <!-- Check Status Application -->
           <p-tabPanel header="Search Job Vacancies" leftIcon="pi pi-user">
-            <br>
-              <h4 style="text-align:center;">Lawencon Jobs Poster</h4><br>
-          <ol class="breadcrumb" style="text-align:center;">
-            <div class="ui-g">
-              <div class="ui-g-12 ui-md-6 ui-lg-4">
-                <input type="text" pInputText pKeyFilter="alpha" [(ngModel)]="filter.title" placeholder="Search Jobs Poster">
-              </div>
-              <div class="ui-g-12 ui-md-6 ui-lg-4">
-                <input type="text" pInputText pKeyFilter="money" [(ngModel)]="filter.minSalary" placeholder="Salary Min">
-              </div>
-              <div class="ui-g-12 ui-md-6 ui-lg-4">
-                <input type="text" pInputText pKeyFilter="money" [(ngModel)]="filter.maxSalary" placeholder="Salary Max">
-              </div>
-              <div class="ui-g-12 ui-md-6 ui-lg-4">
-                <p-dropdown [options]="city" [(ngModel)]="citys" placeholder="Select a City" filter="true" optionLabel ="city" (click)="getCity()" [disabled]="provinsi.id == null"></p-dropdown>
-                  <!-- <p-dropdown [placeholder]="ps" [options]="province" name="provinsi" [(ngModel)]="provinsi" (click)="proNull()" (change)="getCity()" filter="true" optionLabel ="province"> 
-                  </p-dropdown> -->
-              </div>  
-              <div class="ui-g-12 ui-md-6 ui-lg-4">
-                <p-dropdown [options]="province" [(ngModel)]="provinsi" (click)="proNull()" [placeholder]="ps" filter="true" optionLabel ="province"></p-dropdown>
-                  <!-- <p-dropdown placeholder="Select a City" [options]="city" name="city" [(ngModel)]="posting.city"  filter="true" optionLabel ="city" (click)="getCity()">
-                  </p-dropdown> -->
-              </div>
-              <div class="ui-g-12 ui-md-6 ui-lg-4" >
-                <button pButton type="button" label="Search" style="
-                padding-right: 60px;
-                padding-left: 60px;
-            "(click)="findByfilter()" ></button>
-              </div>
-            </div>
-          </ol>
+            
+
+            <div class="ui-g-12 ui-md-12 ui-lg-12">
+              <h3 style="text-align:center;">Lawencon Jobs Poster</h3><br>
+    
+              <!-- Search Job Poster -->
+              <ol class="breadcrumb" style="text-align:center;">
+                <div class="fixed-top
+                " class="ui-g">
+                  <div class="ui-g-12 ui-md-6 ui-lg-4">
+                    <input type="text" pInputText pKeyFilter="alpha" [(ngModel)]="filter.title" placeholder="Search Jobs Poster">
+                  </div>
+                  <div class="ui-g-12 ui-md-6 ui-lg-4">
+                    <input type="text" pInputText pKeyFilter="money" [(ngModel)]="filter.minSalary" placeholder="Salary Min">
+                  </div>
+                  <div class="ui-g-12 ui-md-6 ui-lg-4">
+                    <input type="text" pInputText pKeyFilter="money" [(ngModel)]="filter.maxSalary" placeholder="Salary Max">
+                  </div>
+                  <div class="ui-g-12 ui-md-6 ui-lg-4">
+                    <p-dropdown [options]="province" [(ngModel)]="provinsi" (click)="proNull()" [placeholder]="ps" filter="true" optionLabel ="province"></p-dropdown>
+    
+                  </div>  
+                  <div class="ui-g-12 ui-md-6 ui-lg-4">
+                    <p-dropdown [options]="city" [(ngModel)]="citys" placeholder="Select a City" filter="true" optionLabel ="city" (click)="getCity()" [disabled]="provinsi.id == null"></p-dropdown>
+      
+                   
+                  </div>
+                  <div class="ui-g-12 ui-md-6 ui-lg-4" >
+                    <button pButton type="button" label="Search" style="
+                    padding-right: 60px;
+                    padding-left: 60px;
+                "(click)="findByfilter()" ></button>
+                  </div>
+                </div>
+              </ol>
     
               <p-scrollPanel [style]="{width: '100%', height: '420px'}">
               <!-- Isi Job Poster -->  
               <div class="card border-light" style="width: 100%;" *ngFor="let item of jobs | paginate: { itemsPerPage: 3, currentPage: t ,id:'xs' }">
-                <div class="card-header"><h4>{{item.title}} <p style="text-align-last:right;font:italic;"><small>{{item.salary | currency:'Rp. '}}/month</small></p></h4></div>
+                <div class="card-header"><h5>{{item.title}} <p style="text-align-last:right;font:italic;"><small>{{item.salary | currency:'Rp. '}}/month</small></p></h5></div>
                     <div class="card-body">
-                      <h6 class="card-title">
+                      <p class="card-title">
                         {{item.desc}}
-                        </h6><br>
+                        <br>
                       <p class="card-text">
                         Open Date : {{item.start}} &nbsp; Close Date : {{item.end}}
                       </p><br>
-                      <p>Recruiter : </p>
-                      <p>{{item.candidate.name}}</p><br>
-                      <p>Lokasi    : </p>                      
-                      <p class="text-lowercase">{{item.addres}}, &nbsp; {{item.city.city}}, &nbsp; {{item.city.province.province}}</p>
-                        <br><div>
-                          <button type="button" class="btn btn-outline-info" (click)="showDetail(item.id)">Detail</button>
+                      <p>Recruiter : {{item.candidate.name}}</p>
+                      <br>
+                      <p>Lokasi    : {{item.addres}}</p>
+                      <br>
+                        <div>
+                          <button type="button" class="btn btn-outline-info" (click)="showDetail(item.id)">Detail</button> &nbsp;
                         </div>
+                    </div>
+                    <div class="card-footer">  
+                      <p style="text-align-last:left;font:italic;">{{item.city.province.province}}</p> <p style="text-align-last:right;font:italic;">{{item.city.city}}</p>
                     </div>
                   </div> <br>
                   <pagination-controls (pageChange)="t = $event" id="xs"></pagination-controls>
               </p-scrollPanel>
+    
+          </div>
+    
+
           </p-tabPanel>
       </p-tabView>
 
       </div>
+
+      <!-- Job Poster -->
       
+    </div>
+
+    <!-- Blank Page (Right) -->
+    <div class="ui-g-12 ui-md-6 ui-lg-2"><br>
     </div>
 
   </div>

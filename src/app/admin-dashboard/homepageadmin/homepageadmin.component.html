@@ -9,12 +9,12 @@
   <h1 class="display-3"><font color="white"> Hello, Admin!</font></h1>
   <h2><font color="white">Welcome to Lawencon Jobs Poster</font></h2>
   <h2><font color="white">Made Dream Jobs Start Here !!! </font></h2>
-  <br><br>
+  <br>
   <p class="lead">
-    <button  data-target="#SignUp" class="btn btn-outline-primary" (click)="showDialogSignUp()"  role="button">Sign Up</button> &nbsp;
-    <button data-target="#SignIn" class="btn btn-outline-primary"(click)="showDialogSignIn()" role="button">Sign In</button>
+    <button  data-target="#SignUp" class="btn bg-light btn-outline-primary" (click)="showDialogSignUp()"  role="button">Sign Up</button> &nbsp;
+    <button data-target="#SignIn" class="btn bg-light btn-outline-primary"(click)="showDialogSignIn()" role="button">Sign In</button>
   </p>
-  <br><br>
+  <br><br><br>
 </div>
   
 <!-- Modal Sign Up -->
@@ -27,15 +27,15 @@
   <p-toast position="center" key="tl" [modal]="true" [baseZIndex]="5000">
     <ng-template let-message pTemplate="message">
         <div style="text-align: center">
-            <h3>{{message.summary}}</h3>
-            <p style="font-size: 12pt;">{{message.detail}}</p>
-        </div>
+            <h4>{{message.summary}}</h4>
+            <h6>{{message.detail}}</h6>
+        </div><br>
         <div class="ui-g ui-fluid">
-                <a type="button" style="text-align: center;" pButton href="/" label="Yes" class="ui-button-success"></a>
+          <a type="button" style="text-align: center;" pButton href="/" label="Yes" class="ui-button-success"></a>
             
         </div>
     </ng-template>
-</p-toast>
+  </p-toast>
 
 <span class="ui-float-label">
     <input id="float-input1" name="fullname" type="text" size="40" [(ngModel)]="register.name" pInputText> 
@@ -49,19 +49,19 @@
 </span>
 <br>
 <span class="ui-float-label">
-  <p>Gender</p>
-  <p-radioButton name="groupname" value="Laki-Laki" label=" Male " [(ngModel)]="register.gender"></p-radioButton>
+  Gender <br>
+  <p-radioButton name="groupname" value="Laki-Laki" label=" Male " [(ngModel)]="register.gender"></p-radioButton> &nbsp;
   <p-radioButton name="groupname" value="Perempuan" label=" Female " [(ngModel)]="register.gender"></p-radioButton>
 </span>
 <br>
 <span class="ui-float-label">
-  <p-inputMask mask="(999) 999-9999" id="float-input2" type="text" size="40"  name="phone" [(ngModel)]="register.phone"></p-inputMask> 
+  <p-inputMask mask="(9999) 9999-9999" id="float-input2" type="text" size="40"  name="phone" [(ngModel)]="register.phone"></p-inputMask> 
   <label for="float-input2">Phone Number</label>
 </span>
 
 <br>
 <span class="ui-float-label">
-  <p style="font-size: 15pt;">Date Of Birth</p>
+  Date Of Birth <br>
   <p-calendar name="dob" [monthNavigator]="true" [yearNavigator]="true" yearRange="1800:2030" [inline]="true" [(ngModel)]="register.dob"></p-calendar>
 </span>
 <br>
@@ -71,7 +71,7 @@
 </span>
 <br>
 <span class="ui-float-label">
-  <input id="float-input2a" type="text" size="40" pInputText name="salary" [(ngModel)]="register.salary"> 
+  <input id="float-input2a" type="number" size="40" pInputText name="salary" [(ngModel)]="register.salary"> 
   <label for="float-input2">Salary Expected</label>
 </span>
 
@@ -114,15 +114,14 @@
 <form>
   <p-toast [style]="{marginTop: '80px'}"  key="tc"></p-toast>
 <span class="ui-float-label">
-  <input id="float-inpu" name="email" [(ngModel)]="us.username" type="text" size="40" pInputText> 
+  <input id="float-inpu" name="email" [(ngModel)]="us.username" type="text" size="30" pInputText> 
   <label for="float-inpu">Email</label>
 </span>
 <br>
 <span class="ui-float-label">
-  <input name="password"  [(ngModel)]="us.password" id="float-inpu2" type="text" size="40" pInputText pPassword type="password"/> 
+  <input name="password"  [(ngModel)]="us.password" id="float-inpu2" type="text" size="30" pInputText pPassword type="password"/> 
   <label for="float-inpu2">Password</label>
 </span>
-  <p-checkbox name="cek" [(ngModel)]="checked" binary="true"></p-checkbox> &nbsp; Show Password
 <br><br>
 <button (click)="loginuser()" type="button" pButton label="Submit" class="ui-button-info"></button>
 </form>

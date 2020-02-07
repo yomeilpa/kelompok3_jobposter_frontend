@@ -36,6 +36,7 @@
           <p-tabPanel header="List Application" leftIcon="pi pi-calendar">
             <br><h2 style="text-align:center; margin-bottom:12px;">List Application</h2><br>
             <button type="button" class="btn btn-outline-primary" style="margin-bottom: 8px;" (click)="showAddJob()">Add Application</button>
+            
             <table class="table table-hover" style="text-align:center">
                 <thead >
                   <tr>
@@ -58,6 +59,15 @@
                     <td>{{item[1]?.candidate?.name}}</td>
                     <td>{{item[1]?.start | date:'dd-MMMM-yyyy'}}</td>
                     <td>{{item[1]?.end | date:'dd-MMMM-yyyy'}}</td>
+                    <td>
+                      <div *ngIf="item[1].active == true; else notShow ">
+                        
+                      </div>
+                      <ng-template #notShow>
+                        Closed
+                      </ng-template>
+                      
+                    </td>
                     <td>{{item[0]}}</td>
                     <td>
                         <button type="button" class="btn btn-outline-primary btn-sm"  (click)="showDetailJob(item[1].id)">Detail</button>
@@ -71,8 +81,12 @@
           </p-tabPanel>
           <!-- Job Position -->
           <p-tabPanel header="Job Position" leftIcon="pi pi-inbox">
+            <p-messages [value]="mgsDeletePos" (click)="back()"></p-messages>
+
               <br><h2 style="text-align:center; margin-bottom:12px;">Job Position</h2><br>
               <button type="button" class="btn btn-outline-primary" style="margin-bottom: 8px;" (click)="showAddPosition()">Add Position</button><br>
+              <p-toast [style]="{marginTop: '80px'}"  key="deletePosition"></p-toast>
+
               <table class="table table-hover" style="text-align:center">
                 <thead >
                   <tr>
@@ -88,7 +102,7 @@
                     <td>{{item?.jobkategori?.kategori}}</td>
                     <td>
                         <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdatePosition(item.id)">Update</button> &nbsp;
-                        <button type="button" class="btn btn-outline-danger btn-sm" (click)=" deletePosition(item.id)" >Delete</button> 
+                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="confirmDeletePosition(item.id)" >Delete</button> 
                       </td>
                   </tr>
                 </tbody>
@@ -96,8 +110,13 @@
           </p-tabPanel>
           <!-- Job Category -->
           <p-tabPanel header="Job Category" leftIcon="pi pi-user">
+            <p-toast [style]="{marginTop: '80px'}"  key="deleteKategori"></p-toast>
+
+            <p-messages [value]="mgsDeleteKate" (click)="back()"></p-messages>
               <br><h2 style="text-align:center; margin-bottom:12px;">Job Category</h2><br>
               <button type="button" class="btn btn-outline-primary" style="margin-bottom: 8px;" (click)="showAddCategory()">Add Category</button><br>
+              
+
               <table class="table table-hover" style="text-align:center">
                 <thead >
                   <tr>
@@ -112,7 +131,7 @@
                     <td>{{item.code}}</td>
                     <td>
                       <button type="button" class="btn btn-outline-warning btn-sm"  (click)="showUpdateCategory(item.id)">Update</button> &nbsp;
-                      <button type="button" class="btn btn-outline-danger btn-sm" (click)=" deleteKategori(item.id)" >Delete</button> 
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)=" confirmDeleteKategori(item.id)" >Delete</button> 
                   </td>
                   </tr>
                 </tbody>
@@ -132,6 +151,9 @@
 <!-- Add -->
 <p-dialog header="Add Application" [(visible)]="addjob" [modal]="true" [responsive]="true" 
 [style]="{width: '75vw'}" [draggable]="true" [resizable]="true">
+<p-messages [value]="mgsPostJob" (click)="back()"></p-messages>
+<p-toast [style]="{marginTop: '80px'}"  key="postingJob"></p-toast>
+
 
 <div class="ui-g">
 
@@ -258,13 +280,16 @@
 
 <p-footer>
     <button type="button" pButton icon="pi pi-check" (click)="postingJob()" label="Submit"></button>
-    <button type="reset" pButton icon="pi pi-close" (click)="display=false" label="Reset" class="ui-button-secondary"></button>
+    <button type="reset" pButton icon="pi pi-times" (click)="addjob=false" label="No" class="ui-button-secondary"></button>
 </p-footer>
 </p-dialog>
 
 <!-- Update -->
 <p-dialog header="Update Application" [(visible)]="updatejob" [modal]="true" [responsive]="true" 
 [style]="{width: '75vw', height: '100'}" [draggable]="true" [resizable]="false">
+<p-toast [style]="{marginTop: '80px'}"  key="postingJobEdit"></p-toast>
+<p-messages [value]="mgsPostJob" (click)="back()"></p-messages>
+
 
 <div class="ui-g">
 
@@ -391,7 +416,7 @@
 
 <p-footer>
     <button type="button" pButton icon="pi pi-check" (click)="postingJobEdit()" label="Submit"></button>
-    <button type="button" pButton icon="pi pi-close" label="Close Application" (click)="closed()" class="ui-button-danger"></button>
+    <button type="button" pButton icon="pi pi-times" label="Close Application" (click)="closed()" class="ui-button-danger"></button>
 </p-footer>
 </p-dialog>
 
@@ -402,14 +427,6 @@
   <div class="ui-g-12">
     <div class="ui-g-12 ui-md-4">
       Total Applier : {{totalapp}}
-    </div>
-    <div class="ui-g-12 ui-md-4 ui-md-offset-4" >
-      <ul class="ml-auto">
-        <form class="form-inline my-2 my-lg-0 ml-auto" style="justify-content: right;">
-          <input class="form-control form-control-sm" type="text" placeholder="Search"> &nbsp;
-          <button class="btn btn-outline-secondary btn-sm my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </ul>
     </div>
     <table class="table table-hover" style="text-align:center">
       <thead >
@@ -572,7 +589,7 @@
 <p-dialog header="Invited Candidate" [(visible)]="invited" [modal]="true" [style]="{width: '30vw'}"
 
     [draggable]="false" [resizable]="false">
-    <p-messages [value]="msgsInt"></p-messages>
+    <p-messages [value]="msgsInt" (click)="back()"></p-messages>
     <div class="ui-g">
         <div class="ui-g-12 ui-md-6">
           <h6>Choose Date Invited</h6>
@@ -598,44 +615,49 @@
 <!-- Add Category -->
 <p-dialog header="Add Application Category" [(visible)]="addcategory" [modal]="true" [responsive]="true" 
 [style]="{width: '20vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+<p-toast [style]="{marginTop: '80px'}"  key="postJobKategori"></p-toast>
+
 <div class="ui-g">
   <!-- Isi -->
     <div class="form-group">
       <label>Category Name</label>
-      <input type="text" class="form-control" name="categoriname" [(ngModel)]="jobKate.kategori" placeholder="Category Name">
+      <input type="text" class="form-control" pInputText name="categoriname" [(ngModel)]="jobKate.kategori" placeholder="Category Name">
     </div>
     <br>
     <div class="form-group">
       <label>Category Code</label>
-      <input type="text" class="form-control" name="categoricode" [(ngModel)]="jobKate.code" placeholder="Category Code">
+      <input type="text" class="form-control" pInputText name="categoricode" [(ngModel)]="jobKate.code" placeholder="Category Code">
     </div>
 </div>
 
 <p-footer>
     <button type="button" pButton icon="pi pi-check" (click)=" postJobKategori()" label="Submit"></button>
-    <button type="reset" pButton icon="pi pi-close" label="Reset" class="ui-button-secondary"></button>
+    <button type="reset" pButton icon="pi pi-times" (click)="addcategory=false" label="No" class="ui-button-secondary"></button>
 </p-footer>
 </p-dialog>
 
 <!-- Update Category -->
 <p-dialog header="Update Application Category" [(visible)]="updatecategory" [modal]="true" [responsive]="true" 
 [style]="{width: '20vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+<p-toast [style]="{marginTop: '80px'}"  key="putJobKategori"></p-toast>
+
+
 <div class="ui-g">
 <!-- Isi -->
   <div class="form-group">
     <label>Category Name</label>
-    <input type="text" name="catename" [(ngModel)]="jobKateedit.kategori" class="form-control" placeholder="Category Name">
+    <input type="text" name="catename" pInputText [(ngModel)]="jobKateedit.kategori" class="form-control" placeholder="Category Name">
   </div>
   <br>
   <div class="form-group">
     <label>Category Code</label>
-    <input type="text" name="catecode" [(ngModel)]="jobKateedit.code" class="form-control" placeholder="Category Code">
+    <input type="text" name="catecode" pInputText [(ngModel)]="jobKateedit.code" class="form-control" placeholder="Category Code">
   </div>
 </div>
 
 <p-footer>
     <button type="button" pButton icon="pi pi-check" (click)="putJobKategori()" label="Submit"></button>
-    <button type="reset" pButton icon="pi pi-close" label="Reset" class="ui-button-secondary"></button>
+    <button type="reset" pButton icon="pi pi-times" (click)="updatecategory=false" label="No" class="ui-button-secondary"></button>
 </p-footer>
 </p-dialog>
 </div>
@@ -645,15 +667,16 @@
 <!-- Add Position -->
 <p-dialog header="Add Job Position" [(visible)]="addposition" [modal]="true" [responsive]="true" 
 [style]="{width: '20vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+<p-toast [style]="{marginTop: '80px'}"  key="posJobPosition"></p-toast>
   <div class="ui-g">
     <!-- Isi -->
       <div class="form-group">
         <label>Postion Name</label>
-        <input type="text" name="jbname" [(ngModel)]="jobPos.name" class="form-control" placeholder="Postion Name">
+        <input type="text" name="jbname" pInputText [(ngModel)]="jobPos.name" class="form-control" placeholder="Postion Name">
       </div>
       <br>
       <div class="form-group">
-        <label for="exampleSelect1">Category Type</label>
+        <label for="exampleSelect1">Category Type</label><br>
         <p-dropdown [options]="jobkateList" name="jbska" [(ngModel)]="jobPos.jobkategori" filter="true" optionLabel="kategori" placeholder="Choose Category" ></p-dropdown>
       </div>
 
@@ -661,38 +684,32 @@
 
   <p-footer>
       <button type="button" pButton icon="pi pi-check" (click)="posJobPosition()" label="Submit"></button>
-      <button type="reset" pButton icon="pi pi-close" label="Reset" class="ui-button-secondary"></button>
+      <button type="reset" pButton icon="pi pi-times" (click)="addposition=false" label="No" class="ui-button-secondary"></button>
   </p-footer>
 </p-dialog>
 
-<!-- Update Category -->
-<!-- Add Position -->
+<!-- Update Position -->
 <p-dialog header="Update Job Position" [(visible)]="updateposition" [modal]="true" [responsive]="true" 
 [style]="{width: '20vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+<p-toast [style]="{marginTop: '80px'}"  key="putJobPosition"></p-toast>
+
   <div class="ui-g">
     <!-- Isi -->
       <div class="form-group">
         <label>Postion Name</label>
-        <input type="text" name="etdpos" [(ngModel)]="jobPos1.name" class="form-control" placeholder="Postion Name">
+        <input type="text" name="etdpos" pInputText [(ngModel)]="jobPos1.name" class="form-control" placeholder="Postion Name">
       </div>
       <br>
       <div class="form-group">
-        <label for="exampleSelect1">Category Type</label>
+        <label for="exampleSelect1">Category Type</label> <br>
         <p-dropdown [options]="jobkateList" [(ngModel)]="jobPos1.jobkategori" filter="true" optionLabel="kategori" placeholder="Choose Category" ></p-dropdown>
-        <!-- <select class="form-control" id="exampleSelect1">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select> -->
       </div>
 
   </div>
 
   <p-footer>
       <button type="button" pButton icon="pi pi-check" label="Submit" (click)="putJobPosition()"></button>
-      <button type="reset" pButton icon="pi pi-close" label="Reset" class="ui-button-secondary"></button>
+      <button type="reset" pButton icon="pi pi-close" label="No" (click)="updateposition=false" class="ui-button-secondary"></button>
   </p-footer>
 </p-dialog>
 </div>

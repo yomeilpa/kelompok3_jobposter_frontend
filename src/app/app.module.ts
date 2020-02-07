@@ -9,6 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { StorageModule } from '@ngx-pwa/local-storage';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './service/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { StorageModule } from '@ngx-pwa/local-storage';
     StorageModule.forRoot({ IDBNoWrap: true })
 
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

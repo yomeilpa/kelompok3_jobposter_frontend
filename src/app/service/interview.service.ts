@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http'
+import {HttpClient, HttpHeaders} from '@angular/common/http'
 import { Subject, Observable } from 'rxjs';
+import { RegisterService } from './register.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,15 +9,18 @@ import { Subject, Observable } from 'rxjs';
 export class InterviewService {
 
   private apiURL = 'http://bootcamp.linovhr.com:8080/jobposter1';
+  key:any;
   data:any;
   data1:any;
-  constructor(private httpclient: HttpClient) { }
-
+  constructor(private httpclient: HttpClient,private store:RegisterService) { }
   user:Subject<any> = new Subject<any>();
-
+  
+  //jwtUdah
   getListIntCd(id){
     this.user = new Subject<any>();
-    this.httpclient.get(this.apiURL+"/interview/get/"+id).subscribe(res =>{
+    this.store.store.get("key").subscribe(res => {this.key = res
+      let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
+    this.httpclient.get(this.apiURL+"/interview/get/"+id,{headers:headers_object}).subscribe(res =>{
       this.data1 ="succes";
       this.data = res;
       this.user.next(this.data);
@@ -28,11 +32,15 @@ export class InterviewService {
       this.user.next(this.data);
     }
     )
+  })
   }
 
+  //JwtUdah
   getListInt(){
     this.user = new Subject<any>();
-    this.httpclient.get(this.apiURL+"/interview").subscribe(res =>{
+    this.store.store.get("key").subscribe(res => {this.key = res
+      let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
+    this.httpclient.get(this.apiURL+"/interview",{headers:headers_object}).subscribe(res =>{
       this.data1 ="succes";
       this.data = res;
       this.user.next(this.data);
@@ -44,25 +52,41 @@ export class InterviewService {
       this.user.next(this.data);
     }
     )
+  })
   }
+
+  //JwtUdah
   getListIntbyPoster(id){
     this.user = new Subject<any>();
-    this.httpclient.get(this.apiURL+"/interview/posters/"+id).subscribe(res =>{
-      this.data1 ="succes";
-      this.data = res;
-      this.user.next(this.data);
-    },
-    (res) =>
-    {
-      this.data1 = "gagal";
-      this.data = res;
-      this.user.next(this.data);
-    }
-    )
+    let headers_object;
+    this.store.store.get("key").subscribe(res => {this.key = res
+      headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
+      this.httpclient.get(this.apiURL+"/interview/posters/"+id,{headers:headers_object}).subscribe(res =>{
+        this.data1 ="succes";
+        this.data = res;
+        this.user.next(this.data);
+      },
+      (res) =>
+      {
+        this.data1 = "gagal";
+        this.data = res;
+        this.user.next(this.data);
+        console.log(res);
+        if(res.status ==0){
+        }
+      }
+      )
+    });
+    
+    
   }
+
+  //JwtUdah
   getListIntAttd(id){
     this.user = new Subject<any>();
-    this.httpclient.get(this.apiURL+"/interview/attd/"+id).subscribe(res =>{
+    this.store.store.get("key").subscribe(res => {this.key = res
+      let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
+    this.httpclient.get(this.apiURL+"/interview/attd/"+id,{headers:headers_object}).subscribe(res =>{
       this.data1 ="succes";
       this.data = res;
       this.user.next(this.data);
@@ -74,11 +98,14 @@ export class InterviewService {
       this.user.next(this.data);
     }
     )
+  })
   }
-
+  //JwtUdah
   getListIntbyId(id){
     this.user = new Subject<any>();
-    this.httpclient.get(this.apiURL+"/interview/"+id).subscribe(res =>{
+    this.store.store.get("key").subscribe(res => {this.key = res
+      let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
+    this.httpclient.get(this.apiURL+"/interview/"+id,{headers:headers_object}).subscribe(res =>{
       this.data1 ="succes";
       this.data = res;
       this.user.next(this.data);
@@ -90,11 +117,15 @@ export class InterviewService {
       this.user.next(this.data);
     }
     )
+  })
   }
 
+  //JwtUdah
   RejectListIntCd(id){
     this.user = new Subject<any>();
-    this.httpclient.get(this.apiURL+"/interview/rejected/"+id).subscribe(res =>{
+    this.store.store.get("key").subscribe(res => {this.key = res
+      let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
+    this.httpclient.get(this.apiURL+"/interview/rejected/"+id,{headers:headers_object}).subscribe(res =>{
       this.data1 ="succes";
       this.data = res;
       this.user.next(this.data);
@@ -106,11 +137,36 @@ export class InterviewService {
       this.user.next(this.data);
     }
     )
+  })
   }
 
+  //jwtUdah
+  RejectListIntbyHr(id){
+    this.user = new Subject<any>();
+    this.store.store.get("key").subscribe(res => {this.key = res
+      let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
+    this.httpclient.get(this.apiURL+"/hr/interview/rejected/"+id,{headers:headers_object}).subscribe(res =>{
+      this.data1 ="succes";
+      this.data = res;
+      this.user.next(this.data);
+    },
+    (res) =>
+    {
+      this.data1 = "gagal";
+      this.data = res;
+      this.user.next(this.data);
+    }
+    )
+  })
+  }
+
+
+  //JwtUdah
   RequestListIntCd(id){
     this.user = new Subject<any>();
-    this.httpclient.get(this.apiURL+"/interview/request/"+id).subscribe(res =>{
+    this.store.store.get("key").subscribe(res => {this.key = res
+      let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
+    this.httpclient.get(this.apiURL+"/interview/request/"+id,{headers:headers_object}).subscribe(res =>{
       this.data1 ="succes";
       this.data = res;
       this.user.next(this.data);
@@ -122,11 +178,15 @@ export class InterviewService {
       this.user.next(this.data);
     }
     )
+  })
   }
 
+  //JwtUdah
   willAttendListIntCd(id){
     this.user = new Subject<any>();
-    this.httpclient.get(this.apiURL+"/interview/accepted/"+id).subscribe(res =>{
+    this.store.store.get("key").subscribe(res => {this.key = res
+      let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
+    this.httpclient.get(this.apiURL+"/interview/accepted/"+id,{headers:headers_object}).subscribe(res =>{
       this.data1 ="succes";
       this.data = res;
       this.user.next(this.data);
@@ -138,11 +198,15 @@ export class InterviewService {
       this.user.next(this.data);
     }
     )
+  })
   }
 
+//jwtUdah
   postListIntCd(id){
     this.user = new Subject<any>();
-    this.httpclient.post(this.apiURL+"/interview",id).subscribe(res =>{
+    this.store.store.get("key").subscribe(res => {this.key = res
+      let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
+    this.httpclient.post(this.apiURL+"/interview",id,{headers:headers_object}).subscribe(res =>{
       this.data1 ="succes";
       this.data = res;
       this.user.next(this.data);
@@ -154,10 +218,15 @@ export class InterviewService {
       this.user.next(this.data);
     }
     )
+  })
   }
+
+//JwtUdah
   postListIntCdRes(id){
     this.user = new Subject<any>();
-    this.httpclient.post(this.apiURL+"/interview/result",id).subscribe(res =>{
+    this.store.store.get("key").subscribe(res => {this.key = res
+      let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
+    this.httpclient.post(this.apiURL+"/interview/result",id,{headers:headers_object}).subscribe(res =>{
       this.data1 ="succes";
       this.data = res;
       this.user.next(this.data);
@@ -169,7 +238,6 @@ export class InterviewService {
       this.user.next(this.data);
     }
     )
-  }
- 
-
+     }
+    )}
 }

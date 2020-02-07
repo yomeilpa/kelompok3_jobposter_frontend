@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http'
+import {HttpClient, HttpHeaders} from '@angular/common/http'
 import { Subject, Observable } from 'rxjs';
 import { StorageMap} from '@ngx-pwa/local-storage';
 
@@ -15,14 +15,16 @@ export class RegisterService {
   datas:any;
   datauser:any;
   ok:any;
+  key:any;
 
+  
 
   constructor(private http:HttpClient,public store:StorageMap) { }
 
   user:Subject<any> = new Subject<any>();
   candidate:Subject<any> = new Subject<any>();
 
-  
+ 
 
   registerCandidate(any){
     this.user = new Subject<any>();
@@ -75,16 +77,23 @@ export class RegisterService {
     })
   }
 
+    //jwtUdah
   public findByid(id){
     this.user = new Subject<any>();
-    this.http.get(this.apiURL+"/candidate/"+id).subscribe(res => {
+    this.store.get("key").subscribe(res => {this.key = res
+      let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
+    this.http.get(this.apiURL+"/candidate/"+id,{headers:headers_object}).subscribe(res => {
       this.data = res;
       this.user.next(this.data)});
+    })
   }
   
+  //jwtUdah
   public resetPassword(id,data:any){
     this.user = new Subject<any>();
-    this.http.put<any>(this.apiURL+"/update/password/"+id,data).subscribe(res =>{
+    this.store.get("key").subscribe(res => {this.key = res
+      let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
+    this.http.put<any>(this.apiURL+"/update/password/"+id,data,{headers:headers_object}).subscribe(res =>{
     this.data = res;
     this.data1="suc";
     this.user.next(this.data);
@@ -97,10 +106,15 @@ export class RegisterService {
       this.user.next(this.data);
 
     })
+  })
   }
+
+  //jwtUdah
   public uploadPhoto(formdata:any,id:any){
     this.user = new Subject<any>();
-    this.http.put<any>(this.apiURL+"/uploadphoto/"+id,formdata,{reportProgress : true}).subscribe(res =>{
+    this.store.get("key").subscribe(res => {this.key = res
+      let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
+    this.http.put<any>(this.apiURL+"/uploadphoto/"+id,formdata,{reportProgress : true,headers:headers_object}).subscribe(res =>{
       this.data = res;
       this.data1="suc";      
       this.store.get("user").subscribe( res => {
@@ -114,11 +128,15 @@ export class RegisterService {
         this.data= ress;
         this.user.next(this.data);
       })
+    })
   }
 
+  //JWTUDAH
   public updateCandidate(formdata:any,id:any){
     this.user = new Subject<any>();
-    this.http.put<any>(this.apiURL+"/update/"+id,formdata).subscribe(res =>{
+    this.store.get("key").subscribe(res => {this.key = res
+      let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
+    this.http.put<any>(this.apiURL+"/update/"+id,formdata,{headers:headers_object}).subscribe(res =>{
       this.data = res;
       this.data1="suc";      
       this.store.get("user").subscribe( res => {
@@ -133,5 +151,6 @@ export class RegisterService {
         this.user.next(this.data);
   
       })
+    })
   }
 }

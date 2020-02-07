@@ -76,8 +76,11 @@ export class InvitedcandidateComponent implements OnInit {
     private confirmationService:ConfirmationService,private josb:JobApplyService) { }
 
   destroySession(){
-    this.regis.store.delete('user').subscribe((res) => {this.route.navigateByUrl("/admin")});
+    this.regis.store.delete('user').subscribe((res) => {
+      this.regis.store.delete("key").subscribe(res => {})
+      this.route.navigateByUrl("/admin")});
   }
+  
   dataint:any;
   dataintat:any;
   getAllListInt(){
@@ -116,7 +119,7 @@ export class InvitedcandidateComponent implements OnInit {
   }
   rejectHire(){
     this.josb.rejectJobApplybyJob(this.hiredata.job.id);
-    this.ints.RejectListIntCd(this.hiredata.id);
+    this.ints.RejectListIntbyHr(this.hiredata.id);
   }
 
   confirmHire(id){

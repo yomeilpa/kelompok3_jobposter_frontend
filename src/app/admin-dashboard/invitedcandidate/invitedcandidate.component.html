@@ -28,55 +28,7 @@
     <div class="container-fluid" >
       <div class="ui-g">
         <div class="ui-g-12 ui-md-12 ui-lg-12">
-      <p-tabView>
-        <p-tabPanel header="Invited Candidate" leftIcon="pi pi-calendar">
-          <br><h2 style="text-align:center; margin-bottom:12px;">Invited Candidate</h2><br>
-            <div class="ui-g-12 ui-md-6 ui-md-offset-9" >
-              <ul class="ml-auto">
-                <form class="form-inline my-2 my-lg-0 ml-auto" style="justify-content: right;">
-                  <input class="form-control form-control-sm" type="text" placeholder="Search"> &nbsp;
-                  <button class="btn btn-outline-secondary btn-sm my-2 my-sm-0" type="submit">Search</button>
-                </form>
-              </ul>
-            </div>
-          <table class="table table-hover" style="text-align:center">
-              <thead >
-                <tr>
-                  <th scope="col">Application Name</th>
-                  <th scope="col">Candidate Name</th>
-                  <th scope="col">Date Applied</th>
-                  <th scope="col">Invited Date</th>
-                  <th scope="col">Invited time</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of dataint">
-                  <td>{{item?.job?.job?.title}}</td>
-                  <td>{{item?.job?.candidate?.name}}</td>
-                  <td>{{item?.job?.appDate | date:'dd-MMMM-yyyy'}}</td>
-                  <td>{{item?.date | date:'dd-MMMM-yyyy'}}</td>
-                  <td>{{item?.time}}</td>
-                  <td>{{item?.status?.name}}</td>
-                  <td>
-                    <button type="button" class="btn btn-outline-warning btn-sm" (click)="showInvited(item?.id)">Reinvite</button> &nbsp;
-                    <button type="button" class="btn btn-outline-info btn-sm" (click)="showDetailCandidate()">Detail</button>
-                  </td>
-                </tr>
-                </tbody>
-          </table>
-        </p-tabPanel>
-        <p-tabPanel header="Candidate Will Attend" leftIcon="pi pi-inbox">
-          <br><h2 style="text-align:center; margin-bottom:12px;">Candidate Will Attend</h2><br>
-          <div class="ui-g-12 ui-md-12 ui-md-offset-9" >
-            <ul class="ml-auto">
-              <form class="form-inline my-2 my-lg-0 ml-auto" style="justify-content: right;">
-                <input class="form-control form-control-sm" type="text" placeholder="Search"> &nbsp;
-                <button class="btn btn-outline-secondary btn-sm my-2 my-sm-0" type="submit">Search</button>
-              </form>
-            </ul>
-          </div>
+          <br><h2 style="text-align:center; margin-bottom:12px;">Candidate Invited to Interview</h2><br>
           <table class="table table-hover" style="text-align:center">
               <thead >
                 <tr>
@@ -98,14 +50,12 @@
                   <td>
                     <button type="button" class="btn btn-outline-info btn-sm" (click)="showDetailCandidate(item.id)">Update</button> &nbsp;
                     <button type="button" class="btn btn-outline-success btn-sm" (click)="confirmHire(item.id)">Invite to Contract</button> &nbsp;
+                    <button type="button" class="btn btn-outline-warning btn-sm" (click)="showInvited(item?.id)">Reinvite</button> &nbsp;
                     <button type="button" class="btn btn-outline-danger btn-sm" (click)="confirmReject(item.id)">Reject</button>
                   </td>
                 </tr>
                 </tbody>
           </table>
-        </p-tabPanel>
-    </p-tabView>
-
 </div>
 </div>
     </div>
@@ -188,8 +138,7 @@
 </div>
 
 <p-footer>
-  <button type="button" class="btn btn-outline-success" (click)="postRes()">Approved</button>
-  <button type="button" class="btn btn-outline-danger">Reject</button>
+  <button type="button" class="btn btn-outline-success" (click)="postRes()">Submit</button>
 </p-footer>
 </p-dialog>
 
