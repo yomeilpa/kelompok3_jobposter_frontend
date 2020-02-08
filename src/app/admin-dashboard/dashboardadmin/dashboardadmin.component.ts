@@ -38,13 +38,14 @@ export class DashboardadminComponent implements OnInit {
           alert(this.oks.error);
                 }
         if(this.login.data1=="suc"){
-          this.route.navigateByUrl("candidate/dashboard");
+          location.href ="admin/dashboard";
         }
       })
     }
 
 
     data: any;
+   
 
     constructor( private login:RegisterService,private route:Router, private report:ReportService) {
 
