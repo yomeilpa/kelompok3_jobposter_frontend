@@ -576,7 +576,6 @@ fileUploadProgress:any = null;
     this.ws.delete(id);
     this.msgsWork = [{severity:'info', summary:'Confirmed', detail:'Your Work Experience has Deleted'}];      
   }
-
   deleteSkill(id){
     this.sk.delete(id);
     this.msgsSkill = [{severity:'info', summary:'Confirmed', detail:'Your Skill has Deleted'}];      
@@ -584,7 +583,9 @@ fileUploadProgress:any = null;
   }
 
   destroySession(){
-    this.login.store.delete('user').subscribe((res) => {this.route.navigateByUrl("#")});
+    this.login.store.delete('user').subscribe((res) => {
+      this.login.store.delete("key").subscribe(res => {})
+      this.route.navigateByUrl("#")});
   }
 
 

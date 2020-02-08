@@ -67,6 +67,7 @@ export class InvitedcandidateComponent implements OnInit {
     this.intmod.status = null;
     let c:any =""+b.getHours()+':'+b.getMinutes()+':'+b.getSeconds();
     this.intmod.time = c;
+    this.intmod.date = this.d;
       this.ints.postListIntCd(this.intmod);
       this.invited = false;
   }
