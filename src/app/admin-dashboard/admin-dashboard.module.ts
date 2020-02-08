@@ -10,6 +10,7 @@ import { HomepageadminComponent } from './homepageadmin/homepageadmin.component'
 import { HttpClientModule } from '@angular/common/http';
 import { JoblistComponent } from './joblist/joblist.component';
 import {DropdownModule} from 'primeng/dropdown';
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {DropdownModule} from 'primeng/dropdown';
     AdminDashboardRoutingModule,
     NgPrimeModule,
     HttpClientModule,
-    DropdownModule
+    DropdownModule,
+    NgxPaginationModule
  
   ]
 })

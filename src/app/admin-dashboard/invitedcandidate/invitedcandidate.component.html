@@ -41,20 +41,21 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of dataintat">
+                <tr *ngFor="let item of dataintat | paginate: { itemsPerPage: 2, currentPage: dt , id: 'int'} ">
                   <td>{{item?.job?.job?.title}}</td>
                   <td>{{item?.job?.candidate?.name}}</td>
                   <td>{{item?.date | date:'dd-MMMM-yyyy'}}</td>
                   <td>{{item?.time}}</td>
                   <td>{{item?.status?.name}}</td>
                   <td>
-                    <button type="button" class="btn btn-outline-info btn-sm" (click)="showDetailCandidate(item.id)">Update</button> &nbsp;
-                    <button type="button" class="btn btn-outline-success btn-sm" (click)="confirmHire(item.id)">Invite to Contract</button> &nbsp;
-                    <button type="button" class="btn btn-outline-warning btn-sm" (click)="showInvited(item.id)">Reinvite</button> &nbsp;
-                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="confirmReject(item.id)">Reject</button>
+                    <button type="button" [disabled] ="item.status.name!=null" class="btn btn-outline-info btn-sm" (click)="showDetailCandidate(item.id)">Update</button> &nbsp;
+                    <button type="button" [disabled] ="item.status.name!=null" class="btn btn-outline-success btn-sm" (click)="confirmHire(item.id)">Invite to Contract</button> &nbsp;
+                    <button type="button" [disabled] ="item.status.name!=null" class="btn btn-outline-warning btn-sm" (click)="showInvited(item.id)">Reinvite</button> &nbsp;
+                    <button type="button" [disabled] ="item.status.name!=null" class="btn btn-outline-danger btn-sm" (click)="confirmReject(item.id)">Reject</button>
                   </td>
                 </tr>
                 </tbody>
+                <pagination-controls (pageChange)="dt = $event" id = "int"></pagination-controls>
           </table>
 </div>
 </div>

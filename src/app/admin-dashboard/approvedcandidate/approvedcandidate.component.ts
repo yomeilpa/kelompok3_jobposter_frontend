@@ -37,6 +37,7 @@ export class ApprovedcandidateComponent implements OnInit {
   skill:any;
   wexp:any;
   doc:any;
+  n:number=1;
   cddoc:any = new CandidateDocument(null,null,null,null);
   dowloadDoc(id){
     this.doctype.getCd(this.datacd.candidate.id,id);

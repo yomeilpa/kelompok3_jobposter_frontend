@@ -95,7 +95,9 @@ import { City } from 'src/app/model/city';
     encapsulation: ViewEncapsulation.None
 })
 export class JoblistComponent implements OnInit {
-
+  jp:number =1;
+  jk:number = 1;
+  pt:number = 1;
   addjob: boolean;  detailjob: boolean;  updatejob: boolean;  detailcandidate: boolean;
   addcategory: boolean;  updatecategory: boolean;
   addposition: boolean;  updateposition: boolean;

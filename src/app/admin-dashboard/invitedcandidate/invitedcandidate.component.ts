@@ -19,6 +19,7 @@ import { Contract } from 'src/app/model/contract';
 })
 export class InvitedcandidateComponent implements OnInit {
   user:any;
+  dt:number = 1;
   imageData:any;
   candidate:any = new Candidate(null,null,null,null,null,null,null,null);
   detailcandidate: boolean;

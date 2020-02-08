@@ -86,7 +86,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of intApp | paginate: { itemsPerPage: 3, currentPage: n , id: 'int'}">
+                  <tr *ngFor="let item of intApp | paginate: { itemsPerPage: 3, currentPage: n , id: 'post'}">
                     <td>{{item?.job?.job?.title}}</td>
                     <td>{{item?.date | date:'dd-MMMM-yyyy'}}</td>
                     <td>{{item?.time}}</td>                 

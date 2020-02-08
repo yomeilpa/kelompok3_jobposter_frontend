@@ -46,13 +46,14 @@
                     <th scope="col">Recruiter Name</th>
                     <th scope="col">Date Begin</th>
                     <th scope="col">Date End</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Total Applied</th>
                     <th scope="col" style="text-align: center; align-items: center;" colspan="2">Action</th>
     
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of jq; index as i">
+                  <tr *ngFor="let item of jq | paginate: { itemsPerPage: 3, currentPage: pt , id: 'post'}">
                     <td>{{item[1]?.title}}</td>
                     <td>{{item[1]?.jobposotion?.jobkategori?.kategori}}</td>
                     <td>{{item[1]?.jobposotion?.name}}</td>
@@ -64,7 +65,7 @@
                         
                       </div>
                       <ng-template #notShow>
-                        Closed
+                        <p style="color: red;">Closed</p> 
                       </ng-template>
                       
                     </td>
@@ -78,6 +79,8 @@
                   </tr>
                 </tbody>
             </table> 
+            <pagination-controls (pageChange)="pt = $event" id = "post"></pagination-controls>
+
           </p-tabPanel>
           <!-- Job Position -->
           <p-tabPanel header="Job Position" leftIcon="pi pi-inbox">
@@ -97,7 +100,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of jobPosList">
+                  <tr *ngFor="let item of jobPosList | paginate: { itemsPerPage: 1, currentPage: jp , id: 'pos'}">
                     <td>{{item?.name}}</td>
                     <td>{{item?.jobkategori?.kategori}}</td>
                     <td>
@@ -107,6 +110,7 @@
                   </tr>
                 </tbody>
               </table>
+              <pagination-controls (pageChange)="jp = $event" id = "pos"></pagination-controls>
           </p-tabPanel>
           <!-- Job Category -->
           <p-tabPanel header="Job Category" leftIcon="pi pi-user">
@@ -126,7 +130,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of jobkateList">
+                  <tr *ngFor="let item of jobkateList | paginate: { itemsPerPage: 1, currentPage: jk , id: 'kate'}">
                     <td>{{item?.kategori}}</td>
                     <td>{{item.code}}</td>
                     <td>
@@ -136,6 +140,7 @@
                   </tr>
                 </tbody>
               </table>
+              <pagination-controls (pageChange)="jk = $event" id = "kate"></pagination-controls>
           </p-tabPanel>
       </p-tabView>
 
