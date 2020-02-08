@@ -44,6 +44,11 @@ export class InvitedcandidateComponent implements OnInit {
     this.detailcandidate = true;
     this.findIntbydId(id);
   }
+  detailCandidateRej:boolean = false;
+  showDetailCandidateRej(id){
+    this.detailCandidateRej = true;
+    this.findIntbydId(id);
+  }
   int1:any = new Listofinterview(null,null,null,null,null);
   imgs:any;
   findIntbydId(id){
@@ -149,6 +154,10 @@ export class InvitedcandidateComponent implements OnInit {
         this.rejectHire();
       }
   });
+  }
+  submitReject(){
+    this.ints.postListIntCdRes(this.int1);
+    this.rejectHire();
   }
 
   }

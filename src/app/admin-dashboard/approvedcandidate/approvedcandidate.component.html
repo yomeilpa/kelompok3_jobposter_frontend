@@ -25,6 +25,7 @@
   <div id="page-content-wrapper">
     <div class="container-fluid" >
       <br><h2 style="text-align:center; margin-bottom:12px;">Approved Candidate</h2><br>
+      <div class="table-responsive">
       <table class="table table-hover" style="text-align:center">
           <thead >
             <tr>
@@ -33,7 +34,7 @@
               <th scope="col">Candidate Name</th>
               <th scope="col">Recruiter Name</th>
               <th scope="col">Status </th>
-              <th scope="col">Action</th>
+              <th scope="col" colspan="2" style="text-align: center;">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -44,14 +45,19 @@
               <td>{{item?.job?.candidate?.name}}</td>
               <td>{{item?.state?.state}}</td>
               <td>
+                
                 <button type="button" class="btn btn-outline-primary btn-sm" (click)="showDetailCandidate(item.id)">Detail</button> &nbsp;
+              </td><td>
                 <button type="button" class="btn btn-outline-success btn-sm" (click)="confirmCt(item.id)">Sign Contract</button>
               </td>
             </tr>
             </tbody>
       </table>
-      <pagination-controls (pageChange)="n = $event" id = "jb"></pagination-controls>
+    </div>
+    <pagination-controls (pageChange)="n = $event" id = "jb"></pagination-controls>
+
         </div>
+
   </div>  
 </div>
 <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

@@ -29,6 +29,7 @@
       <div class="ui-g">
         <div class="ui-g-12 ui-md-12 ui-lg-12">
           <br><h2 style="text-align:center; margin-bottom:12px;">Candidate Invited to Interview</h2><br>
+          <div class="table-responsive">
           <table class="table table-hover" style="text-align:center">
               <thead >
                 <tr>
@@ -37,7 +38,7 @@
                   <th scope="col">Invited Date</th>
                   <th scope="col">Invited time</th>
                   <th scope="col">Status</th>
-                  <th scope="col">Action</th>
+                  <th scope="col" colspan="5" style="text-align: center;align-items: center;">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -48,15 +49,23 @@
                   <td>{{item?.time}}</td>
                   <td>{{item?.status?.name}}</td>
                   <td>
-                    <button type="button" [disabled] ="item.status.name!=null" class="btn btn-outline-info btn-sm" (click)="showDetailCandidate(item.id)">Update</button> &nbsp;
-                    <button type="button" [disabled] ="item.status.name!=null" class="btn btn-outline-success btn-sm" (click)="confirmHire(item.id)">Invite to Contract</button> &nbsp;
-                    <button type="button" [disabled] ="item.status.name!=null" class="btn btn-outline-warning btn-sm" (click)="showInvited(item.id)">Reinvite</button> &nbsp;
-                    <button type="button" [disabled] ="item.status.name!=null" class="btn btn-outline-danger btn-sm" (click)="confirmReject(item.id)">Reject</button>
+                    <button type="button" class="btn btn-outline-info btn-sm" (click)="showDetailCandidate(item.id)">Update</button> &nbsp;
+                  </td>
+                  <td>
+                    <button type="button"  class="btn btn-outline-success btn-sm" (click)="confirmHire(item.id)">Invite to Contract</button> &nbsp;
+                  </td>
+                  <td>
+                    <button type="button"  class="btn btn-outline-warning btn-sm" (click)="showInvited(item.id)">Reinvite</button> &nbsp;
+                  </td>
+                  <td> 
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="confirmReject(item.id)">Reject</button>
                   </td>
                 </tr>
                 </tbody>
-                <pagination-controls (pageChange)="dt = $event" id = "int"></pagination-controls>
           </table>
+        </div>
+        <pagination-controls (pageChange)="dt = $event" id = "int"></pagination-controls>
+
 </div>
 </div>
     </div>
@@ -143,6 +152,8 @@
 </p-footer>
 </p-dialog>
 
+
+
 <!-- Invited Candidate -->
 <p-dialog header="Reinvited Candidate" [(visible)]="invited" [modal]="true" [style]="{width: '30vw'}"
 
@@ -188,3 +199,81 @@
 
 <!-- Confirm Dialog -->
 <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+
+<p-dialog header="Reject" [(visible)]="detailCandidateRej" [modal]="true" [responsive]="true" 
+[style]="{width: '60vw'}" [draggable]="true" [resizable]="false">
+
+<!-- Body -->
+<div class="ui-g">
+<!-- Photo -->
+<div class="ui-g-4">
+  <div class="card">
+      <div class=" card-body" style="text-align:center;">
+        <img style="width: 170px; height: 225px;" [src]="imgs"  alt="Card image">
+      </div>  
+  </div>
+
+  <!-- Profile
+  <div class="card border-light">
+    <div class="ui-g card-header">
+      <div class="ui-g-6 ui-md-6 ">
+        <h5 class="pi pi-user">
+          Profile
+        </h5>
+      </div>
+    </div>
+
+      <div class="card-body">
+        <p class="card-text">Birth {{user?.candidate?.dob}}</p>
+        <p class="card-text">Gender {{user?.candidate?.gender}}</p>
+        <p class="card-text">{{user?.candidate?.addres}}, {{user?.candidate?.city?.city}}</p>
+      </div>
+
+      <div class="card-footer">
+        <p class="card-text">{{user?.candidate?.phone}}</p>
+        <p class="card-text">{{user?.candidate?.email}}</p>
+      </div>
+
+  </div> -->
+</div>
+
+<!-- Isi -->
+<div class="ui-g-8 ui-g-nopad">
+  <!-- Nama Lengkap -->
+  <div class="ui-g-12">
+    <h1 class="display-3" style="text-align:center;">{{int1?.job?.candidate?.name}}</h1>
+  </div>
+
+  <!-- Keterangan -->
+<div class="ui-g-12">
+  <div class="form-group row">
+    <label class="col-sm-4 col-form-label">Applied Application</label>    
+    <div class="col-sm-6" >
+      <label class="col-sm-6 col-form-label">{{int1?.job?.job?.title}}</label>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-4 col-form-label">interview Date</label>    
+    <div class="col-sm-6" >
+      <label class="col-sm-6 col-form-label">{{int1?.date}}</label>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-4 col-form-label">Status</label>    
+    <div class="col-sm-6" >
+      <label class="col-sm-6 col-form-label">{{int1?.status?.name}}</label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="exampleTextarea">Result Interview</label>
+    <textarea class="form-control" [(ngModel)]="int1.resultInt" id="exampleTextarea" rows="3"></textarea>
+  </div>
+</div>
+    
+</div>
+</div>
+
+<p-footer>
+  <button type="button" class="btn btn-outline-success" (click)="submitReject()">Submit</button>
+</p-footer>
+</p-dialog>
