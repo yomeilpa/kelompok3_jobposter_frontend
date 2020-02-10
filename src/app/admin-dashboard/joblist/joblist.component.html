@@ -53,7 +53,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of jq | paginate: { itemsPerPage: 3, currentPage: pt , id: 'post'}">
+                  <tr *ngFor="let item of jq | paginate: { itemsPerPage: 7, currentPage: pt , id: 'post'}">
                     <td>{{item[1]?.title}}</td>
                     <td>{{item[1]?.jobposotion?.jobkategori?.kategori}}</td>
                     <td>{{item[1]?.jobposotion?.name}}</td>
@@ -101,7 +101,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of jobPosList | paginate: { itemsPerPage: 1, currentPage: jp , id: 'pos'}">
+                  <tr *ngFor="let item of jobPosList | paginate: { itemsPerPage: 5, currentPage: jp , id: 'pos'}">
                     <td>{{item?.name}}</td>
                     <td>{{item?.jobkategori?.kategori}}</td>
                     <td>
@@ -131,7 +131,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of jobkateList | paginate: { itemsPerPage: 1, currentPage: jk , id: 'kate'}">
+                  <tr *ngFor="let item of jobkateList | paginate: { itemsPerPage: 5, currentPage: jk , id: 'kate'}">
                     <td>{{item?.kategori}}</td>
                     <td>{{item.code}}</td>
                     <td>

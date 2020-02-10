@@ -42,7 +42,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of dataintat | paginate: { itemsPerPage: 2, currentPage: dt , id: 'int'} ">
+                <tr *ngFor="let item of dataintat | paginate: { itemsPerPage: 7, currentPage: dt , id: 'int'} ">
                   <td>{{item?.job?.job?.title}}</td>
                   <td>{{item?.job?.candidate?.name}}</td>
                   <td>{{item?.date | date:'dd-MMMM-yyyy'}}</td>
