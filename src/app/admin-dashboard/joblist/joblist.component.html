@@ -710,9 +710,7 @@
         <label for="exampleSelect1">Category Type</label> <br>
         <p-dropdown disabled [options]="jobkateList" [(ngModel)]="jobPos1.jobkategori" filter="true" optionLabel="kategori" placeholder="Choose Category" ></p-dropdown>
       </div>
-
   </div>
-
   <p-footer>
       <button type="button" pButton icon="pi pi-check" label="Submit" (click)="putJobPosition()"></button>
       <button type="reset" pButton icon="pi pi-close" label="No" (click)="updateposition=false" class="ui-button-secondary"></button>
