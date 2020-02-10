@@ -16,7 +16,7 @@ import { City } from 'src/app/model/city';
 import { DoctypeService } from 'src/app/service/doctype.service';
 import { Doctype } from 'src/app/model/doctype';
 import { CandidateDocument } from 'src/app/model/candidate-document';
-import {HttpClient, HttpEventType} from '@angular/common/http'
+import {HttpClient, HttpEventType, HttpHeaders} from '@angular/common/http'
 import { Subject, Observable } from 'rxjs';
 import { ChangePassword } from 'src/app/model/change-password';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -376,16 +376,20 @@ proNull(){
   this.cs = "Choose City";
   this.pros.getProvince();
   this.pros.user.subscribe(res => this.province = res);
-}  
+}
+  
 fileUploadProgress:any = null;
 
   public uploadPhoto(){
     let formData = new FormData();
     this.fileUploadProgress = 0;
     formData.append("upload",this.us,this.us.name);
+    this.login.store.get("key").subscribe(res => {this.key = res
+      let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
     this.http.post(this.apiURL+"/uploadphoto/"+this.cds.id,formData, {
       reportProgress: true,
-      observe: 'events'   
+      observe: 'events',
+      headers:headers_object   
     }).subscribe(events =>{
       if(events.type === HttpEventType.UploadProgress) {
         this.fileUploadProgress = Math.round(events.loaded / events.total * 100);
@@ -415,10 +419,12 @@ fileUploadProgress:any = null;
       let data = ress;
       alert(data.error);
     } 
-    )}
+    )
+  })
+}
   
 
-  
+  key:any;
   public uploadDocument(){
     let formData = new FormData();
     let a = this.cddoc;
@@ -428,9 +434,11 @@ fileUploadProgress:any = null;
     }
     formData.append("docx",this.ds,this.ds.name);
     formData.append("iddoctype",this.req1.id);
+    this.login.store.get("key").subscribe(res => {this.key = res
+      let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
     this.http.post(this.apiURL+"/doc/"+this.cds.id,formData, {
       reportProgress: true,
-      observe: 'events'   
+      observe: 'events',headers:headers_object   
     }).subscribe(events =>{
       if(events.type === HttpEventType.UploadProgress) {
         this.fileUploadProgress = Math.round(events.loaded / events.total * 100);
@@ -446,9 +454,9 @@ fileUploadProgress:any = null;
       let dat = res
         alert(dat.error);
         a.id = null;
-        this.http.post(this.apiURL+"/add/del",this.cddoc).subscribe();
+        this.http.post(this.apiURL+"/add/del",this.cddoc,{headers:headers_object}).subscribe();
         this.fileUploadProgress = 0;
-    })  
+    })  })
   }
   public update(){
     this.login.updateCandidate(this.cds,this.user.candidate.id);
