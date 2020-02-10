@@ -657,7 +657,7 @@
   <br>
   <div class="form-group">
     <label>Category Code</label>
-    <input type="text" name="catecode" pInputText [(ngModel)]="jobKateedit.code" class="form-control" placeholder="Category Code">
+    <input type="text" name="catecode" disabled pInputText [(ngModel)]="jobKateedit.code" class="form-control" placeholder="Category Code">
   </div>
 </div>
 
@@ -708,7 +708,7 @@
       <br>
       <div class="form-group">
         <label for="exampleSelect1">Category Type</label> <br>
-        <p-dropdown [options]="jobkateList" [(ngModel)]="jobPos1.jobkategori" filter="true" optionLabel="kategori" placeholder="Choose Category" ></p-dropdown>
+        <p-dropdown disabled [options]="jobkateList" [(ngModel)]="jobPos1.jobkategori" filter="true" optionLabel="kategori" placeholder="Choose Category" ></p-dropdown>
       </div>
 
   </div>

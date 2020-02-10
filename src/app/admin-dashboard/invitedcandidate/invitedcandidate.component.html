@@ -49,16 +49,16 @@
                   <td>{{item?.time}}</td>
                   <td>{{item?.status?.name}}</td>
                   <td>
-                    <button type="button" class="btn btn-outline-info btn-sm" (click)="showDetailCandidate(item.id)">Update</button> &nbsp;
+                    <button type="button" [disabled]="item.status.name !='Invited'" class="btn btn-outline-info btn-sm" (click)="showDetailCandidate(item.id)">Update</button> &nbsp;
                   </td>
                   <td>
-                    <button type="button"  class="btn btn-outline-success btn-sm" (click)="confirmHire(item.id)">Invite to Contract</button> &nbsp;
+                    <button type="button" [disabled]="item.status.name !='Invited'" class="btn btn-outline-success btn-sm" (click)="confirmHire(item.id)">Invite to Contract</button> &nbsp;
                   </td>
                   <td>
-                    <button type="button"  class="btn btn-outline-warning btn-sm" (click)="showInvited(item.id)">Reinvite</button> &nbsp;
+                    <button type="button" [disabled]="item.status.name !='Invited'"  class="btn btn-outline-warning btn-sm" (click)="showInvited(item.id)">Reinvite</button> &nbsp;
                   </td>
                   <td> 
-                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="confirmReject(item.id)">Reject</button>
+                    <button type="button" [disabled]="item.status.name !='Invited'" class="btn btn-outline-danger btn-sm" (click)="confirmReject(item.id)">Reject</button>
                   </td>
                 </tr>
                 </tbody>
