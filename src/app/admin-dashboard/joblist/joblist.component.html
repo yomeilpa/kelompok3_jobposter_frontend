@@ -1,4 +1,5 @@
 <!-- Navbar -->
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <img #img src="assets/logolarge.png"> &nbsp;
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,7 +17,7 @@
 <!-- Sidebar -->
 <div class="d-flex" id="wrapper">
 <!-- Sidebar -->
-<div class="bg-light border-right" id="sidebar-wrapper">
+<div class="bg-light border-right" id="sidebar-wrapper" [hidden]="sb == true">
   <div class="sidebar-heading">Hello, {{candidate?.name}}</div>
   <div class="list-group list-group-flush">
   <a href="/admin/dashboard" class="list-group-item list-group-item-action bg-light">Dashboard</a>
@@ -27,7 +28,7 @@
 </div>
 
 <!-- Page Content -->
-<div id="page-content-wrapper">
+<div id="page-content-wrapper">  
   <div class="container-fluid" >
     <div class="ui-g">
       <div class="ui-g-12 ui-md-12 ui-lg-12">
@@ -67,7 +68,7 @@
                       <ng-template #notShow>
                         <p style="color: red;">Closed</p> 
                       </ng-template>
-                      
+                    
                     </td>
                     <td>{{item[0]}}</td>
                     <td>

@@ -95,6 +95,10 @@ import { City } from 'src/app/model/city';
     encapsulation: ViewEncapsulation.None
 })
 export class JoblistComponent implements OnInit {
+  sb:any = false;
+  showSB(){
+    this.sb = !this.sb;
+  }
   jp:number =1;
   jk:number = 1;
   pt:number = 1;
