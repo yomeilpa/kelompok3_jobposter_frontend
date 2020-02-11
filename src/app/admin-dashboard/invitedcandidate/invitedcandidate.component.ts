@@ -122,6 +122,7 @@ export class InvitedcandidateComponent implements OnInit {
     let b:Date = this.waktu;
     let c:any =""+b.getHours()+':'+b.getMinutes()+':'+b.getSeconds();
     this.contract.time = c;
+    this.ints.Acc(this.hiredata.id);
     this.josb.negoJobApplybyJob(this.hiredata.job.id,this.contract);
   }
   rejectHire(){

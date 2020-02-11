@@ -160,6 +160,25 @@ export class InterviewService {
   })
   }
 
+  Acc(id){
+    this.user = new Subject<any>();
+    this.store.store.get("key").subscribe(res => {this.key = res
+      let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
+    this.httpclient.get(this.apiURL+"/interview/hire/"+id,{headers:headers_object}).subscribe(res =>{
+      this.data1 ="succes";
+      this.data = res;
+      this.user.next(this.data);
+    },
+    (res) =>
+    {
+      this.data1 = "gagal";
+      this.data = res;
+      this.user.next(this.data);
+    }
+    )
+  })
+  }
+
 
   //JwtUdah
   RequestListIntCd(id){
