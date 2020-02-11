@@ -58,7 +58,7 @@
                     </div>
                     <ng-template #second>
                       <div *ngIf="item.status?.name ==='Attend'; else third">
-                        <button type="button" class="btn btn-outline-info btn-sm" (click)="showDetailCandidate(item.id)">Update</button> &nbsp;
+                        <button type="button" class="btn btn-outline-info btn-sm" (click)="showDetailCandidate(item.id)">Detail</button> &nbsp;
                         <button type="button" class="btn btn-outline-success btn-sm" (click)="confirmHire(item.id)">Invite to Contract</button> &nbsp;
                         <button type="button" class="btn btn-outline-danger btn-sm" (click)="confirmReject(item.id)">Reject</button>
                       </div>
@@ -175,7 +175,7 @@
 </div>
 
 <p-footer>
-  <button type="button" [hidden]="int1.status?.name==='Accepted' || int1.status?.name==='Rejected'" class="btn btn-outline-success" (click)="postRes()">Submit</button>
+  <button type="button" [hidden]="int1.status?.name==='Accepted' || int1.status?.name==='Attend' || int1.status?.name==='Rejected'" class="btn btn-outline-success" (click)="postRes()">Submit</button>
 </p-footer>
 </p-dialog>
 
