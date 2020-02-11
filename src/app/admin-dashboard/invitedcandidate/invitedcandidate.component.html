@@ -70,7 +70,7 @@
                       </div>
                     </ng-template>
                         <ng-template #reject>
-                      No Action
+                          <button type="button" class="btn btn-outline-info btn-sm" (click)="showDetailCandidate(item.id)">Detail</button> &nbsp;
                     </ng-template>
                     
                     
@@ -90,7 +90,7 @@
 
 <!-- Detail Candidate -->
 <p-dialog header="Detail Candidate" [(visible)]="detailcandidate" [modal]="true" [responsive]="true" 
-[style]="{width: '60vw'}" [draggable]="false" [resizable]="false">
+[style]="{width: '70vw',height: '50vw'}" [draggable]="true" [resizable]="false">
 
 <!-- Body -->
 <div class="ui-g">
@@ -143,8 +143,20 @@
   </div>
   <div class="form-group row">
     <label class="col-sm-4 col-form-label">interview Date</label>    
-    <div class="col-sm-6" >
+    <div class="col-sm-8" >
       <label class="col-sm-6 col-form-label">{{int1?.date | date:'dd-MMMM-yyyy'}}</label>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-4 col-form-label">Address</label>    
+    <div class="col-sm-6" >
+      <label class="col-sm-6 col-form-label">{{int1?.job?.candidate?.addres}}</label>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-4 col-form-label">Telephone</label>    
+    <div class="col-sm-6" >
+      <label class="col-sm-6 col-form-label">{{int1?.job?.candidate?.phone}}</label>
     </div>
   </div>
   <div class="form-group row">
@@ -163,7 +175,7 @@
 </div>
 
 <p-footer>
-  <button type="button" class="btn btn-outline-success" (click)="postRes()">Submit</button>
+  <button type="button" [hidden]="int1.status?.name==='Accepted' || int1.status?.name==='Rejected'" class="btn btn-outline-success" (click)="postRes()">Submit</button>
 </p-footer>
 </p-dialog>
 
@@ -216,7 +228,7 @@
 <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
 
 <p-dialog header="Reject" [(visible)]="detailCandidateRej" [modal]="true" [responsive]="true" 
-[style]="{width: '60vw'}" [draggable]="true" [resizable]="false">
+[style]="{width: '70vw',height: '50vw'}" [draggable]="true" [resizable]="false">
 
 <!-- Body -->
 <div class="ui-g">
@@ -268,9 +280,21 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-4 col-form-label">interview Date</label>    
-    <div class="col-sm-6" >
+    <label class="col-sm-4 col-form-label">Interview Date</label>    
+    <div class="col-sm-8" >
       <label class="col-sm-6 col-form-label">{{int1?.date}}</label>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-4 col-form-label">Address</label>    
+    <div class="col-sm-6" >
+      <label class="col-sm-6 col-form-label">{{int1?.job?.candidate?.addres}}</label>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-4 col-form-label">Telephone</label>    
+    <div class="col-sm-6" >
+      <label class="col-sm-6 col-form-label">{{int1?.status?.name}}</label>
     </div>
   </div>
   <div class="form-group row">
