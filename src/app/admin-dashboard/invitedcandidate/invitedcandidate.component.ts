@@ -90,10 +90,10 @@ export class InvitedcandidateComponent implements OnInit {
   
   dataint:any;
   dataintat:any;
+  st:any;
   getAllListInt(){
     this.ints.getListIntbyPoster(this.user.candidate.id);
     this.ints.user.subscribe(res => {this.dataintat = res
-      console.log(this.dataint)
     })
   }
   ngOnInit() {    

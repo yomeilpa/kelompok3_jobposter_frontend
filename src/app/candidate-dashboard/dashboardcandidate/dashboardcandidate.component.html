@@ -88,17 +88,11 @@
                     <td>{{item?.time}}</td>                 
                     <td>{{item?.status?.name}}</td>
                     <td>
-                      <button [disabled]="item.status != null || b!=null " pButton type="button" (click)="confirmAcc(item.id)" label="Attend" class="ui-button-rounded ui-button-success"></button> &nbsp;
-                      <button [disabled]="item.status != null || b!= null" pButton type="button" (click)="confirmRequest(item.id)" label="Reschedule" class="ui-button-rounded ui-button-warning"></button> &nbsp;
-                      <button [disabled]="item.status != null || b!= null" pButton type="button" (click)="confirmReject(item.id)" label="Reject" class="ui-button-rounded ui-button-danger"></button>
+                      <button [disabled]="item.status.name != 'Invited' || b!=null " pButton type="button" (click)="confirmAcc(item.id)" label="Attend" class="ui-button-rounded ui-button-success"></button> &nbsp;
+                      <button [disabled]="item.status.name != 'Invited' || b!= null" pButton type="button" (click)="confirmRequest(item.id)" label="Reschedule" class="ui-button-rounded ui-button-warning"></button> &nbsp;
+                      <button [disabled]="item.status.name != 'Invited' || b!= null" pButton type="button" (click)="confirmReject(item.id)" label="Reject" class="ui-button-rounded ui-button-danger"></button>
 
                     </td>
-                    <!-- <td>
-                      <button [disabled]="item.status != null || b!= null" pButton type="button" (click)="confirmRequest(item.id)" label="Reschedule" class="ui-button-rounded ui-button-warning"></button>
-                    </td>
-                    <td>
-                      <button [disabled]="item.status != null || b!= null" pButton type="button" (click)="confirmReject(item.id)" label="Reject" class="ui-button-rounded ui-button-danger"></button>
-                    </td> -->
                   </tr>
                   </tbody>
             </table>

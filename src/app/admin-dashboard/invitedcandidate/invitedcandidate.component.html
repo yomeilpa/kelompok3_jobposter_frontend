@@ -49,16 +49,28 @@
                   <td>{{item?.time}}</td>
                   <td>{{item?.status?.name}}</td>
                   <td>
-                    <button type="button" [disabled]="item.status.name !='Invited'" class="btn btn-outline-info btn-sm" (click)="showDetailCandidate(item.id)">Update</button> &nbsp;
-                  </td>
-                  <td>
-                    <button type="button" [disabled]="item.status.name !='Invited'" class="btn btn-outline-success btn-sm" (click)="confirmHire(item.id)">Invite to Contract</button> &nbsp;
-                  </td>
-                  <td>
-                    <button type="button" [disabled]="item.status.name !='Invited'"  class="btn btn-outline-warning btn-sm" (click)="showInvited(item.id)">Reinvite</button> &nbsp;
-                  </td>
-                  <td> 
-                    <button type="button" [disabled]="item.status.name !='Invited'" class="btn btn-outline-danger btn-sm" (click)="confirmReject(item.id)">Reject</button>
+                    <div *ngIf="item.status?.name ==='Invited' || item.status?.name ==='WILL ATTEND' ;else second ">
+                      <button type="button" class="btn btn-outline-info btn-sm" (click)="showDetailCandidate(item.id)">Update</button> &nbsp;
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="confirmReject(item.id)">Reject</button>
+                    </div>
+                    <ng-template #second>
+                      <div *ngIf="item.status?.name ==='Attend'; else third">
+                        <button type="button" class="btn btn-outline-info btn-sm" (click)="showDetailCandidate(item.id)">Update</button> &nbsp;
+                        <button type="button" class="btn btn-outline-success btn-sm" (click)="confirmHire(item.id)">Invite to Contract</button> &nbsp;
+                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="confirmReject(item.id)">Reject</button>
+                      </div>
+                    </ng-template> 
+                    <ng-template #third>
+                      <div *ngIf="item.status?.name ==='Request New Schedule'; else reject">
+                        <button type="button"  class="btn btn-outline-warning btn-sm" (click)="showInvited(item.id)">Reinvite</button> &nbsp;
+                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="confirmReject(item.id)">Reject</button>
+                      </div>
+                    </ng-template>
+                        <ng-template #reject>
+                      No Action
+                    </ng-template>
+                    
+                    
                   </td>
                 </tr>
                 </tbody>
