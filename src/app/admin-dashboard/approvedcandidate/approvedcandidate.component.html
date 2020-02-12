@@ -51,7 +51,7 @@
                 
                 <button type="button" class="btn btn-outline-primary btn-sm" (click)="showDetailCandidate(item.id)">Detail</button> &nbsp;
               </td><td>
-                <button type="button" class="btn btn-outline-success btn-sm" (click)="confirmCt(item.id)">Sign Contract</button>
+                <button type="button" [hidden]="item.state.state ==='Accepted'" class="btn btn-outline-success btn-sm" (click)="confirmCt(item.id)">Sign Contract</button>
               </td>
             </tr>
             </tbody>

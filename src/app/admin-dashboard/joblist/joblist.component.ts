@@ -542,7 +542,7 @@ export class JoblistComponent implements OnInit {
 
       putJobKategori(){
         this.kategori.putJobKatergoribyId(this.jobKateedit.id,this.jobKateedit);
-        this.kategori.user.subscribe(res => {
+        this.kategori.user.subscribe(res => { 
             if(this.kategori.data1 == "OK"){
               location.href = "admin/joblist"
             }else{
