@@ -133,21 +133,27 @@
               <div class="ui-g-12 ui-md-6 ui-lg-4">
                 <input type="text" pInputText pKeyFilter="money" [(ngModel)]="filter.maxSalary" placeholder="Salary Max">
               </div>
-              <div class="ui-g-12 ui-md-6 ui-lg-4">
+              <div class="ui-g-12 ui-md-6 ui-lg-6">
                 <p-dropdown [options]="city" [(ngModel)]="citys" placeholder="Select a City" filter="true" optionLabel ="city" (click)="getCity()" [disabled]="provinsi.id == null"></p-dropdown>
                   <!-- <p-dropdown [placeholder]="ps" [options]="province" name="provinsi" [(ngModel)]="provinsi" (click)="proNull()" (change)="getCity()" filter="true" optionLabel ="province"> 
                   </p-dropdown> -->
               </div>  
-              <div class="ui-g-12 ui-md-6 ui-lg-4">
+              <div class="ui-g-12 ui-md-6 ui-lg-6">
                 <p-dropdown [options]="province" [(ngModel)]="provinsi" (click)="proNull()" [placeholder]="ps" filter="true" optionLabel ="province"></p-dropdown>
                   <!-- <p-dropdown placeholder="Select a City" [options]="city" name="city" [(ngModel)]="posting.city"  filter="true" optionLabel ="city" (click)="getCity()">
                   </p-dropdown> -->
               </div>
-              <div class="ui-g-12 ui-md-6 ui-lg-4" >
+              <div class="ui-g-12 ui-md-6 ui-lg-6" >
                 <button pButton type="button" label="Search" style="
                 padding-right: 60px;
                 padding-left: 60px;
             "(click)="findByfilter()" ></button>
+              </div>
+              <div class="ui-g-12 ui-md-6 ui-lg-6" >
+                <button pButton class="ui-button-secondary" type="button" label="Reset" style="
+                padding-right: 60px;
+                padding-left: 60px;
+            "(click)="resetFilter()" ></button>
               </div>
             </div>
           </ol>

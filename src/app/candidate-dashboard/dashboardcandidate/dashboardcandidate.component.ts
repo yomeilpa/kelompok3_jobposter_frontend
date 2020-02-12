@@ -129,6 +129,10 @@ export class DashboardcandidateComponent implements OnInit{
       }
     }); 
   }
+  resetFilter(){
+    this.filter = new FilterJob(null,null,null,null,null);
+    this.provinsi = new Province(null,null,null)
+  }
 
   destroySession(){
     this.login.store.delete('user').subscribe((res) => {
