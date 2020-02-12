@@ -138,7 +138,7 @@ export class RegisterService {
       let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
     this.http.put<any>(this.apiURL+"/update/"+id,formdata,{headers:headers_object}).subscribe(res =>{
       this.data = res;
-      this.data1="suc";      
+      this.data1==="suc"; 
       this.store.get("user").subscribe( res => {
         this.ok = res;
         this.ok.candidate = this.data;

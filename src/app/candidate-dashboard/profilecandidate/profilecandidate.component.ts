@@ -368,6 +368,11 @@ getCdDocument(id,is){
     this.messageService.add({key:'tl',severity:'success', summary: 'Succes', detail:warn});
 }
 
+
+showSc(id:any,warn:any) {
+  this.messageService.add({key:id,severity:'success', summary: 'Succes', detail:warn});
+}
+
 showErr(id:any,warn:any) {
   this.messageService.add({key:id,severity:'error', summary: 'Failed', detail:warn});
 }
@@ -461,12 +466,14 @@ fileUploadProgress:any = null;
   public update(){
     this.login.updateCandidate(this.cds,this.user.candidate.id);
     this.login.user.subscribe(res => {
-      if(this.login.data1 =="suc"){
-        this.showWarn("Scucces")
-      }
-      else{
+      if(this.login.data1 =='gagal'){
         console.log(this.login.data)
         this.showErr("update",this.login.data.error);
+      
+      }
+      else{
+        console.log("hey")
+        this.showSc("uptpl","Succes");
       }
     })
   
