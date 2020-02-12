@@ -50,8 +50,13 @@
               <td>
                 
                 <button type="button" class="btn btn-outline-primary btn-sm" (click)="showDetailCandidate(item.id)">Detail</button> &nbsp;
-              </td><td>
+              </td>
+              <td>
                 <button type="button" [hidden]="item.state.state ==='Accepted'" class="btn btn-outline-success btn-sm" (click)="confirmCt(item.id)">Sign Contract</button>
+              </td>
+              <td>
+                <button type="button" [hidden]="item.state.state ==='Accepted'" class="btn btn-outline-danger btn-sm" (click)="confirmReject(item.id)">Reject</button> &nbsp;
+
               </td>
             </tr>
             </tbody>

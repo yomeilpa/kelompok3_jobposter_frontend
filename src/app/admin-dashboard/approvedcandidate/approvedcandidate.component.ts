@@ -91,6 +91,23 @@ export class ApprovedcandidateComponent implements OnInit {
   });
   }
 
+  confirmReject(id){
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to reject this Candidate ?',
+      header: 'warning',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.josb.getJobApplybyid(id);
+        this.josb.user.subscribe(res =>{
+          let b = res;
+          this.josb.rejectJobApplybyJob(b.id)
+        })     
+
+      }
+  });
+  }
+
+
   constructor(private doctype:DoctypeService,private eduser:EducationService,private workservice:WorkexperienceService,private skillser:SkillService,private confirmationService:ConfirmationService,private pros:ProvinceService,private regis:RegisterService,private route:Router,private josb:JobApplyService) { }
 
   destroySession(){
