@@ -44,7 +44,7 @@
         </div>
       </ol> -->
       <!-- <br><br> -->
-      <p-scrollPanel [style]="{width: '100%', height: '320px'}">
+      <p-scrollPanel [style]="{width: '100%', height: '300px'}">
         <!-- Isi Job Poster -->           
             <div class="card border-light" *ngFor="let item of jobs | paginate: { itemsPerPage: 3, currentPage: p }">
               <div class="card-header">
@@ -67,9 +67,11 @@
               <div class="card-footer">  
               </div>
             </div> <br>
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </p-scrollPanel>
     </div>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
 
 
 <!-- Modal Sign Up -->
