@@ -16,73 +16,62 @@
 </nav>
 
 <!-- Title -->
-<div class="jumbotron login-panel" style="padding-top: 10px;">
-  <div>
-    <div style="text-align: center;">
-      <h2 class="display-3"><font color="white"> Hello, You!</font></h2>
-      <h2><font color="white">Welcome to Lawencon Jobs Poster</font></h2>
-      <h2><font color="white">Your Dream Jobs Start Here !!! </font></h2>  
-    </div>
-     
-  <!-- Body -->
-
-    <!-- Blank Page -->
-    <div class="ui-g-12 ui-md-6 ui-lg-2">
-    </div>
-  
-    <!--  -->
-    <div class="ui-g-12 ui-md-12 ui-lg-8 ui-g-nopad">
-
-      <!-- Job Poster -->
-      <div class="ui-g-12 ui-md-12 ui-lg-12">
-
-        <!-- Search Job Poster -->
-        <ol style="text-align:center;margin-bottom: 23px;">
-          <div class="ui-g">
-            <div class="ui-g-1">
-            </div>
-            <div class="ui-g-4 ui-md-4 ui-lg-4">
-            </div>
-            <div class="ui-g-2 ui-md-2 ui-lg-2">
-            </div>
-            <div class="ui-g-2 ui-md-2 ui-lg-2">
-            </div>
-            <div class="ui-g-2 ui-md-2 ui-lg-2">
-            </div>
-          </div>
-        </ol>
-        <br><br>
-        <p-scrollPanel [style]="{width: '100%', height: '420px'}">
-          <!-- Isi Job Poster -->           
-              <div class="card border-light" style="width: 100%;" *ngFor="let item of jobs | paginate: { itemsPerPage: 3, currentPage: p }">
-                <div class="card-header"><h4>{{item.title}} <p style="text-align-last:right;font:italic;"><small>{{item.salary | currency:'Rp. '}}/month</small></p></h4></div>
-                <div class="card-body">
-                  <h6 class="card-title">
-                    {{item.desc}}
-                    </h6><br>
-                  <p class="card-text">
-                    Open Date : {{item.start}} &nbsp; Close Date : {{item.end}}
-                  </p><br>
-                  <p>Recruiter : {{item.candidate.name}}</p>
-                  <br>
-                </div>
-                <div class="card-footer">  
-                </div>
-              </div> <br>
-              <pagination-controls (pageChange)="p = $event"></pagination-controls>
-          </p-scrollPanel>
-      </div>
-
-    </div>
-
-    <!-- Blank Page -->
-    <div class="ui-g-12 ui-md-6 ui-lg-2"></div>
+<div class="jumbotron login-panel" style="padding-top: 10px; margin-bottom: 10px;">
+  <div style="text-align: center;">
+    <h2 class="display-3"><font color="white"> Hello, You!</font></h2>
+    <h2><font color="white">Welcome to Lawencon Jobs Poster</font></h2>
+    <h2><font color="white">Your Dream Jobs Start Here !!! </font></h2>  
   </div>
-  <br>
+     
+
 </div>
 
-<!-- Modal Sign Up -->
+  <!-- Body -->
+  <div class="ui-g-12 ui-md-12 ui-lg-12">
+      <!-- Search Job Poster -->
+      <!-- <ol style="text-align:center;margin-bottom: 23px;">
+        <div class="ui-g">
+          <div class="ui-g-1">
+          </div>
+          <div class="ui-g-4 ui-md-4 ui-lg-4">
+          </div>
+          <div class="ui-g-2 ui-md-2 ui-lg-2">
+          </div>
+          <div class="ui-g-2 ui-md-2 ui-lg-2">
+          </div>
+          <div class="ui-g-2 ui-md-2 ui-lg-2">
+          </div>
+        </div>
+      </ol> -->
+      <!-- <br><br> -->
+      <p-scrollPanel [style]="{width: '100%', height: '400px'}">
+        <!-- Isi Job Poster -->           
+            <div class="card border-light" *ngFor="let item of jobs | paginate: { itemsPerPage: 3, currentPage: p }">
+              <div class="card-header">
+                <h5>{{item.title}} 
+                  <p style="text-align-last:right;font:italic;">
+                    <small><p style="color: red;">Login to see detail</p></small>
+                  </p>
+                </h5>
+              </div>
+              <div class="card-body">
+                <p class="card-title">
+                  {{item.desc}}
+                </p><br>
+                <p class="card-text">
+                  Open Date : {{item.start}} &nbsp; Close Date : {{item.end}}
+                </p><br>
+                <p>Recruiter : {{item.candidate.name}}</p>
+                <br>
+              </div>
+              <div class="card-footer">  
+              </div>
+            </div> <br>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </p-scrollPanel>
+    </div>
 
+<!-- Modal Sign Up -->
 <p-dialog id="SignUp" header="Sign Up Lawencon Jobs Poster" [(visible)]="displaysignup" [modal]="true" [responsive]="true"  [style]="{width: 'auto', minWidth: '200px'}" [minY]="70" 
 [baseZIndex]="10000">
 
