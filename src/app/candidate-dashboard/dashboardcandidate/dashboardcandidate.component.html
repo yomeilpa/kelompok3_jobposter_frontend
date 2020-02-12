@@ -158,7 +158,7 @@
             </div>
           </ol>
     
-              <p-scrollPanel [style]="{width: '100%', height: '420px'}"\>
+              <p-scrollPanel [style]="{width: '100%', height: '420px'}">
               <!-- Isi Job Poster -->  
               <div class="card border-light" style="width: 100%;" *ngFor="let item of jobs | paginate: { itemsPerPage: 3, currentPage: t ,id:'xs' }">
                 <div *ngIf="candidate.salary > item.salary ;else show">
