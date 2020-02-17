@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { JoblistComponent } from './joblist/joblist.component';
 import {DropdownModule} from 'primeng/dropdown';
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+import { ShowHidePasswordModule } from 'ngx-show-hide-password';
+
 
 
 @NgModule({
@@ -21,7 +23,8 @@ import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
     NgPrimeModule,
     HttpClientModule,
     DropdownModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ShowHidePasswordModule
  
   ]
 })
