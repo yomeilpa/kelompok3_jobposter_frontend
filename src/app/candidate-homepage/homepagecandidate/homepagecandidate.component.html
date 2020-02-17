@@ -182,10 +182,14 @@
   <label for="float-inpu">Email</label>
 </span>
 <br>
+<show-hide-password size="sm" btnStyle="secondary" [btnOutline]="false">
+
 <span class="ui-float-label">
-  <input name="password"  [(ngModel)]="us.password" id="float-inpu2" type="text" size="30" pInputText pPassword type="password"/> 
+  <input name="password" id="float-inpu2" [(ngModel)]="us.password" id="float-inpu2" type="text" size="30" pInputText pPassword type="password"/> 
   <label for="float-inpu2">Password</label>
 </span>
+</show-hide-password>
+
 <br><br>
 <button (click)="loginuser()" type="button" pButton label="Submit" class="ui-button-info"></button>
 </form>

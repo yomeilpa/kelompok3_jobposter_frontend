@@ -16,6 +16,11 @@ import { PostingjobService } from 'src/app/service/postingjob.service';
 })
 export class HomepagecandidateComponent implements OnInit {
     images: any[];
+    pss:any ="password";
+    toggle(){
+      this.pss==="text";
+
+    }
     displaysignup: boolean = false;
     displaysignin:boolean = false;
     msgs: any[];

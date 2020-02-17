@@ -16,7 +16,7 @@ import {InputMaskModule} from 'primeng/inputmask';
 import {PaginatorModule} from 'primeng/paginator';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
-
+import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 
 
 @NgModule({
@@ -35,7 +35,8 @@ import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
     InputMaskModule,
     ProgressSpinnerModule,
     PaginatorModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ShowHidePasswordModule
   ]
 })
 export class CandidateHomepageModule { }
