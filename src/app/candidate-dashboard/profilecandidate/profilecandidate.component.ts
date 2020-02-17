@@ -230,7 +230,7 @@ getCdDocument(id,is){
     }) 
   }
   getRequire(){
-    this.dts.getDocTypeTrue();
+    this.dts.getDocTypeTruecd(this.user.candidate.id);
     this.dts.user.subscribe(res => this.req = res);
   }
 

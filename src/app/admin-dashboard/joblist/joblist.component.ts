@@ -131,7 +131,8 @@ export class JoblistComponent implements OnInit {
   msgs:Message[] = [];
   msgsInt:Message[] = [];
   mgsPostJob:Message[] =[];
-  m
+  mgseditJob:Message[] =[];
+
   messageService: any;
   back(){
     location.href = "admin/joblist"
@@ -223,7 +224,7 @@ export class JoblistComponent implements OnInit {
   }
   closed(){
     this.jd.active=false;
-    this.posser.postJobPosting(this.jd);
+    this.posser.putJobPosting(this.jd.id,this.jd);
     this.mgsPostJob= [{severity:'info', summary:'Confirmed', detail:'Your Job has been Closed'}];      
 
   
@@ -241,9 +242,9 @@ export class JoblistComponent implements OnInit {
         this.posser.deleteDetail(e.id);
         this.posser.postJobDes(e.id,this.jobDetail);
         this.posser.postJobReq(e.id,this.jobReq);
+        this.mgsPostJob= [{severity:'info', summary:'Confirmed', detail:'Your Job has been Updated'}];      
       }
       else{
-        alert("hahahah")
         this.showErr("postingJobEdit",e.error);
 
       }
@@ -634,6 +635,9 @@ export class JoblistComponent implements OnInit {
     
     showErr(id:any,warn:any) {
       this.message.add({key:id,severity:'error', summary: 'Failed', detail:warn});
+    }
+    showSc(id:any,warn:any) {
+      this.message.add({key:id,severity:'success', summary: 'Succes', detail:warn});
     }
     
     }

@@ -25,6 +25,7 @@ export class PostingjobService {
       this.user.next(this.data);
     },
       (err) => {
+        console.log(err.error)
         this.data=err;
         this.data1 ="BAD";
         this.user.next(this.data);
@@ -149,6 +150,7 @@ export class PostingjobService {
       this.user.next(this.data);
     },
       (err) => {
+        console.log(err.error)
         this.data=err;
         this.data1 ="BAD";
         this.user.next(this.data);

@@ -198,9 +198,18 @@
                 <div class="table-responsive">
                 <table class="table table-hover">
                   <tr *ngFor="let item of req">
-                    <td>{{item?.typename}}</td>
+                    <td>{{item[1]?.typename}}</td>
                     <td>
-                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="showUpdateDocument(item.id)">Check</button> &nbsp;
+                      <div *ngIf="item[0].candidate?.id!='1';else show">
+                        {{item[0]?.filename}}
+                      </div>
+                      <ng-template #show>
+                         <p style="color: red;font:bold">Please Update Your Document!!</p>  
+                      </ng-template>
+                      
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="showUpdateDocument(item[1].id)">Check</button> &nbsp;
                     </td>
                   </tr>
               </table>

@@ -99,7 +99,7 @@ export class DoctypeService {
     this.user = new Subject<any>();
     this.store.store.get("key").subscribe(res => {this.key = res
       let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
-    this.httpclient.get(this.apiURL+"/doctype/true",{headers:headers_object}).subscribe(res =>{
+    this.httpclient.get(this.apiURL+"/doctype/true/",{headers:headers_object}).subscribe(res =>{
       this.data1 ="succes";
       this.data = res;
       this.user.next(this.data);
@@ -113,4 +113,25 @@ export class DoctypeService {
     )
   }
     )}
-}
+
+    getDocTypeTruecd(id:any){
+      this.user = new Subject<any>();
+      this.store.store.get("key").subscribe(res => {this.key = res
+        let headers_object = new HttpHeaders().set("Authorization", "Bearer " + this.key);
+      this.httpclient.get(this.apiURL+"/doctype/true/"+id,{headers:headers_object}).subscribe(res =>{
+        this.data1 ="succes";
+        this.data = res;
+        this.user.next(this.data);
+      },
+      (res) =>
+      {
+        this.data1 = "gagal";
+        this.data = res;
+        this.user.next(this.data);
+      }
+      )
+    }
+      )}
+  
+
+  }
